@@ -1,0 +1,2270 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التحكم - سعودي كام</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:#0f1923;color:#e0e0e0;height:100vh;overflow:hidden}
+
+/* LOGIN */
+.login-bg{display:flex;align-items:center;justify-content:center;height:100vh;background:linear-gradient(135deg,#0f1923,#1a2a4e)}
+.login-box{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border-radius:16px;padding:40px;width:360px;text-align:center;border:1px solid rgba(255,255,255,.1)}
+.login-box h2{color:#3a76f0;margin-bottom:8px;font-size:22px}
+.login-box p{color:#888;font-size:13px;margin-bottom:20px}
+.login-box input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;font-size:14px;outline:none;text-align:center;margin-bottom:10px}
+.login-box input:focus{border-color:#3a76f0}
+.login-box button{width:100%;padding:12px;border-radius:10px;border:none;background:#3a76f0;color:#fff;font-size:14px;font-weight:600;cursor:pointer}
+.login-box .err{color:#ff6b6b;font-size:13px;margin-top:8px;display:none}
+
+/* DASHBOARD LAYOUT */
+.dash{display:none;height:100vh;flex-direction:row-reverse}
+.dash.active{display:flex}
+
+/* SIDEBAR NAV */
+.nav{width:220px;background:#141e30;border-left:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;padding:12px 0}
+.nav-logo{padding:16px;text-align:center;font-size:18px;font-weight:700;color:#3a76f0;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;color:#999;font-size:13px;transition:all .15s;border-radius:0}
+.nav-item:hover{background:rgba(255,255,255,.05);color:#fff}
+.nav-item.active{background:rgba(58,118,240,.15);color:#3a76f0;border-right:3px solid #3a76f0}
+.nav-item .icon{font-size:16px;width:24px;text-align:center}
+.nav-bottom{margin-top:auto;padding:12px 16px;border-top:1px solid rgba(255,255,255,.08)}
+.nav-bottom a{color:#666;font-size:12px;cursor:pointer}
+.nav-bottom a:hover{color:#3a76f0}
+
+/* MAIN CONTENT */
+.main{flex:1;overflow-y:auto;padding:24px}
+.section{display:none}
+.section.active{display:block}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px}
+.card .num{font-size:32px;font-weight:700;color:#3a76f0}
+.card .label{font-size:13px;color:#888;margin-top:4px}
+.card.green .num{color:#2da838}
+.card.red .num{color:#d65353}
+.card.purple .num{color:#b84cf0}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{background:rgba(255,255,255,.04);padding:10px 12px;text-align:right;color:#888;font-weight:600;border-bottom:1px solid rgba(255,255,255,.08)}
+.tbl td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04)}
+.tbl tr:hover{background:rgba(255,255,255,.02)}
+.status-on{color:#2da838}
+.status-off{color:#666}
+
+/* BUTTONS */
+.btn{padding:5px 12px;border-radius:6px;border:none;font-size:12px;cursor:pointer;font-weight:600}
+.btn-blue{background:#3a76f0;color:#fff}
+.btn-green{background:#2da838;color:#fff}
+.btn-red{background:#d65353;color:#fff}
+.btn-gray{background:rgba(255,255,255,.1);color:#ccc}
+.btn-purple{background:#b84cf0;color:#fff}
+.btn:hover{opacity:.85}
+
+/* BADGE */
+.role-badge{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:700}
+.role-owner{background:#d4af37;color:#000}
+.role-admin{background:#d65353;color:#fff}
+.role-mod{background:#2da838;color:#fff}
+.role-vip{background:#b84cf0;color:#fff}
+.role-member{background:rgba(255,255,255,.1);color:#888}
+.role-guest{background:rgba(255,255,255,.05);color:#666}
+
+/* FORM */
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:13px;color:#888;margin-bottom:6px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font-size:14px;outline:none}
+.form-group input:focus,.form-group select:focus{border-color:#3a76f0}
+.form-row{display:flex;gap:12px}
+.form-row .form-group{flex:1}
+
+/* TOGGLE SWITCH */
+.toggle{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.toggle-label{font-size:14px}
+.switch{width:44px;height:24px;background:rgba(255,255,255,.15);border-radius:12px;position:relative;cursor:pointer;transition:background .2s}
+.switch.on{background:#2da838}
+.switch::after{content:'';position:absolute;top:2px;right:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform .2s}
+.switch.on::after{transform:translateX(-20px)}
+
+/* COLOR PICKER */
+.color-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.color-row label{width:120px;font-size:13px;color:#888}
+.color-row input[type=color]{width:40px;height:30px;border:none;border-radius:6px;cursor:pointer;background:none}
+
+/* THEME PRESETS */
+.presets{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
+.preset{height:80px;border-radius:10px;cursor:pointer;border:2px solid rgba(255,255,255,.1);display:flex;flex-direction:column;overflow:hidden;transition:all .2s}
+.preset:hover{border-color:#3a76f0;transform:scale(1.03)}
+.preset-top{flex:1}
+.preset-bot{height:24px}
+.preset-name{font-size:12px;text-align:center;padding:4px;color:#fff;background:rgba(0,0,0,.7);font-weight:600}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:100;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:#1e2a45;border-radius:12px;padding:24px;width:400px;max-width:90vw}
+.modal h3{color:#fff;margin-bottom:16px;font-size:16px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-start;margin-top:16px}
+
+/* LOG ENTRY */
+.log-entry{font-size:13px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;gap:12px}
+.log-time{color:#555;font-size:11px;min-width:80px}
+.log-action{min-width:100px}
+.log-actor{color:#3a76f0;min-width:80px}
+
+/* SECTION HEADER */
+.sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.sec-header h2{font-size:20px;color:#fff}
+
+/* SEARCH */
+.search-bar{padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#fff;font-size:13px;outline:none;width:250px}
+.search-bar:focus{border-color:#3a76f0}
+
+/* PERM CHECKBOX */
+.perm-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.perm-item{display:flex;align-items:center;gap:8px;font-size:13px;padding:6px 10px;background:rgba(255,255,255,.03);border-radius:6px}
+.perm-item input{accent-color:#3a76f0}
+
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:3px}
+select{background:#1a1a2e !important;color:#fff !important;border:1px solid rgba(255,255,255,.1) !important}
+select option{background:#1a1a2e;color:#fff}
+select option:checked{background:#3a76f0;color:#fff}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen" class="login-bg">
+  <div class="login-box">
+    <h2>🔐 لوحة التحكم</h2>
+    <p>سعودي كام - لوحة التحكم</p>
+    <input id="passInput" type="password" placeholder="كلمة المرور..." autofocus>
+    <button onclick="doAdminLogin()">دخول</button>
+    <div id="loginErr" class="err"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dash" class="dash">
+  <div class="nav">
+    <div class="nav-logo">⚙️ لوحة التحكم</div>
+    <div class="nav-item" onclick="showSec('health')"><span class="icon">&#x1F5A5;&#xFE0F;</span> حالة السيرفر</div>
+    <div class="nav-item active" onclick="showSec('overview')"><span class="icon">📊</span> نظرة عامة</div>
+    <div class="nav-item" onclick="showSec('users')"><span class="icon">👥</span> المستخدمين</div>
+    <div class="nav-item" onclick="showSec('rooms')"><span class="icon">🏠</span> الغرف</div>
+    <div class="nav-item" onclick="showSec('filter')"><span class="icon">🚫</span> فلتر الكلمات</div>
+    <div class="nav-item" onclick="showSec('mods')"><span class="icon">🛡️</span> المشرفين</div>
+    <div class="nav-item" onclick="showSec('theme')"><span class="icon">🎨</span> المظهر</div>
+    <div class="nav-item" onclick="showSec('logs')"><span class="icon">📋</span> السجلات</div>
+    <div class="nav-item" onclick="showSec('settings')"><span class="icon">⚙️</span> الإعدادات</div>
+    <div class="nav-item" onclick="showSec('data')"><span class="icon">💾</span> إدارة البيانات</div>
+
+    <div class="nav-item" onclick="showSec('subs')"><span class="icon">⭐</span> الاشتراكات</div>
+    <div class="nav-item" onclick="showSec('rules')"><span class="icon">📜</span> القوانين</div>
+    <div class="nav-item" onclick="showSec('broadcast')"><span class="icon">📢</span> الإعلانات</div>
+    <div class="nav-item" onclick="showSec('bans')"><span class="icon">🚫</span> المحظورين</div>
+    
+    <div class="nav-bottom"><a onclick="location.href='/'">← الرجوع للشات</a></div>
+  </div>
+
+  <div class="main">
+    <!-- OVERVIEW -->
+    <div id="sec-overview" class="section active">
+  <div class="sec-header"><h2>📊 نظرة عامة</h2><button class="btn btn-blue" onclick="loadOverview()">🔄 تحيث</button></div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:20px">
+    <div style="background:rgba(58,118,240,.1);border:1px solid rgba(58,118,240,.2);border-radius:12px;padding:16px;text-align:center"><div style="font-size:28px;font-weight:700;color:#3a76f0" id="statOnline">0</div><div style="font-size:12px;color:#888;margin-top:4px">🟢 متصلين</div></div>
+    <div style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:12px;padding:16px;text-align:center"><div style="font-size:28px;font-weight:700;color:#22c55e" id="statRegistered">0</div><div style="font-size:12px;color:#888;margin-top:4px">📝 زوار</div></div>
+    <div style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.2);border-radius:12px;padding:16px;text-align:center"><div style="font-size:28px;font-weight:700;color:#a855f7" id="statRooms">0</div><div style="font-size:12px;color:#888;margin-top:4px">🏠 غرف</div></div>
+    <div style="background:rgba(224,169,58,.1);border:1px solid rgba(224,169,58,.2);border-radius:12px;padding:16px;text-align:center"><div style="font-size:28px;font-weight:700;color:#e0a93a" id="statMods">0</div><div style="font-size:12px;color:#888;margin-top:4px">🛡️ مشرفين</div></div>
+    <div style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:16px;text-align:center"><div style="font-size:28px;font-weight:700;color:#ef4444" id="statBanned">0</div><div style="font-size:12px;color:#888;margin-top:4px">🚫 محظورين</div></div>
+    
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+    <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px"><div style="font-size:12px;color:#888;margin-bottom:8px">🏆 أكثر غرفة نشاط</div><div style="font-size:18px;font-weight:700;color:#fff" id="topRoomName">-</div><div style="font-size:13px;color:#3a76f0;margin-top:4px" id="topRoomCount">0 متصل</div></div>
+    <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px"><div style="font-size:12px;color:#888;margin-bottom:8px">👤 أكثر مستخدم نشاط</div><div style="font-size:18px;font-weight:700;color:#fff" id="topUserName">-</div><div style="font-size:13px;color:#22c55e;margin-top:4px" id="topUserCount">0 نشاط</div></div>
+  </div>
+  <div style="margin-bottom:20px" id="warningsArea"></div>
+  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;margin-bottom:20px"><div style="font-size:12px;color:#888;margin-bottom:12px">📈 المتصلين آخر 24 ساعة</div><div id="chartArea" style="display:flex;align-items:flex-end;gap:4px;height:80px"></div></div>
+  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px"><div style="font-size:12px;color:#888;margin-bottom:12px">📋 آخر الأحداث</div><div id="recentLogs" style="max-height:300px;overflow-y:auto"></div></div>
+</div>
+
+<div id="sec-health" class="section"><div class="sec-header"><h2>&#x1F5A5;&#xFE0F; حالة السيرفر</h2><button class="btn btn-blue" onclick="loadHealth()">&#x1F504; تحديث</button></div><div id="healthContent" style="padding:8px">جاري التحميل...</div></div>
+    <div id="sec-users" class="section">
+  <div class="sec-header"><h2>👥 إدارة المستخدمين</h2><button class="btn btn-blue" onclick="loadUsers()">🔄 تحديث</button></div>
+
+  <!-- Stats -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px">
+    <div style="background:rgba(58,118,240,.1);border:1px solid rgba(58,118,240,.2);border-radius:10px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:700;color:#3a76f0" id="uStatTotal">0</div><div style="font-size:11px;color:#888">زوار</div></div>
+    <div style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:10px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:700;color:#22c55e" id="uStatOnline">0</div><div style="font-size:11px;color:#888">متصلين</div></div>
+    <div style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:700;color:#ef4444" id="uStatBanned">0</div><div style="font-size:11px;color:#888">محظورين</div></div>
+    <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:700;color:#f59e0b" id="uStatInactive">0</div><div style="font-size:11px;color:#888">غير نشطين</div></div>
+  </div>
+
+  <!-- Alerts -->
+  <div id="dailyStatsArea" style="margin-bottom:16px"></div>
+      <div id="uAlerts" style="margin-bottom:16px"></div>
+
+  <!-- Tabs -->
+  <div style="display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid rgba(255,255,255,.08)">
+    <button id="tabUsers" onclick="switchUserTab('users')" style="padding:10px 20px;border:none;background:transparent;color:#3a76f0;font-size:13px;font-weight:700;cursor:pointer;border-bottom:2px solid #3a76f0;margin-bottom:-2px">👥 الزوار</button>
+    <button id="tabBanned" onclick="switchUserTab('banned')" style="padding:10px 20px;border:none;background:transparent;color:#888;font-size:13px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px">🚫 المحظورين</button>
+    <button id="tabDevices" onclick="switchUserTab('devices')" style="padding:10px 20px;border:none;background:transparent;color:#888;font-size:13px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px">📱 أجهزة محظورة</button>
+  </div>
+
+  <!-- Users Tab -->
+  <div id="usersTabContent">
+    <div style="display:flex;gap:8px;margin-bottom:12px;align-items:center;flex-wrap:wrap">
+      <input id="userSearch" type="text" placeholder="🔍 بحث..." oninput="filterUsersLocal()" style="flex:1;min-width:150px;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px">
+      <select id="userFilter" onchange="filterUsersLocal()" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:12px">
+        <option value="all">الكل</option>
+        <option value="online">متصل</option>
+        <option value="offline">غير متصل</option>
+        <option value="inactive">غير نشط</option>
+      </select>
+      <select id="userSort" onchange="sortAndRenderUsers()" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:12px">
+        <option value="recent">الأحدث</option>
+        <option value="name">الاسم</option>
+      </select>
+      <label style="font-size:12px;color:#888;display:flex;align-items:center;gap:4px"><input type="checkbox" id="selectAllUsers" onchange="toggleSelectAll(this.checked)"> تحديد الكل</label>
+    </div>
+    <div id="bulkActions" style="display:none;margin-bottom:12px;padding:10px;background:rgba(58,118,240,.1);border-radius:8px;display:flex;gap:8px;align-items:center">
+      <span style="font-size:12px;color:#3a76f0" id="selectedCount">0 محدد</span>
+      <button onclick="bulkAction('ban')" style="padding:4px 12px;border-radius:4px;border:none;background:#ef4444;color:#fff;font-size:11px;cursor:pointer">حظر المحددين</button>
+      <button onclick="bulkAction('delete')" style="padding:4px 12px;border-radius:4px;border:none;background:rgba(255,255,255,.1);color:#888;font-size:11px;cursor:pointer">حذف المحددين</button>
+    </div>
+    <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden">
+      <table style="width:100%;border-collapse:collapse">
+        <thead><tr style="background:rgba(255,255,255,.04)">
+          <th style="padding:8px;width:30px"></th>
+          <th style="padding:8px 12px;text-align:right;color:#888;font-size:12px">الاسم</th>
+          <th style="padding:8px 12px;text-align:center;color:#888;font-size:12px">الحالة</th>
+          <th style="padding:8px 12px;text-align:center;color:#888;font-size:12px">آخر ظهور</th>
+          <th style="padding:8px 12px;text-align:center;color:#888;font-size:12px">إجراءات</th>
+        </tr></thead>
+        <tbody id="usersTableBody"></tbody>
+      </table>
+    </div>
+    <div id="usersPaging" style="margin-top:12px;text-align:center"></div>
+  </div>
+
+  <!-- Banned Tab -->
+  <div id="bannedTabContent" style="display:none">
+    <div id="bannedList"></div>
+  </div>
+
+  <!-- Devices Tab -->
+  <div id="devicesTabContent" style="display:none">
+    <div id="deviceBanList"></div>
+  </div>
+</div>
+
+<div id="sec-rooms" class="section">
+      <div class="sec-header"><h2>🏠 إدارة الغرف</h2><button class="btn btn-blue" onclick="showCreateRoom()">+ إنشاء غرفة</button></div>
+      <div id="roomsCards"></div>
+    </div>
+
+    <!-- MODS -->
+    <div id="sec-filter" class="section">
+      <div class="sec-header"><h2>🚫 فلتر الكلمات</h2><button class="btn btn-blue" onclick="saveFilter()">💾 حفظ</button></div>
+      <p style="color:#888;margin-bottom:12px">أضف الكلمات الممنوعة - كل كلمة بسطر. تنطبق على كل الغرف.</p>
+      <textarea id="filterWords" style="width:100%;height:300px;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:14px;line-height:1.8;resize:vertical" placeholder="اكتب كل كلمة بسطر..."></textarea>
+      <div style="margin-top:12px;padding:12px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid rgba(255,255,255,.06)">
+        <div style="font-size:13px;color:#888">📊 عدد الكلمات: <span id="filterCount">0</span></div>
+      </div>
+    </div>
+    <div id="sec-mods" class="section">
+      <div class="sec-header"><h2>🛡️ المشرفين</h2><button class="btn btn-blue" onclick="showAddMod()">+ إضافة مشرف</button></div>
+      <p style="color:#888;margin-bottom:16px">المشرفين وصلاحياتهم - اضغط على مشرف لتعديل صلاحياته</p>
+      <div id="modsContent"></div>
+    </div>
+
+    <!-- THEME -->
+    <div id="sec-theme" class="section">
+      <div class="sec-header"><h2>🎨 المظهر والثيمات</h2><div><button class="btn btn-red" onclick="resetTheme()" style="margin-left:8px">🔄 إرجاع الافتراضي</button><button class="btn btn-blue" onclick="saveTheme()">💾 حفظ وتطبيق</button></div></div>
+      <h3 style="margin-bottom:12px;color:#888">ثيمات جاهزة</h3>
+      <div class="presets">
+        <div class="preset" onclick="applyPreset('default')" title="الافتراضي">
+          <div class="preset-top" style="background:#1a1a2e"></div>
+          <div class="preset-bot" style="background:#3a76f0"></div>
+          <div class="preset-name">أزرق</div>
+        </div>
+        <div class="preset" onclick="applyPreset('girls')">
+          <div class="preset-top" style="background:#2d1025"></div>
+          <div class="preset-bot" style="background:#ff69b4"></div>
+          <div class="preset-name">وردي</div>
+        </div>
+        <div class="preset" onclick="applyPreset('saudi')">
+          <div class="preset-top" style="background:#0a2e14"></div>
+          <div class="preset-bot" style="background:#006c35"></div>
+          <div class="preset-name">أخضر</div>
+        </div>
+        <div class="preset" onclick="applyPreset('khaleeji')">
+          <div class="preset-top" style="background:#1a1205"></div>
+          <div class="preset-bot" style="background:#c9a84c"></div>
+          <div class="preset-name">ذهبي غامق</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div>
+          <h3 style="margin-bottom:12px;color:#3a76f0;font-size:14px">🎨 الألوان الأساسية</h3>
+          <div class="color-row"><label>لون الأزرار والروابط</label><input type="color" id="thPrimary" value="#3a76f0"></div>
+          <div class="color-row"><label>لون الماركي والشارات</label><input type="color" id="thAccent" value="#e0a93a"></div>
+          <div class="color-row"><label>لون الحدود</label><input type="color" id="thBorder" value="#2a2a4a"></div>
+          <div class="color-row"><label>خلفية كرت الدخول</label><input type="color" id="thLoginCard" value="#141e30"></div>
+          <div class="color-row"><label>لون زر الدخول</label><input type="color" id="thLoginBtn" value="#3a76f0"></div>
+          <h3 style="margin:16px 0 12px;color:#3a76f0;font-size:14px">🖼 الخلفيات</h3>
+          <div class="color-row"><label>خلفية الموقع</label><input type="color" id="thBg" value="#1a1a2e"></div>
+          <div class="color-row"><label>خلفية الرسائل والكروت</label><input type="color" id="thBg2" value="#16213e"></div>
+          <div class="color-row"><label>خلفية إضافية (تدرج)</label><input type="color" id="thBg3" value="#0f3460"></div>
+          <div class="color-row"><label>خلفية القوائم والأشرطة</label><input type="color" id="thSidebar" value="#141e30"></div>
+          <h3 style="margin:16px 0 12px;color:#3a76f0;font-size:14px">✏ النصوص</h3>
+          <div class="color-row"><label>لون النص الرئيسي</label><input type="color" id="thText" value="#e8e8e8"></div>
+          <div class="color-row"><label>لون النص الفرعي والتوقيت</label><input type="color" id="thText2" value="#aaaaaa"></div>
+          <div class="color-row"><label>لون الماركي</label><input type="color" id="thMarquee" value="#ffcc00"></div>
+        </div>
+        <div>
+          <h3 style="margin-bottom:12px;color:#3a76f0;font-size:14px">👥 ألوان الرتب</h3>
+          <div class="color-row"><label>🟡 المالك</label><input type="color" id="thOwner" value="#e0a93a"></div>
+          <div class="color-row"><label>🔴 الأدمن</label><input type="color" id="thAdmin" value="#ef4444"></div>
+          <div class="color-row"><label>🟢 المشرف</label><input type="color" id="thMod" value="#22c55e"></div>
+          <div class="color-row"><label>🟣 VIP</label><input type="color" id="thVip" value="#a855f7"></div>
+          <div class="color-row"><label>🔵 العضو</label><input type="color" id="thMember" value="#3a76f0"></div>
+          <div class="color-row"><label>⚪ الزائر</label><input type="color" id="thGuest" value="#888888"></div>
+          <h3 style="margin:16px 0 12px;color:#3a76f0;font-size:14px">📐 شكل عام</h3>
+          <div class="color-row"><label>حجم الزوايا (px)</label><input type="number" id="thRadius" value="10" min="0" max="30" style="width:80px;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff"></div>
+          <h3 style="margin:16px 0 12px;color:#3a76f0;font-size:14px">👁 معاينة مباشرة</h3>
+          <div id="themePreview" style="border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.1)">
+            <div style="padding:8px 12px;font-size:12px;text-align:center;background:#141e30;color:#e8e8e8" id="prevHeader">معاينة الثيم</div>
+            <div style="padding:12px;font-size:11px;background:#1a1a2e" id="prevBody">
+              <div id="prevMsg1" style="padding:6px 10px;border-radius:8px;margin-bottom:6px;background:#16213e;color:#e0a93a">رسالة من المالك</div>
+              <div id="prevMsg2" style="padding:6px 10px;border-radius:8px;margin-bottom:6px;background:#16213e;color:#e8e8e8">رسالة عادية</div>
+              <div id="prevBtn" style="display:inline-block;padding:4px 12px;border-radius:6px;font-size:11px;background:#3a76f0;color:#fff">زر</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGS -->
+    
+    <div id="sec-logs" class="section">
+      <div class="sec-header"><h2>📋 السجلات</h2>
+        <div style="display:flex;gap:8px">
+          <select id="logFilter" class="search-bar" style="width:150px" onchange="loadLogs()">
+            <option value="">الكل</option>
+            <option value="login">دخول</option>
+            <option value="logout">خروج</option>
+            <option value="kick">طرد</option>
+            <option value="ban">حظر</option>
+            <option value="warn">تحذير</option>
+            <option value="block">منع</option>
+            <option value="rename">تغيير اسم</option>
+            <option value="mod">مشرفين</option>
+            <option value="room">غرف</option>
+            <option value="theme">مظهر</option>
+            <option value="device">جهاز</option>
+            <option value="violation">مخالفة</option>
+          </select>
+          <input class="search-bar" placeholder="بحث..." id="logSearch" oninput="loadLogs()">
+        </div>
+      </div>
+      <div id="logsArea"></div>
+      <div style="margin-top:12px;display:flex;gap:8px" id="logsPagination"></div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="sec-subs" class="section">
+      <div class="sec-header"><h2>⭐ الاشتراكات</h2><button class="btn btn-blue" onclick="loadSubs()">🔄 تحديث</button></div>
+
+      <!-- Plans management -->
+      <h3 style="color:#3a76f0;margin-bottom:12px">📦 الباقات</h3>
+      <div id="subsPlans" style="margin-bottom:20px"></div>
+      <button class="btn btn-blue" onclick="showAddPlan()" style="margin-bottom:20px">+ إضافة باقة</button>
+      <div id="addPlanForm" style="display:none;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;margin-bottom:20px">
+        <h4 style="color:#fff;margin-bottom:12px">باقة جديدة</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">
+          <div><label style="font-size:11px;color:#888">الاسم (EN)</label><input id="np_name" placeholder="VIP" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>
+          <div><label style="font-size:11px;color:#888">الاسم (عربي)</label><input id="np_nameAr" placeholder="عضو VIP" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>
+          <div><label style="font-size:11px;color:#888">السعر</label><input id="np_price" type="number" value="5" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>
+          <div><label style="font-size:11px;color:#888">العملة</label><select id="np_currency" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"><option value="SAR">SAR</option><option value="BHD">BHD</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="KWD">KWD</option><option value="AED">AED</option><option value="QAR">QAR</option><option value="OMR">OMR</option></select></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:10px">
+          <div><label style="font-size:11px;color:#888">المدة (يوم)</label><input id="np_days" type="number" value="30" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>
+          <div><label style="font-size:11px;color:#888">الشارة</label><input id="np_badge" placeholder="VIP" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>
+          <div><label style="font-size:11px;color:#888">اللون</label><input id="np_color" type="color" value="#ffd700" style="width:100%;padding:2px;height:32px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06)"></div>
+          <div style="display:flex;align-items:flex-end"><button class="btn btn-blue" style="width:100%" onclick="createPlan()">إضافة</button></div>
+        </div>
+        <div style="margin-top:8px"><label style="font-size:11px;color:#888">المميزات (كل سطر = ميزة)</label><textarea id="np_features" rows="3" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px;resize:vertical;direction:rtl" placeholder="أولوية المايك
+شارة مميزة
+لون خاص"></textarea>
+        </div>
+      </div>
+
+      <!-- Active subscribers -->
+      <h3 style="color:#3a76f0;margin:20px 0 12px">👥 المشتركين الحاليين</h3>
+      <div id="subsList"></div>
+
+      <!-- Activate subscription -->
+      <div style="margin-top:24px;border-top:2px solid rgba(255,255,255,.08);padding-top:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <button class="btn btn-blue" onclick="showAddContract()">+ إضافة جديد</button>
+        <h3 style="color:var(--accent)">📋 المشتركين</h3>
+      </div>
+      <div id="addContractForm" style="display:none;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;margin-bottom:16px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <div><label style="font-size:11px;color:#888">اسم المشترك</label><select id="cUser" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:14px"><option value="">اختر مشرف...</option></select><input id="cUserManual" placeholder="أو اكتب الاسم يدوياً" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:12px;margin-top:4px"></div>
+          <div><label style="font-size:11px;color:#888">الغرفة</label><select id="cRoom" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:14px"><option value="">اختر غرفة...</option></select><input id="cRoomManual" placeholder="أو اكتب اسم الغرفة" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:12px;margin-top:4px"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <div><label style="font-size:11px;color:#888">نوع الاشتراك</label><input id="cType" placeholder="غرفة مميزة / عضوية ماستر / VIP" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:14px"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label style="font-size:11px;color:#888">السعر</label><input id="cPrice" type="number" placeholder="1000" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div><div><label style="font-size:11px;color:#888">العملة</label><select id="cCurrency" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"><option value="SAR">SAR</option><option value="BHD">BHD</option><option value="USD">USD</option><option value="KWD">KWD</option><option value="AED">AED</option></select></div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <div><label style="font-size:11px;color:#888">بداية</label><input id="cStart" type="date" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>
+          <div><label style="font-size:11px;color:#888">نهاية</label><input id="cEnd" type="date" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>
+        </div>
+        <div style="margin-bottom:8px"><label style="font-size:11px;color:#888">ملاحظات</label><input id="cNotes" placeholder="ملاحظات..." style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;flex-wrap:wrap">
+          <label style="color:#ccc;font-size:13px;cursor:pointer"><input type="checkbox" id="cAutoMod" checked style="margin-left:6px"> ✅ تعيينه مشرف على الغرفة</label>
+          <label style="color:#ccc;font-size:13px;cursor:pointer"><input type="checkbox" id="cAutoNotify" checked style="margin-left:6px"> 🔔 تنبيه قبل الانتهاء</label>
+          <label style="color:#ccc;font-size:13px;cursor:pointer"><input type="checkbox" id="cAutoRevoke" checked style="margin-left:6px"> 🔒 إلغاء الصلاحيات عند الانتهاء</label>
+        </div>
+        <button class="btn btn-blue" style="width:100%;padding:10px;font-size:15px" onclick="addContract()">+ إضافة</button>
+      </div>
+      <div id="contractsContent"><p style="color:#888;text-align:center;padding:20px">لا يوجد مشتركين</p></div>
+    </div>
+    </div>
+
+    <div id="sec-rules" class="section">
+      <div class="sec-header"><h2>📜 قوانين الشات</h2><button class="btn btn-blue" onclick="saveRules()">💾 حفظ القوانين</button></div>
+      <div class="card" style="padding:16px">
+        <p style="color:#888;margin-bottom:12px">اكتب قوانين الشات. تظهر لكل المستخدمين عند الضغط على زر القوانين.</p>
+        <textarea id="rulesTextarea" rows="20" style="width:100%;padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;font-size:14px;resize:vertical;line-height:1.8;direction:rtl" placeholder="اكتب القوانين هنا..."></textarea>
+      </div>
+    </div>
+    <div id="sec-broadcast" class="section">
+      <div class="sec-header"><h2>📢 إرسال إعلان</h2></div>
+      <div class="card" style="padding:16px">
+        <div class="form-group"><label>نص الإعلان</label><textarea id="broadcastText" rows="3" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;font-size:14px;resize:vertical" placeholder="اكتب الإعلان..."></textarea></div>
+        <div class="form-group"><label>الغرفة</label><select id="broadcastRoom" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff"><option value="">كل الغرف</option></select></div>
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px"><input type="checkbox" id="broadcastMarquee"><label for="broadcastMarquee" style="color:#ccc">عرض كرسالة متحركة</label></div>
+        <div class="form-group" id="marqueeDurGroup" style="display:none"><label>مدة الرسالة المتحركة (ثواني) - 0 = دائمة</label><input id="marqueeDuration" type="number" value="60"></div>
+        <button class="btn btn-blue" onclick="sendBroadcast()" style="width:100%;padding:12px;font-size:15px">📢 إرسال الإعلان</button>
+      </div>
+    </div>
+    <div id="sec-bans" class="section">
+      <div class="sec-header"><h2>🚫 المحظورين</h2><button class="btn btn-red" onclick="unbanAll()">فك حظر الجميع</button></div>
+      <div id="bansList" class="card"></div>
+    </div>
+    <div id="sec-settings" class="section">
+      <div class="sec-header"><h2>⚙️ الإعدادات</h2></div>
+
+      <!-- Tabs -->
+      <div style="display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap">
+        <button class="btn btn-blue" onclick="showSettingsTab('site')">🌐 الموقع</button>
+        <button class="btn btn-gray" onclick="showSettingsTab('roles')">🏅 الرتب</button>
+        <button class="btn btn-gray" onclick="showSettingsTab('features')">🔧 الميزات</button>
+        <button class="btn btn-gray" onclick="showSettingsTab('security')">🔒 الأمان</button>
+      </div>
+
+      <!-- Site Settings Tab -->
+      <div id="settingsTab_site">
+        <div class="card" style="padding:16px">
+          <h3 style="color:#3a76f0;margin-bottom:12px">🌐 إعدادات الموقع</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group"><label>اسم الموقع</label><input id="siteName" placeholder="سعودي كام" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff"></div>
+            <div class="form-group"><label>نص الشريط العلوي</label><input id="siteTopbarText" placeholder="saudi.cam" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff"></div>
+          </div>
+          <div class="form-group"><label>رابط الشريط العلوي</label><input id="siteTopbarLink" placeholder="https://saudi.cam/" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff"></div>
+          <div class="form-group"><label>وصف الموقع (SEO)</label><textarea id="siteDescription" rows="2" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;resize:vertical" placeholder="أفضل دردشة عربية..."></textarea></div>
+          <div class="form-group"><label>كلمات مفتاحية (SEO)</label><textarea id="siteKeywords" rows="2" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;resize:vertical" placeholder="شات, دردشة, ..."></textarea></div>
+          <div class="form-group"><label>رسالة الترحيب (صفحة الدخول)</label><input id="siteWelcome" placeholder="ادخل اسمك وابدأ المحادثة" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff"></div>
+          <button class="btn btn-blue" onclick="saveSiteSettings()" style="width:100%;padding:10px;margin-top:8px">💾 حفظ إعدادات الموقع</button>
+        </div>
+      </div>
+
+      <!-- Roles Tab -->
+      <div id="settingsTab_roles" style="display:none">
+        <div class="card" style="padding:16px">
+          <h3 style="color:#3a76f0;margin-bottom:12px">🏅 إدارة الرتب</h3>
+          <div id="rolesList"></div>
+          <div style="margin-top:12px;padding:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px">
+            <h4 style="color:#888;margin-bottom:8px">+ إضافة رتبة جديدة</h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto auto;gap:8px;align-items:end">
+              <div><label style="font-size:11px;color:#888">الاسم EN</label><input id="newRoleName" placeholder="gold" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>
+              <div><label style="font-size:11px;color:#888">الاسم عربي</label><input id="newRoleNameAr" placeholder="ذهبي" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>
+              <div><label style="font-size:11px;color:#888">الترتيب</label><input id="newRolePriority" type="number" value="50" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>
+              <div><label style="font-size:11px;color:#888">اللون</label><input id="newRoleColor" type="color" value="#3a76f0" style="height:32px;border-radius:6px"></div>
+              <button class="btn btn-blue" onclick="createRole()">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features Tab -->
+      <div id="settingsTab_features" style="display:none">
+        <div class="card" style="padding:16px">
+          <h3 style="color:#3a76f0;margin-bottom:12px">🔧 الميزات العامة</h3>
+          <div class="toggle"><span class="toggle-label">👻 السماح للزوار</span><div class="switch" id="featGuest" onclick="toggleGuest(this)"></div></div>
+          <div class="toggle"><span class="toggle-label">📩 الرسائل الخاصة</span><div class="switch" id="featPM" onclick="toggleFeat(this,'privateMessages')"></div></div>
+        </div>
+      </div>
+
+      <!-- Security Tab -->
+      <div id="settingsTab_security" style="display:none">
+        <div class="card" style="padding:16px">
+          <h3 style="color:#3a76f0;margin-bottom:12px">🔒 الأمان</h3>
+          <h4 style="color:#888;margin:12px 0 8px">تغيير كلمة المرور</h4>
+          <div class="form-group"><label>كلمة المرور القديمة</label><input type="password" id="oldPass"></div>
+          <div class="form-group"><label>كلمة المرور الجديدة</label><input type="password" id="newPass"></div>
+          <button class="btn btn-blue" onclick="changePassword()">تغيير كلمة المرور</button>
+          <div id="passMsg" style="margin-top:8px;font-size:13px"></div>
+        </div>
+      </div>
+    </div>
+    <!-- DATA MANAGEMENT -->
+    <div id="sec-data" class="section">
+      <div class="sec-header"><h2>💾 إدارة البيانات</h2><button class="btn btn-blue" onclick="loadDataStats()">🔄 تحديث</button></div>
+      <div id="dataContent" style="padding:8px"></div>
+    </div>
+
+    <!-- MIC MANAGEMENT -->
+    <div id="sec-mic" class="section" style="display:none !important">
+      <div class="sec-header"><h2>🎤 إدارة المايك</h2><button class="btn btn-blue" onclick="loadMicDashboard()">🔄 تحديث</button></div>
+
+      <!-- Room selector -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin-bottom:20px">
+        <div class="form-group" style="margin-bottom:0">
+          <label style="color:#3a76f0;font-weight:bold">🏠 اختر الغرفة</label>
+          <select id="micRoomSelect" onchange="loadRoomMicState(this.value)" style="width:100%;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;font-size:14px">
+            <option value="">-- اختر غرفة --</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Room mic settings -->
+      <div id="micRoomSettings" style="display:none">
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin-bottom:20px">
+          <h3 style="color:#3a76f0;margin-bottom:16px">⚙️ إعدادات المايك</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group"><label>الحد الأقصى للمتحدثين</label><input type="number" id="micMaxSpeakers" min="0" max="10" value="1" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>
+            <div class="form-group"><label>نظام الطابور</label><select id="micQueueMode" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"><option value="fifo">تلقائي (الأول يدخل أولاً)</option><option value="manual">يدوي (موافقة المشرف)</option></select></div>
+            <div class="form-group"><label>إغلاق تلقائي بعد (دقائق)</label><input type="number" id="micAutoRelease" min="0" max="60" value="0" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"><div style="font-size:11px;color:#666;margin-top:2px">0 = بدون حد زمني</div></div>
+            <div class="form-group"><label>من يمكنه التحدث</label><select id="micWhoCanSpeak" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"><option value="all">الجميع</option><option value="mods">المشرفون فقط</option><option value="admin">الإدارة فقط</option><option value="none">لا أحد (مقفل)</option></select></div>
+          </div>
+          <button class="btn btn-blue" onclick="saveMicSettings()" style="margin-top:12px">💾 حفظ الإعدادات</button>
+          <span id="micSettingsMsg" style="margin-right:12px;font-size:13px"></span>
+        </div>
+
+        <!-- Active speakers -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin-bottom:20px">
+          <h3 style="color:#22c55e;margin-bottom:16px">🔊 المتحدثون الحاليون <span id="micSpeakerCount" style="font-size:14px;color:#888"></span></h3>
+          <div id="micActiveSpeakers"><div style="color:#666;font-size:13px">لا يوجد متحدثون</div></div>
+        </div>
+
+        <!-- Queue -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin-bottom:20px">
+          <h3 style="color:#e0a93a;margin-bottom:16px">📋 طابور الانتظار <span id="micQueueCount" style="font-size:14px;color:#888"></span></h3>
+          <div id="micQueueList"><div style="color:#666;font-size:13px">الطابور فارغ</div></div>
+        </div>
+      </div>
+
+      <!-- All rooms overview -->
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px">
+        <h3 style="color:#a855f7;margin-bottom:16px">📊 نظرة عامة على جميع الغرف</h3>
+        <div id="micAllRoomsOverview"><div style="color:#666;font-size:13px">جاري التحميل...</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODALS -->
+<div id="kickModal" class="modal-bg"><div class="modal"><h3>🚪 طرد مستخدم: <span id="kickName"></span></h3><div class="form-group"><label>السبب</label><input id="kickReason" placeholder="سبب الطرد..."></div><div class="modal-actions"><button class="btn btn-red" onclick="confirmKick()">طرد</button><button class="btn btn-gray" onclick="closeModal('kickModal')">إلغاء</button></div></div></div>
+<div id="banModal" class="modal-bg"><div class="modal"><h3>🚫 حظر مستخدم: <span id="banName"></span></h3><div class="form-group"><label>السبب</label><input id="banReason" placeholder="سبب الحظر..."></div><div class="form-group"><label>المدة (ساعات) - اتركه فاضي للحظر الدائم</label><input id="banDuration" type="number" placeholder="دائم"></div><div class="modal-actions"><button class="btn btn-red" onclick="confirmBan()">حظر</button><button class="btn btn-gray" onclick="closeModal('banModal')">إلغاء</button></div></div></div>
+<div id="roomModal" class="modal-bg"><div class="modal"><h3>🏠 إنشاء غرفة جديدة</h3><div class="form-group"><label>اسم الغرفة</label><input id="newRoomName" placeholder="اسم الغرفة..."></div><div class="form-group"><label>الحد الأقصى (0 = بلا حد)</label><input id="newRoomMax" type="number" value="0"></div><div class="modal-actions"><button class="btn btn-blue" onclick="confirmCreateRoom()">إنشاء</button><button class="btn btn-gray" onclick="closeModal('roomModal')">إلغاء</button></div></div></div>
+<div id="addModModal" class="modal-bg"><div class="modal"><h3>إضافة مشرف جديد</h3><div class="form-group"><label>اسم المستخدم (يظهر بالشات)</label><input id="modNameNew" placeholder="مثل: أحمد"></div><div class="form-group"><label>الكود (يستخدمه للدخول)</label><input id="modCodeNew" placeholder="مثل: MOD1" style="text-transform:uppercase"></div><div class="form-group"><label>الرقم السري</label><input id="modPinNew" type="text" placeholder="مثل: 1234"></div><div class="form-group"><label>الرتبة</label><select id="modRoleNew" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff"><option value="mod">مشرف</option><option value="admin">مدير</option></select></div><div class="form-group"><label>البادج</label><input id="modBadgeNew" placeholder="مثل: OP, مشرف"></div><h4 style="color:#888;margin:12px 0 8px">الصلاحيات:</h4><div id="addModPerms"></div><div class="modal-actions"><button class="btn btn-blue" onclick="confirmAddMod()">إضافة</button><button class="btn btn-gray" onclick="closeModal('addModModal')">إلغاء</button></div></div></div>
+<div id="permsModal" class="modal-bg"><div class="modal"><h3>🛡️ صلاحيات: <span id="permsName"></span></h3><div class="perm-list" id="permsList"></div><div class="modal-actions"><button class="btn btn-green" onclick="savePerms()">حفظ</button><button class="btn btn-gray" onclick="closeModal('permsModal')">إلغاء</button></div></div></div>
+<div id="inviteModal" class="modal-bg"><div class="modal"><h3>🎟️ إنشاء كود دعوة</h3>
+<div class="form-group"><label>الكود (اتركه فاضي للتوليد التلقائي)</label><input id="inviteCode" placeholder="مثل: VIP2024" style="text-transform:uppercase"></div>
+<div class="form-group"><label>الرتبة</label><select id="inviteRole"><option value="member">عضو</option><option value="vip">VIP</option><option value="mod">مشرف</option></select></div>
+<div class="form-group"><label>عدد الاستخدامات (0 = غير محدود)</label><input id="inviteMaxUses" type="number" value="10"></div>
+<div class="modal-actions"><button class="btn btn-blue" onclick="confirmCreateInvite()">إنشاء</button><button class="btn btn-gray" onclick="closeModal('inviteModal')">إلغاء</button></div></div></div>
+<div id="resetPassModal" class="modal-bg"><div class="modal"><h3>🔑 إعادة تعيين كلمة المرور: <span id="resetPassName"></span></h3>
+<div class="form-group"><label>كلمة المرور الجديدة</label><input id="newPassInput" type="text" placeholder="كلمة المرور الجديدة..."></div>
+<div class="modal-actions"><button class="btn btn-blue" onclick="confirmResetPass()">حفظ</button><button class="btn btn-gray" onclick="closeModal('resetPassModal')">إلغاء</button></div></div></div>
+<div id="badgeModal" class="modal-bg"><div class="modal"><h3>🏷️ تغيير بادج: <span id="badgeName"></span></h3><div class="form-group"><label>نص البادج (مثل: OP, MOD, VIP, مشرف)</label><input id="badgeText" placeholder="البادج..."></div><div class="modal-actions"><button class="btn btn-blue" onclick="saveBadge()">حفظ</button><button class="btn btn-gray" onclick="closeModal('badgeModal')">إلغاء</button></div></div></div>
+
+<script>
+function toggleRoomAccess(roomId, checkbox) {
+  var checks = document.querySelectorAll('.raccess_' + roomId);
+  var allCheck = document.querySelector('.raccess_' + roomId + '[value="all"]');
+  if (checkbox.value === 'all') {
+    checks.forEach(function(c) { c.checked = checkbox.checked; });
+  } else {
+    if (allCheck) allCheck.checked = false;
+  }
+}
+function updateCheckboxStyle(c) {}
+function getRoomAccess(roomId) {
+  var checks = document.querySelectorAll('.raccess_' + roomId);
+  var allCheck = document.querySelector('.raccess_' + roomId + '[value="all"]');
+  if (allCheck && allCheck.checked) return 'all';
+  var selected = [];
+  checks.forEach(function(c) { if (c.checked && c.value !== 'all') selected.push(c.value); });
+  return selected.length ? selected.join(',') : 'all';
+}
+
+const API=location.origin;
+let token=null;
+let allUsers=[],allRooms=[],currentFeatures={},logPage=0;
+let targetUser='';
+
+async function api(ep,data={}){
+  data.token=token;
+  const r=await fetch(API+ep,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+  return r.json();
+}
+
+// LOGIN
+document.addEventListener('DOMContentLoaded',function(){var pi=document.getElementById('passInput');if(pi)pi.addEventListener('keydown',function(e){if(e.key==='Enter')doAdminLogin()});});
+
+// Auto-refresh active section every 30 seconds
+var _autoRefreshInterval = null;
+var _currentSection = 'overview';
+function startAutoRefresh() {
+  if (_autoRefreshInterval) clearInterval(_autoRefreshInterval);
+  _autoRefreshInterval = setInterval(function() {
+    refreshCurrentSection();
+  }, 30000);
+}
+function refreshCurrentSection() {
+  switch(_currentSection) {
+    case 'overview': loadOverview(); break;
+    case 'users': loadUsers(); break;
+    case 'health': if(typeof loadHealth==='function') loadHealth(); break;
+    case 'rooms': if(typeof loadRooms==='function') loadRooms(); break;
+    case 'mods': loadMods(); break;
+    case 'logs': loadLogs(); break;
+    case 'mic': if(typeof loadMicDashboard==='function') loadMicDashboard(); break;
+  }
+}
+startAutoRefresh();
+async function doAdminLogin(){
+  const pass=document.getElementById('passInput').value;
+  const r=await api('/api/admin/login',{password:pass});
+  if(r.error){document.getElementById('loginErr').textContent=r.error;document.getElementById('loginErr').style.display='block';return}
+  token=r.token;
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('dash').classList.add('active');
+  loadOverview();
+}
+
+// NAVIGATION
+function showSec(name){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  _currentSection=name;
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('sec-'+name).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if(name==='overview')loadOverview();
+  if(name==='users'){loadUsers();loadDailyStats()}
+  if(name==='rooms')loadRooms();
+  if(name==='mods'){loadRolesForDropdowns();loadMods();}if(name==='subs')loadSubs();if(name==='settings')loadSiteSettings();if(name==='rules')loadRules();if(name==='bans')loadBans();if(name==='broadcast')loadBroadcastRooms();if(name==='invites')loadInvites();if(name==='data')loadDataStats();if(name==='mic')loadMicDashboard();if(name==='filter')loadFilter();if(name==='health'&&typeof loadHealth==='function')loadHealth();
+  if(name==='theme')loadTheme();
+  if(name==='logs')loadLogs();
+  if(name==='settings')loadSettings();
+}
+
+// OVERVIEW
+async function loadOverview(){
+  var r=await api('/api/admin/stats');
+  document.getElementById('statOnline').textContent=r.online||0;
+  document.getElementById('statRegistered').textContent=r.registered||0;
+  document.getElementById('statRooms').textContent=r.rooms||0;
+  document.getElementById('statMods').textContent=r.modsCount||0;
+  document.getElementById('statBanned').textContent=r.banned||0;
+  document.getElementById('statMessages').textContent=r.messagesToday||0;
+  if(r.topRoom){document.getElementById('topRoomName').textContent=r.topRoom.name;document.getElementById('topRoomCount').textContent=r.topRoom.online+' متصل'}
+  if(r.topUser){document.getElementById('topUserName').textContent=r.topUser.name;document.getElementById('topUserCount').textContent=r.topUser.count+' رسالة'}
+  var wa=document.getElementById('warningsArea');
+  wa.innerHTML=(r.serverWarnings||[]).map(function(w){var bg=w.level==='danger'?'rgba(239,68,68,.1)':w.level==='warning'?'rgba(245,158,11,.1)':'rgba(34,197,94,.1)';var bc=w.level==='danger'?'#ef4444':w.level==='warning'?'#f59e0b':'#22c55e';var ic=w.level==='danger'?'🔴':w.level==='warning'?'🟡':'🟢';return '<div style="background:'+bg+';border:1px solid '+bc+';border-radius:8px;padding:10px 14px;margin-bottom:6px"><span style="color:'+bc+';font-weight:700">'+ic+' '+w.msg+'</span></div>'}).join('');
+  var chart=document.getElementById('chartArea');
+  var hrs=r.hourlyOnline||[];
+  var max=Math.max.apply(null,hrs)||1;
+  chart.innerHTML=hrs.map(function(v){var h=Math.max(4,Math.round((v/max)*70));return '<div style="flex:1;background:#3a76f0;border-radius:3px 3px 0 0;height:'+h+'px;min-width:8px" title="'+v+' متصل"></div>'}).join('');
+  var logs=document.getElementById('recentLogs');
+  logs.innerHTML=(r.recentEvents||[]).map(function(e){var t=new Date(e.time);var ts=t.getHours().toString().padStart(2,'0')+':'+t.getMinutes().toString().padStart(2,'0');var labels={'admin_login':'دخول لوحة التحكم','guest_login':'دخول زائر','mod_login':'دخول مشرف','logout':'خروج','kick':'طرد','ban':'حظر','unban':'إلغاء حظر','room_create':'إنشاء غرفة','room_delete':'حذف غرفة','role_change':'تغيير رتبة'};var label=labels[e.action]||e.action;var color=e.action.includes('ban')?'#ef4444':e.action.includes('kick')?'#f59e0b':e.action.includes('login')?'#22c55e':'#888';var detail='';try{var d=JSON.parse(e.details);if(d.username)detail=d.username;if(d.displayName)detail=d.displayName;if(d.name)detail=d.name;if(d.role)detail+=' ('+d.role+')'}catch(x){detail=e.details||''}return '<div style="display:flex;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px"><span style="color:#555;min-width:40px">'+ts+'</span><span style="color:'+color+';min-width:100px;font-weight:600">'+label+'</span><span style="color:#ccc">'+detail+'</span></div>'}).join('');
+}
+
+// USERS
+var usersPage=0,usersPerPage=50,selectedUsers=new Set();
+var allBans=[],allDeviceBans=[];
+
+function switchUserTab(tab){
+  document.getElementById('usersTabContent').style.display=tab==='users'?'':'none';
+  document.getElementById('bannedTabContent').style.display=tab==='banned'?'':'none';
+  document.getElementById('devicesTabContent').style.display=tab==='devices'?'':'none';
+  ['tabUsers','tabBanned','tabDevices'].forEach(function(t){
+    var el=document.getElementById(t);
+    var active=t==='tab'+tab.charAt(0).toUpperCase()+tab.slice(1);
+    el.style.color=active?'#3a76f0':'#888';
+    el.style.borderBottomColor=active?'#3a76f0':'transparent';
+  });
+  if(tab==='banned')loadBanned();
+  if(tab==='devices')loadDeviceBans();
+}
+
+async function loadUsers(){
+  var r=await api('/api/admin/stats');
+  document.getElementById('uStatTotal').textContent=r.registered||0;
+  document.getElementById('uStatOnline').textContent=r.online||0;
+  document.getElementById('uStatBanned').textContent=r.banned||0;
+  var ur=await api('/api/admin/users');
+  allUsers=ur.users||[];
+  var weekAgo=Date.now()-7*24*60*60*1000;
+  var inactive=allUsers.filter(function(u){return !u.last_seen||new Date(u.last_seen).getTime()<weekAgo}).length;
+  document.getElementById('uStatInactive').textContent=inactive;
+  var alerts='';
+  if(allUsers.length>500)alerts+='<div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:10px;margin-bottom:8px;font-size:12px;color:#f59e0b">🟡 عدد الزوار '+allUsers.length+' - ننصح بحذف غير النشطين</div>';
+  if(inactive>50)alerts+='<div style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:10px;margin-bottom:8px;font-size:12px;color:#ef4444">🔴 '+inactive+' زائر غير نشط</div>';
+  if(!alerts)alerts='<div style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:8px;padding:10px;font-size:12px;color:#22c55e">🟢 كل شي تمام</div>';
+  document.getElementById('uAlerts').innerHTML=alerts;
+  selectedUsers.clear();
+  usersPage=0;
+  sortAndRenderUsers();
+}
+
+function filterUsersLocal(){usersPage=0;sortAndRenderUsers()}
+
+function sortAndRenderUsers(){
+  var q=(document.getElementById('userSearch').value||'').toLowerCase();
+  var filter=document.getElementById('userFilter').value;
+  var sort=document.getElementById('userSort').value;
+  var weekAgo=Date.now()-7*24*60*60*1000;
+  var filtered=allUsers.filter(function(u){
+    var name=(u.display_name||u.username||'').toLowerCase();
+    if(q&&!name.includes(q))return false;
+    if(filter==='online')return !!u.online;
+    if(filter==='offline')return !u.online;
+    if(filter==='inactive')return !u.last_seen||new Date(u.last_seen).getTime()<weekAgo;
+    return true;
+  });
+  if(sort==='name')filtered.sort(function(a,b){return(a.display_name||a.username||'').localeCompare(b.display_name||b.username||'')});
+  else filtered.sort(function(a,b){return new Date(b.created_at||0)-new Date(a.created_at||0)});
+  var s=usersPage*usersPerPage;
+  var page=filtered.slice(s,s+usersPerPage);
+  var totalPages=Math.ceil(filtered.length/usersPerPage);
+  var tbody=document.getElementById('usersTableBody');
+  tbody.innerHTML=page.map(function(u){
+    var name=u.display_name||u.username||'?';
+    var safeName=name.replace(/'/g,"\\'");
+    var lastSeen=u.last_seen?timeAgo(new Date(u.last_seen)):'-';
+    var checked=selectedUsers.has(name)?'checked':'';
+    return '<tr style="cursor:pointer;border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px;text-align:center"><input type="checkbox" '+checked+' onclick="event.stopPropagation();toggleSelect(\''+safeName+'\',this.checked)" style="cursor:pointer"></td><td style="padding:8px 12px" onclick="openUserProfile(\''+safeName+'\')"><strong style="color:#fff">'+name+'</strong></td><td style="padding:8px 12px;text-align:center;font-size:12px">'+(u.online?'<span style="color:#22c55e">● \u0645\u062a\u0635\u0644</span>':'<span style="color:#666">○ \u063a\u064a\u0631 \u0645\u062a\u0635\u0644</span>')+'</td><td style="padding:8px 12px;text-align:center;font-size:12px;color:#888">'+lastSeen+'</td><td style="padding:8px 12px;text-align:center"><button onclick="event.stopPropagation();warnUser(\''+safeName+'\')" style="padding:3px 8px;border-radius:4px;border:none;background:#f59e0b;color:#fff;font-size:11px;cursor:pointer;margin:1px">⚠</button><button onclick="event.stopPropagation();adminKick(\''+safeName+'\')" style="padding:3px 8px;border-radius:4px;border:none;background:#ef4444;color:#fff;font-size:11px;cursor:pointer;margin:1px">طرد</button><button onclick="event.stopPropagation();adminBan(\''+safeName+'\')" style="padding:3px 8px;border-radius:4px;border:none;background:#991b1b;color:#fff;font-size:11px;cursor:pointer;margin:1px">حظر</button><button onclick="event.stopPropagation();addNote(\''+safeName+'\')" style="padding:3px 8px;border-radius:4px;border:none;background:rgba(58,118,240,.2);color:#3a76f0;font-size:11px;cursor:pointer;margin:1px">📝</button></td></tr>';
+  }).join('');
+  var paging=document.getElementById('usersPaging');
+  if(totalPages>1){var btns='';for(var p=0;p<Math.min(totalPages,10);p++){btns+='<button onclick="usersPage='+p+';sortAndRenderUsers()" style="padding:4px 10px;margin:0 2px;border-radius:4px;border:none;background:'+(p===usersPage?'#3a76f0':'rgba(255,255,255,.1)')+';color:#fff;font-size:12px;cursor:pointer">'+(p+1)+'</button>'}paging.innerHTML=btns}else{paging.innerHTML=''}
+  updateBulkBar();
+}
+
+function timeAgo(d){var diff=Date.now()-d.getTime();var m=Math.floor(diff/60000);if(m<1)return'الحين';if(m<60)return'قبل '+m+' د';var h=Math.floor(m/60);if(h<24)return'قبل '+h+' س';return'قبل '+Math.floor(h/24)+' ي'}
+
+function toggleSelect(name,checked){if(checked)selectedUsers.add(name);else selectedUsers.delete(name);updateBulkBar()}
+function toggleSelectAll(checked){var boxes=document.querySelectorAll('#usersTableBody input[type=checkbox]');boxes.forEach(function(b){b.checked=checked});if(checked){allUsers.forEach(function(u){selectedUsers.add(u.display_name||u.username)})}else{selectedUsers.clear()}updateBulkBar()}
+function updateBulkBar(){var bar=document.getElementById('bulkActions');var count=selectedUsers.size;bar.style.display=count>0?'flex':'none';document.getElementById('selectedCount').textContent=count+' محدد'}
+
+async function bulkAction(action){
+  if(!confirm(action==='ban'?'حظر '+selectedUsers.size+' مستخدم؟':'حذف '+selectedUsers.size+' مستخدم؟'))return;
+  for(var name of selectedUsers){
+    if(action==='ban')await api('/api/admin/user/ban',{username:name,reason:'حظر جماعي'});
+    else await api('/api/admin/user/delete',{username:name});
+  }
+  selectedUsers.clear();loadUsers();
+}
+
+async function warnUser(name){var msg=prompt('رسالة التحذير:');if(!msg)return;await api('/api/admin/announce',{text:'⚠ تحذير لـ '+name+': '+msg});alert('تم')}
+
+async function addNote(name){var note=prompt('اكتب ملاحظة على '+name+':');if(!note)return;await api('/api/admin/user/note',{username:name,note:note});alert('تم حفظ الملاحظة')}
+
+async function loadBanned(){
+  var r=await api('/api/admin/bans');
+  allBans=r.bans||[];
+  var el=document.getElementById('bannedList');
+  if(!allBans.length){el.innerHTML='<div style="padding:20px;text-align:center;color:#888">لا يوجد محظورين</div>';return}
+  el.innerHTML=allBans.map(function(b){
+    return '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px;border-bottom:1px solid rgba(255,255,255,.04)"><div><strong style="color:#fff">'+b.username+'</strong><div style="font-size:11px;color:#888">السبب: '+(b.reason||'-')+' | '+new Date(b.created_at).toLocaleDateString('ar')+'</div></div><button onclick="unbanUser(\''+b.username+'\')" style="padding:6px 14px;border-radius:6px;border:none;background:#22c55e;color:#fff;font-size:12px;cursor:pointer">✅ فك الحظر</button></div>';
+  }).join('');
+}
+
+async function unbanUser(name){
+  if(!confirm('فك حظر '+name+'؟'))return;
+  await api('/api/admin/user/unban',{username:name});
+  loadBanned();loadUsers();
+}
+
+async function loadDeviceBans(){
+  var r=await api('/api/admin/device/bans');
+  var bans=r.bans||[];
+  var el=document.getElementById('deviceBanList');
+  if(!bans.length){el.innerHTML='<div style="padding:20px;text-align:center;color:#888">لا يوجد أجهزة محظورة</div>';return}
+  el.innerHTML=bans.map(function(b){
+    return '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px;border-bottom:1px solid rgba(255,255,255,.04)"><div><strong style="color:#fff">📱 '+b.fingerprint+'</strong><div style="font-size:11px;color:#888">السبب: '+(b.reason||'-')+' | '+new Date(b.created_at).toLocaleDateString('ar')+'</div></div><button onclick="unbanDevice(\''+b.fingerprint+'\')" style="padding:6px 14px;border-radius:6px;border:none;background:#22c55e;color:#fff;font-size:12px;cursor:pointer">✅ فك</button></div>';
+  }).join('');
+}
+
+async function unbanDevice(fp){
+  if(!confirm('فك حظر الجهاز؟'))return;
+  await api('/api/admin/device/unban',{fingerprint:fp});
+  loadDeviceBans();
+}
+
+
+async function changeRole(username,role){
+  await api('/api/admin/user/role',{username,role});
+  loadUsers();
+}
+
+// KICK
+function showKickModal(name){targetUser=name;document.getElementById('kickName').textContent=name;document.getElementById('kickModal').classList.add('show')}
+async function confirmKick(){
+  await api('/api/admin/user/kick',{username:targetUser,reason:document.getElementById('kickReason').value});
+  closeModal('kickModal');loadUsers();
+}
+
+// BAN
+function showBanModal(name){targetUser=name;document.getElementById('banName').textContent=name;document.getElementById('banModal').classList.add('show')}
+async function confirmBan(){
+  const dur=document.getElementById('banDuration').value;
+  await api('/api/admin/user/ban',{username:targetUser,reason:document.getElementById('banReason').value,duration:dur?parseInt(dur):null});
+  closeModal('banModal');loadUsers();
+}
+
+// BADGE
+function showBadgeModal(name,badge){targetUser=name;document.getElementById('badgeName').textContent=name;document.getElementById('badgeText').value=badge;document.getElementById('badgeModal').classList.add('show')}
+async function saveBadge(){
+  await api('/api/admin/user/badge',{username:targetUser,badge:document.getElementById('badgeText').value});
+  closeModal('badgeModal');loadUsers();
+}
+
+// ROOMS
+const PERM_MODES=[
+  {value:'all',label:'الكل'},
+  {value:'mods',label:'المشرفين+'},
+  {value:'admin',label:'المدير فقط'},
+  {value:'none',label:'مقفل'}
+];
+function permSelect(roomId,type,current){
+  return`<select onchange="changeRoomPerm('${roomId}','${type}',this.value)" style="background:rgba(255,255,255,.06);color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:4px 8px;font-size:12px">
+    ${PERM_MODES.map(m=>`<option value="${m.value}" ${current===m.value?'selected':''}>${m.label}</option>`).join('')}
+  </select>`;
+}
+
+async function loadRooms(){
+  var r=await api('/api/admin/rooms',{token:token});
+  var el=document.getElementById('sec-rooms');
+  if(!el)return;
+  var rooms=r.rooms||[];
+
+  // Get roles for access checkboxes
+  var roles=window._cachedRoles||[];
+  if(!roles.length){
+    try{var rr=await api('/api/roles',{});roles=(rr.roles||[]).filter(function(r){return r.name!=='owner'}).sort(function(a,b){return a.priority-b.priority});window._cachedRoles=roles;}catch(e){}
+  }
+
+  var html='<div class="sec-header"><h2>\uD83C\uDFE0 \u0625\u062F\u0627\u0631\u0629 \u0627\u0644\u063A\u0631\u0641</h2><button class="btn btn-blue" onclick="showCreateRoom()">+ \u0625\u0646\u0634\u0627\u0621 \u063A\u0631\u0641\u0629</button></div>';
+
+  rooms.forEach(function(rm){
+    var id=rm.id;
+    var allowed=(rm.allowedRoles||rm.allowed_roles||'all');
+
+    html+='<div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;margin-bottom:16px">';
+
+    // Header
+    html+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">';
+    html+='<div style="display:flex;gap:6px">';
+    html+='<button class="btn btn-blue" style="font-size:12px" onclick="saveRoom(\''+id+'\')">\uD83D\uDCBE \u062D\u0641\u0638</button>';
+    if(!rm.is_default) html+='<button class="btn btn-red" style="font-size:12px" onclick="deleteRoom(\''+id+'\')">\uD83D\uDDD1 \u062D\u0630\u0641</button>';
+    html+='</div>';
+    html+='<div style="text-align:right"><div style="font-size:20px;font-weight:700;color:#fff">'+(rm.icon||'\uD83C\uDFE0')+' '+rm.name+'</div>';
+    html+='<div style="font-size:12px;color:#888">\uD83D\uDC65 '+rm.onlineCount+' \u0645\u062A\u0635\u0644</div></div>';
+    html+='</div>';
+
+    // Row 1: Name + Password
+    html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">';
+    html+='<div><label style="font-size:11px;color:#888">\u0627\u0633\u0645 \u0627\u0644\u063A\u0631\u0641\u0629</label><input id="r_name_'+id+'" value="'+rm.name+'" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div>';
+    html+='<div><label style="font-size:11px;color:#888">\u0643\u0644\u0645\u0629 \u0645\u0631\u0648\u0631</label><input id="r_pass_'+id+'" value="'+(rm.password||'')+'" placeholder="\u0628\u062F\u0648\u0646" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div>';
+    html+='</div>';
+
+    // Row 2: Marquee + Pinned
+    html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">';
+    html+='<div><label style="font-size:11px;color:#888">\u0627\u0644\u0631\u0633\u0627\u0644\u0629 \u0627\u0644\u0645\u062A\u062D\u0631\u0643\u0629</label><input id="r_marquee_'+id+'" value="'+(rm.marquee||'')+'" placeholder="\u0631\u0633\u0627\u0644\u0629 \u0645\u062A\u062D\u0631\u0643\u0629..." style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div>';
+    html+='<div><label style="font-size:11px;color:#888">\u0646\u0635 \u062B\u0627\u0628\u062A \u0628\u0627\u0644\u0634\u0627\u062A</label><input id="r_fixed_'+id+'" value="'+(rm.pinned_msg||'')+'" placeholder="\u0646\u0635 \u062B\u0627\u0628\u062A..." style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div>';
+    html+='</div>';
+
+    // Row 3: Max users + Icon
+    html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">';
+    html+='<div><label style="font-size:11px;color:#888">\u0623\u0642\u0635\u0649 \u0639\u062F\u062F (0=\u0628\u0644\u0627 \u062D\u062F)</label><input id="r_max_'+id+'" type="number" value="'+(rm.max_users||0)+'" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div>';
+    html+='<div><label style="font-size:11px;color:#888">\u0623\u064A\u0642\u0648\u0646\u0629</label><input id="r_icon_'+id+'" value="'+(rm.icon||'\uD83C\uDFE0')+'" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px;text-align:center"></div>';
+    html+='</div>';
+
+    // Row 4: Mic settings
+    html+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px">';
+    html+='<div><label style="font-size:11px;color:#888">\uD83C\uDFA4 \u0645\u062A\u062D\u062F\u062B\u064A\u0646</label><input id="r_maxspk_'+id+'" type="number" value="'+(rm.max_speakers||1)+'" min="1" max="10" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div>';
+    html+='<div><label style="font-size:11px;color:#888">\u0646\u0638\u0627\u0645 \u0627\u0644\u0637\u0627\u0628\u0648\u0631</label><select id="r_mqmode_'+id+'" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"><option value="fifo"'+((rm.mic_queue_mode||'fifo')==='fifo'?' selected':'')+'>\u062A\u0644\u0642\u0627\u0626\u064A</option><option value="manual"'+((rm.mic_queue_mode)==='manual'?' selected':'')+'>\u064A\u062F\u0648\u064A</option></select></div>';
+    html+='<div><label style="font-size:11px;color:#888">\u0625\u063A\u0644\u0627\u0642 \u062A\u0644\u0642\u0627\u0626\u064A (\u062F\u0642)</label><input id="r_mauto_'+id+'" type="number" value="'+(rm.mic_auto_release||0)+'" min="0" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div>';
+    html+='</div>';
+
+    // Row 5: Access control - checkboxes
+    html+='<div style="margin-bottom:8px"><label style="font-size:11px;color:#888;display:block;margin-bottom:4px">\u0645\u0646 \u064A\u062F\u062E\u0644</label>';
+    html+='<div style="display:flex;flex-wrap:wrap;gap:4px">';
+
+    // All checkbox
+    var isAll = !allowed || allowed === 'all';
+    html+='<label style="display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;border:1px solid '+(isAll?'#22c55e':'rgba(255,255,255,.1)')+';background:'+(isAll?'rgba(34,197,94,.15)':'rgba(255,255,255,.03)')+';cursor:pointer;font-size:12px;color:'+(isAll?'#22c55e':'#888')+'"><input type="checkbox" class="raccess_'+id+'" value="all" '+(isAll?'checked':'')+' onchange="toggleRoomAccess(\''+id+'\',this)"> \u0627\u0644\u0643\u0644</label>';
+
+    // Role checkboxes
+    var allowedArr = allowed.split(',');
+    roles.forEach(function(role){
+      var checked = isAll || allowedArr.indexOf(role.name) >= 0;
+      var active = checked && !isAll;
+      html+='<label style="display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;border:1px solid '+(active?role.color:'rgba(255,255,255,.1)')+';background:'+(active?role.color+'22':'rgba(255,255,255,.03)')+';cursor:pointer;font-size:12px;color:'+(checked?role.color:'#666')+'" data-color="'+role.color+'"><input type="checkbox" class="raccess_'+id+'" value="'+role.name+'" '+(checked?'checked':'')+' onchange="toggleRoomAccess(\''+id+'\',this)"> '+(role.icon||'')+' '+role.name_ar+'</label>';
+    });
+
+    html+='</div></div>';
+
+    html+='</div>';
+  });
+
+  el.innerHTML=html;
+}
+
+async function saveRoom(id){
+  var d={roomId:id};
+  var el=function(x){var e=document.getElementById(x);return e?e.value:''};
+  d.name=el('r_name_'+id);
+  d.password=el('r_pass_'+id);
+  d.marquee=el('r_marquee_'+id);
+  d.fixedText=el('r_fixed_'+id);
+  d.bgImage=el('r_bg_'+id);
+  d.maxUsers=parseInt(el('r_max_'+id))||0;
+  d.allowedRoles=getRoomAccess(id);
+  d.icon=el('r_icon_'+id);
+  d.perms={micMode:el('r_mic_'+id),camMode:el('r_cam_'+id),chatMode:el('r_chat_'+id)};
+  d.maxSpeakers=parseInt(el('r_maxspk_'+id))||1;
+  d.micQueueMode=el('r_mqmode_'+id)||'fifo';
+  d.micAutoRelease=parseInt(el('r_mauto_'+id))||0;
+  var r=await api("/api/admin/room/update",d);
+  if(r.ok){alert("تم حفظ إعدادات الغرفة!")}
+  else{alert(r.error||"فشل الحفظ")}
+}
+
+
+async function changeRoomPerm(roomId,type,value){
+  const perms={};perms[type]=value;
+  await api('/api/admin/room/perms',{roomId,perms});
+}
+function showCreateRoom(){document.getElementById('roomModal').classList.add('show')}
+async function confirmCreateRoom(){
+  await api('/api/admin/room/create',{name:document.getElementById('newRoomName').value,maxUsers:parseInt(document.getElementById('newRoomMax').value)||0});
+  closeModal('roomModal');loadRooms();
+}
+async function deleteRoom(id){if(confirm('تأكيد حذف الغرفة؟')){await api('/api/admin/room/delete',{roomId:id});loadRooms()}}
+
+// MODS
+async function loadMods(){
+  var r=await api("/api/admin/mods");
+  var el=document.getElementById("modsContent");
+  if(!el)return;
+  var mods=r.mods||[];
+  window.allPerms=[
+    {key:"canKick",label:"\uD83D\uDEAA \u0637\u0631\u062F",desc:"\u064A\u0642\u062F\u0631 \u064A\u0637\u0631\u062F \u0634\u062E\u0635"},
+    {key:"canBan",label:"\u26D4 \u062D\u0638\u0631 \u0627\u0633\u0645",desc:"\u064A\u062D\u0638\u0631 \u0634\u062E\u0635"},
+    {key:"canDeviceBan",label:"\uD83D\uDCF5 \u062D\u0638\u0631 \u062C\u0647\u0627\u0632",desc:"\u064A\u062D\u0638\u0631 \u062C\u0647\u0627\u0632 \u0634\u062E\u0635"},
+    {key:"canMute",label:"\uD83D\uDD07 \u0643\u062A\u0645",desc:"\u064A\u0643\u062A\u0645 \u0634\u062E\u0635"},
+    {key:"canWarn",label:"\u26A0\uFE0F \u062A\u062D\u0630\u064A\u0631",desc:"\u064A\u0631\u0633\u0644 \u062A\u062D\u0630\u064A\u0631"},
+    {key:"canRename",label:"\u270F\uFE0F \u062A\u063A\u064A\u064A\u0631 \u0627\u0633\u0645",desc:"\u064A\u063A\u064A\u0631 \u0627\u0633\u0645 \u0634\u062E\u0635"},
+    {key:"canBadge",label:"\uD83C\uDFC5 \u062A\u063A\u064A\u064A\u0631 \u0634\u0627\u0631\u0629",desc:"\u064A\u063A\u064A\u0631 \u0634\u0627\u0631\u0629 \u0634\u062E\u0635"},
+    {key:"canPromote",label:"\uD83D\uDC51 \u062A\u0631\u0642\u064A\u0629",desc:"\u064A\u0631\u0642\u064A \u0644\u0639\u0636\u0648/VIP"},
+    {key:"canMicOff",label:"\uD83C\uDFA4 \u0642\u0641\u0644 \u0645\u0627\u064A\u0643",desc:"\u064A\u0642\u0641\u0644 \u0645\u0627\u064A\u0643 \u0634\u062E\u0635"},
+    {key:"canMicBlock",label:"\uD83D\uDEAB\uD83C\uDFA4 \u0645\u0646\u0639 \u0645\u0627\u064A\u0643",desc:"\u0645\u0646\u0639 \u0646\u0647\u0627\u0626\u064A"},
+    {key:"canMicAll",label:"\uD83C\uDFA4 \u0645\u0627\u064A\u0643 \u0627\u0644\u0643\u0644",desc:"\u064A\u0642\u0641\u0644/\u064A\u0641\u062A\u062D \u0644\u0644\u0643\u0644"},
+    {key:"canAllowMic",label:"\uD83C\uDFA4\u2705 \u0633\u0645\u0627\u062D \u0645\u0627\u064A\u0643",desc:"\u064A\u0639\u0637\u064A \u0623\u062D\u062F \u0627\u0644\u0645\u0627\u064A\u0643"},
+    {key:"canCamOff",label:"\uD83D\uDCF7 \u0642\u0641\u0644 \u0643\u0627\u0645",desc:"\u064A\u0642\u0641\u0644 \u0643\u0627\u0645 \u0634\u062E\u0635"},
+    {key:"canCamBlock",label:"\uD83D\uDEAB\uD83D\uDCF7 \u0645\u0646\u0639 \u0643\u0627\u0645",desc:"\u0645\u0646\u0639 \u0646\u0647\u0627\u0626\u064A"},
+    {key:"canAllowCam",label:"\uD83D\uDCF7\u2705 \u0633\u0645\u0627\u062D \u0643\u0627\u0645",desc:"\u064A\u0639\u0637\u064A \u0623\u062D\u062F \u0627\u0644\u0643\u0627\u0645"},
+    {key:"canChatBlock",label:"\uD83D\uDEAB\uD83D\uDCAC \u0645\u0646\u0639 \u0643\u062A\u0627\u0628\u0629",desc:"\u064A\u0645\u0646\u0639 \u0634\u062E\u0635 \u0645\u0646 \u0627\u0644\u0643\u062A\u0627\u0628\u0629"},
+    {key:"canChatLock",label:"\uD83D\uDD12 \u0642\u0641\u0644 \u0643\u062A\u0627\u0628\u0629",desc:"\u064A\u0642\u0641\u0644 \u0643\u062A\u0627\u0628\u0629 \u0627\u0644\u063A\u0631\u0641\u0629"},
+    {key:"canRenameRoom",label:"\u270F\uFE0F \u062A\u0633\u0645\u064A\u0629 \u063A\u0631\u0641\u0629",desc:"\u064A\u063A\u064A\u0631 \u0627\u0633\u0645 \u0627\u0644\u063A\u0631\u0641\u0629"},
+    {key:"canEditMarquee",label:"\uD83D\uDCDD \u0631\u0633\u0627\u0644\u0629 \u0645\u062A\u062D\u0631\u0643\u0629",desc:"\u064A\u0639\u062F\u0644 \u0627\u0644\u0631\u0633\u0627\u0644\u0629"},
+    {key:"canManageRooms",label:"\uD83C\uDFE0 \u0625\u062F\u0627\u0631\u0629 \u063A\u0631\u0641",desc:"\u064A\u0636\u064A\u0641/\u064A\u062D\u0630\u0641 \u063A\u0631\u0641"},
+    {key:"canMuteAll",label:"\uD83D\uDD07 \u0643\u062A\u0645 \u0627\u0644\u0643\u0644",desc:"\u064A\u0643\u062A\u0645 \u0643\u0644 \u0627\u0644\u063A\u0631\u0641\u0629"},
+    {key:"canPinMsg",label:"\uD83D\uDCCC \u062A\u062B\u0628\u064A\u062A \u0631\u0633\u0627\u0644\u0629",desc:"\u064A\u062B\u0628\u062A \u0631\u0633\u0627\u0644\u0629"},
+    {key:"canClearChat",label:"\uD83D\uDDD1 \u0645\u0633\u062D \u0631\u0633\u0627\u0626\u0644",desc:"\u064A\u0645\u0633\u062D \u0631\u0633\u0627\u0626\u0644 \u0627\u0644\u063A\u0631\u0641\u0629"},
+    {key:"canAnnounce",label:"\uD83D\uDCE2 \u0625\u0639\u0644\u0627\u0646",desc:"\u064A\u0631\u0633\u0644 \u0625\u0639\u0644\u0627\u0646 \u0644\u0644\u063A\u0631\u0641\u0629"},
+    {key:"canViewIP",label:"\uD83D\uDCF1 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u062C\u0647\u0627\u0632",desc:"\u064A\u0634\u0648\u0641 \u0628\u064A\u0627\u0646\u0627\u062A \u0627\u0644\u062C\u0647\u0627\u0632"}
+  ];
+  var html='<div style="margin-bottom:16px;text-align:left"><button class="btn btn-blue" onclick="showAddModForm()">+ \u0625\u0636\u0627\u0641\u0629 \u0645\u0634\u0631\u0641 \u062c\u062f\u064a\u062f</button></div>';
+  html+='<div id="addModForm" style="display:none;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;margin-bottom:16px"><h3 style="color:#fff;margin-bottom:12px">+ \u0625\u0636\u0627\u0641\u0629 \u0645\u0634\u0631\u0641</h3><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px"><div><label style="font-size:11px;color:#888">\u0627\u0644\u0627\u0633\u0645</label><input id="new_mod_name" placeholder="\u0627\u0633\u0645 \u0627\u0644\u0645\u0634\u0631\u0641" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div><div><label style="font-size:11px;color:#888">\u0627\u0644\u0643\u0648\u062f</label><input id="new_mod_code" placeholder="\u0643\u0648\u062f \u0627\u0644\u062f\u062e\u0648\u0644" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div><div><label style="font-size:11px;color:#888">\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u0633\u0631\u064a</label><input id="new_mod_pass" type="password" placeholder="\u0631\u0642\u0645 \u0633\u0631\u064a" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px"><div><label style="font-size:11px;color:#888">\u0627\u0644\u0631\u062a\u0628\u0629</label><select id="new_mod_role" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></select></div><div><label style="font-size:11px;color:#888">\u0627\u0644\u0628\u0627\u062f\u062c</label><input id="new_mod_badge" placeholder="\u0645\u062b\u0644: \u0645\u0627\u0633\u062a\u0631" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div><div style="display:flex;align-items:flex-end"><button class="btn btn-blue" style="width:100%" onclick="addNewMod()">+ \u0625\u0636\u0627\u0641\u0629</button></div></div></div>';
+  if(!mods.length){html+='<p style="color:#666;padding:16px">\u0644\u0627 \u064a\u0648\u062c\u062f \u0645\u0634\u0631\u0641\u064a\u0646</p>';el.innerHTML=html;return}
+  mods.forEach(function(m){ m.name=m.name||m.display_name||'?';
+    var rc=m.role==='admin'?'#ef4444':'#22c55e';
+    var perms=m.permissions||[];
+    html+='<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;margin-bottom:12px">';
+    html+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px"><div style="display:flex;align-items:center;gap:10px"><div style="width:40px;height:40px;border-radius:10px;background:'+rc+';display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px">'+((m.name||m.display_name||'?').charAt(0).toUpperCase())+'</div><div><div style="font-size:18px;font-weight:700;color:#fff">'+m.name+' <span style="background:'+rc+';color:#fff;font-size:11px;padding:2px 8px;border-radius:4px">'+m.role+'</span></div><div style="font-size:12px;color:#888;margin-top:2px">\u0627\u0644\u0643\u0648\u062f: <span style="color:#3a76f0;font-weight:600">'+m.code+'</span>'+(m.badge?' | \u0627\u0644\u0628\u0627\u062f\u062c: '+m.badge:'')+'</div></div></div><div style="display:flex;gap:4px"><button class="btn btn-blue" style="font-size:12px" onclick="saveMod(\''+m.code+'\')">\ud83d\udcbe \u062d\u0641\u0638</button><button class="btn btn-red" style="font-size:12px" onclick="deleteMod(\''+m.code+'\')">\ud83d\uddd1 \u062d\u0630\u0641</button></div></div>';
+    html+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:12px"><div><label style="font-size:11px;color:#888">\u0627\u0644\u0627\u0633\u0645</label><input id="mod_name_'+m.code+'" value="'+m.name+'" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div><div><label style="font-size:11px;color:#888">\u0627\u0644\u0631\u062a\u0628\u0629</label><select id="mod_role_'+m.code+'" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px">'+_roleOptionsHTML(m.role)+'</select></div><div><label style="font-size:11px;color:#888">\u0627\u0644\u0628\u0627\u062f\u062c</label><input id="mod_badge_'+m.code+'" value="'+(m.badge||'')+'" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div><div><label style="font-size:11px;color:#888">\u0631\u0642\u0645 \u0633\u0631\u064a \u062c\u062f\u064a\u062f</label><input id="mod_pass_'+m.code+'" type="password" placeholder="\u0627\u062a\u0631\u0643\u0647 \u0641\u0627\u0636\u064a" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px"></div></div>';
+    html+='<div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:10px"><div style="font-size:12px;color:#888;margin-bottom:8px;font-weight:600">\u0627\u0644\u0635\u0644\u0627\u062d\u064a\u0627\u062a:</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px">';
+    allPerms.forEach(function(p){
+      var has=perms.indexOf(p.key)>=0;
+      var bg=has?'rgba(34,197,94,.15)':'rgba(255,255,255,.03)';
+      var br=has?'#22c55e':'rgba(255,255,255,.1)';
+      var cl=has?'#22c55e':'#666';
+      html+='<label id="perm_'+m.code+'_'+p.key+'" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:'+bg+';border:1px solid '+br+';cursor:pointer" onclick="togglePerm(this)" data-on="'+(has?'1':'0')+'">';
+      html+='<div style="width:18px;height:18px;border-radius:4px;border:2px solid '+cl+';display:flex;align-items:center;justify-content:center;flex-shrink:0">'+(has?'\u2713':'')+'</div>';
+      html+='<div><div style="font-size:12px;color:'+(has?'#e0e0e0':'#888')+';font-weight:600">'+p.label+'</div><div style="font-size:10px;color:#555">'+p.desc+'</div></div>';
+      html+='</label>';
+    });
+    html+='</div></div></div>';
+  });
+  el.innerHTML=html;
+  setTimeout(populateAccessBoxes, 100);
+}
+function showAddModForm(){var f=document.getElementById("addModForm");f.style.display=f.style.display==="none"?"block":"none"}
+function togglePerm(el){
+  var on=el.dataset.on==='1';
+  el.dataset.on=on?'0':'1';
+  el.style.background=on?'rgba(255,255,255,.03)':'rgba(34,197,94,.15)';
+  el.style.borderColor=on?'rgba(255,255,255,.1)':'#22c55e';
+  var box=el.querySelector('div');
+  box.style.borderColor=on?'#666':'#22c55e';
+  box.textContent=on?'':'\u2713';
+  box.style.color='#22c55e';
+}
+async function saveMod(code){
+  var allP=window.allPerms?window.allPerms.map(function(p){return p.key}):[];
+  var perms=[];
+  allP.forEach(function(p){var el=document.getElementById("perm_"+code+"_"+p);if(el&&el.dataset.on==='1')perms.push(p)});
+  var d={code:code,displayName:document.getElementById("mod_name_"+code).value,role:document.getElementById("mod_role_"+code).value,badge:document.getElementById("mod_badge_"+code).value,permissions:perms};
+  var np=document.getElementById("mod_pass_"+code).value;
+  if(np)d.password=np;
+  var r=await api("/api/admin/mod/update",d);
+  if(r.ok){alert("\u062a\u0645 \u062d\u0641\u0638 \u0625\u0639\u062f\u0627\u062f\u0627\u062a \u0627\u0644\u0645\u0634\u0631\u0641!");loadMods()}else{alert(r.error||"\u0641\u0634\u0644")}
+}
+async function deleteMod(code){
+  if(!confirm("\u0645\u062a\u0623\u0643\u062f \u062a\u0628\u064a \u062a\u062d\u0630\u0641\u061f"))return;
+  var r=await api("/api/admin/mod/delete",{code:code});
+  if(r.ok){loadMods()}else{alert(r.error||"\u0641\u0634\u0644")}
+}
+async function addNewMod(){
+  var d={displayName:document.getElementById("new_mod_name").value,code:document.getElementById("new_mod_code").value,password:document.getElementById("new_mod_pass").value,role:document.getElementById("new_mod_role").value,badge:document.getElementById("new_mod_badge").value,permissions:["canKick","canBan","canMute","canRenameRoom","canEditMarquee","canManageRooms"]};
+  if(!d.displayName||!d.code||!d.password){alert("\u0627\u0645\u0644\u0623 \u0643\u0644 \u0627\u0644\u062d\u0642\u0648\u0644");return}
+  var r=await api("/api/admin/mod/add",d);
+  if(r.ok){alert("\u062a\u0645 \u0625\u0636\u0627\u0641\u0629 \u0627\u0644\u0645\u0634\u0631\u0641!");document.getElementById("addModForm").style.display="none";loadMods()}else{alert(r.error||"\u0641\u0634\u0644")}
+}
+
+
+
+const PERMS=window.allPerms||[];
+async function showAddMod(){
+  loadRolesForDropdowns();
+  document.getElementById("modNameNew").value="";
+  document.getElementById("modCodeNew").value="";
+  document.getElementById("modPinNew").value="";
+  document.getElementById("modBadgeNew").value="";
+  var pd=document.getElementById("addModPerms");
+  if(pd)pd.innerHTML=PERMS.map(function(p){return '<div style="padding:4px 0"><label style="color:#ccc;cursor:pointer"><input type="checkbox" id="addperm_'+p.id+'" checked style="margin-left:8px"> '+p.label+"</label></div>"}).join("");
+  document.getElementById("addModModal").classList.add("show");
+}
+
+
+async function confirmAddMod(){
+  var name=document.getElementById("modNameNew").value.trim();
+  var code=document.getElementById("modCodeNew").value.trim().toUpperCase();
+  var pin=document.getElementById("modPinNew").value.trim();
+  var role=document.getElementById("modRoleNew").value;
+  var badge=document.getElementById("modBadgeNew").value.trim();
+  if(!name){alert("اسم المستخدم مطلوب");return}
+  if(!code||code.length<3){alert("الكود لازم 3 أحرف على الأقل");return}
+  if(!pin||pin.length<4){alert("الرقم السري لازم 4 أرقام على الأقل");return}
+  var perms=PERMS.filter(function(p){var cb=document.getElementById("addperm_"+p.id);return cb&&cb.checked}).map(function(p){return p.id});
+  var r=await api("/api/admin/mod/add",{code:code,password:pin,displayName:name,role:role,badge:badge,permissions:perms});
+  if(r.error){alert(r.error);return}
+  closeModal("addModModal");
+  loadMods();
+  alert("تم إضافة المشرف!\n\nالاسم: "+name+"\nالكود: "+code+"\nالرقم السري: "+pin);
+}
+
+
+async function removeMod(username){
+  if(!confirm("إزالة "+username+" من المشرفين؟"))return;
+  await api("/api/admin/user/role",{username:username,role:"member"});
+  await api("/api/admin/mod/perms",{username:username,permissions:[]});
+  await api("/api/admin/user/badge",{username:username,badge:""});
+  loadMods();
+  alert("تم إزالة "+username);
+}
+
+
+function showPermsModal(name,perms){
+  targetUser=name;
+  document.getElementById('permsName').textContent=name;
+  document.getElementById('permsList').innerHTML=PERMS.map(p=>`<div class="perm-item"><input type="checkbox" id="perm_${p.id}" ${(perms||[]).includes(p.id)?'checked':''}> <label for="perm_${p.id}">${p.label}</label></div>`).join('');
+  document.getElementById('permsModal').classList.add('show');
+}
+async function savePerms(){
+  const perms=PERMS.filter(p=>document.getElementById('perm_'+p.id).checked).map(p=>p.id);
+  await api('/api/admin/mod/perms',{username:targetUser,permissions:perms});
+  closeModal('permsModal');loadMods();
+}
+
+var PRESETS={
+  girls:{thLoginCard:'#250c1e',thLoginBtn:'#ff69b4',thPrimary:'#ff69b4',thAccent:'#ff1493',thBorder:'#4a2040',thBg:'#2d1025',thBg2:'#3a1530',thBg3:'#4a1a3a',thSidebar:'#250c1e',thText:'#fce4ec',thText2:'#d4829a',thMarquee:'#ff69b4',thOwner:'#ff69b4',thAdmin:'#ff1744',thMod:'#e91e90',thVip:'#e040fb',thMember:'#ff80ab',thGuest:'#b07090',thRadius:'14'},
+  saudi:{thLoginCard:'#072510',thLoginBtn:'#006c35',thPrimary:'#006c35',thAccent:'#d4af37',thBorder:'#1a4a28',thBg:'#0a2e14',thBg2:'#0e3a1a',thBg3:'#124820',thSidebar:'#072510',thText:'#e8f5e9',thText2:'#a5d6a7',thMarquee:'#d4af37',thOwner:'#d4af37',thAdmin:'#c62828',thMod:'#2e7d32',thVip:'#6a1b9a',thMember:'#006c35',thGuest:'#78a882',thRadius:'10'},
+  khaleeji:{thLoginCard:'#140e04',thLoginBtn:'#c9a84c',thPrimary:'#c9a84c',thAccent:'#8b6914',thBorder:'#3a3015',thBg:'#1a1205',thBg2:'#25190a',thBg3:'#302010',thSidebar:'#140e04',thText:'#f5e6c8',thText2:'#c4a870',thMarquee:'#ffd700',thOwner:'#ffd700',thAdmin:'#c0392b',thMod:'#27ae60',thVip:'#8e44ad',thMember:'#c9a84c',thGuest:'#a08860',thRadius:'12'}
+};
+function loadTheme(){
+  // Already loaded from data on login
+}
+function applyPreset(name){
+  if(name==='default'){var d={thPrimary:'#3a76f0',thAccent:'#e0a93a',thBorder:'#2a2a4a',thBg:'#1a1a2e',thBg2:'#16213e',thBg3:'#0f3460',thSidebar:'#141e30',thText:'#e8e8e8',thText2:'#aaaaaa',thMarquee:'#ffcc00',thOwner:'#e0a93a',thAdmin:'#ef4444',thMod:'#22c55e',thVip:'#a855f7',thMember:'#3a76f0',thGuest:'#888888',thRadius:'10',thLoginCard:'#141e30',thLoginBtn:'#3a76f0'};for(var k in d){var el=document.getElementById(k);if(el)el.value=d[k];}if(typeof updatePreview==='function')updatePreview();return;}
+  var p=PRESETS[name]; if(!p)return;
+  for(var k in p){var el=document.getElementById(k);if(el)el.value=p[k];}
+  if(typeof updatePreview==='function')updatePreview();
+}
+
+async function saveTheme(){
+  var gv=function(id,d){var el=document.getElementById(id);return el?(el.value||d):d;};
+  const theme={
+    primary:gv('thPrimary','#3a76f0'),accent:gv('thAccent','#e0a93a'),border:gv('thBorder','#2a2a4a'),loginCard:gv('thLoginCard','#141e30'),loginBtn:gv('thLoginBtn','#3a76f0'),
+    bg:gv('thBg','#1a1a2e'),bg2:gv('thBg2','#16213e'),bg3:gv('thBg3','#0f3460'),sidebar:gv('thSidebar','#141e30'),
+    text:gv('thText','#e8e8e8'),text2:gv('thText2','#aaaaaa'),marqueeColor:gv('thMarquee','#ffcc00'),
+    owner:gv('thOwner','#e0a93a'),admin:gv('thAdmin','#ef4444'),mod:gv('thMod','#22c55e'),
+    vip:gv('thVip','#a855f7'),member:gv('thMember','#3a76f0'),guest:gv('thGuest','#888888'),
+    radius:gv('thRadius','10')+'px'
+  };
+  await api('/api/admin/theme',{theme});
+  alert('تم تطبيق الثيم على كل المتصلين! ✅');
+}
+function updatePreview(){
+  var gv=function(id){var el=document.getElementById(id);return el?el.value:'';};
+  var h=document.getElementById('prevHeader'),b=document.getElementById('prevBody');
+  var m1=document.getElementById('prevMsg1'),m2=document.getElementById('prevMsg2'),btn=document.getElementById('prevBtn');
+  if(h){h.style.background=gv('thSidebar');h.style.color=gv('thText');}
+  if(b){b.style.background=gv('thBg');b.style.color=gv('thText2');}
+  if(m1){m1.style.background=gv('thBg2');m1.style.color=gv('thOwner');m1.style.borderRadius=gv('thRadius')+'px';}
+  if(m2){m2.style.background=gv('thBg2');m2.style.color=gv('thText');m2.style.borderRadius=gv('thRadius')+'px';}
+  if(btn){btn.style.background=gv('thPrimary');btn.style.borderRadius=gv('thRadius')+'px';}
+}
+document.addEventListener('input',function(e){if(e.target&&e.target.id&&e.target.id.startsWith('th'))updatePreview();});
+
+// LOGS
+async function loadLogs(){
+  var filter=document.getElementById('logFilter').value;
+  var search=(document.getElementById('logSearch').value||'').toLowerCase();
+  var r=await api('/api/admin/logs',{page:logPage,filter:filter,search:search,limit:100});
+  var logs=r.logs||[];
+
+  // Filter by action type
+  if(filter) logs=logs.filter(function(l){return l.action.indexOf(filter)>=0;});
+  // Filter by search
+  if(search) logs=logs.filter(function(l){return (l.action+' '+(l.details||'')).toLowerCase().indexOf(search)>=0;});
+
+  var actionLabels={
+    'admin_login':'🔒 دخول لوحة تحكم',
+    'guest_login':'👤 دخول زائر',
+    'mod_login':'🛡 دخول مشرف',
+    'logout':'🚪 خروج',
+    'kick':'👢 طرد',
+    'ban':'⛔ حظر',
+    'unban':'✅ إلغاء حظر',
+    'warn':'⚠️ تحذير',
+    'rename_user':'✏️ تغيير اسم',
+    'badge_change':'🏅 تغيير شارة',
+    'chat_block':'🚫 منع كتابة',
+    'mic_block':'🎤 منع مايك',
+    'cam_block':'📷 منع كام',
+    'device_ban':'📵 حظر جهاز',
+    'room_create':'🏠 إنشاء غرفة',
+    'room_delete':'🗑 حذف غرفة',
+    'role_change':'👑 تغيير رتبة',
+    'theme_update':'🎨 تحديث المظهر',
+    'theme_reset':'🔄 ريست المظهر',
+    'mod_add':'➕ إضافة مشرف',
+    'mod_delete':'➖ حذف مشرف',
+    'mod_update':'📝 تعديل مشرف',
+    'mod_perms_update':'🛡 تحديث صلاحيات',
+    'announcement':'📢 إعلان',
+    'invite_create':'🎫 كود دعوة',
+    'invite_delete':'🗑 حذف دعوة',
+    'violation':'🚨 مخالفة'
+  };
+
+  var actionColors={
+    'admin_login':'#3a76f0','guest_login':'#22c55e','mod_login':'#a855f7',
+    'logout':'#888','kick':'#f59e0b','ban':'#ef4444','unban':'#22c55e',
+    'warn':'#f59e0b','chat_block':'#ef4444','mic_block':'#ef4444','cam_block':'#ef4444',
+    'device_ban':'#ef4444','violation':'#ef4444',
+    'rename_user':'#3a76f0','badge_change':'#3a76f0','role_change':'#a855f7',
+    'room_create':'#22c55e','room_delete':'#ef4444',
+    'theme_update':'#e0a93a','theme_reset':'#e0a93a',
+    'mod_add':'#22c55e','mod_delete':'#ef4444','mod_update':'#3a76f0','mod_perms_update':'#a855f7',
+    'announcement':'#e0a93a','invite_create':'#22c55e','invite_delete':'#ef4444'
+  };
+
+  function parseDetails(detailsStr) {
+    try {
+      var d = typeof detailsStr === 'string' ? JSON.parse(detailsStr) : detailsStr;
+      var parts = [];
+      if(d.username) parts.push(d.username);
+      if(d.displayName) parts.push(d.displayName);
+      if(d.code) parts.push('الكود: '+d.code);
+      if(d.target) parts.push('→ '+d.target);
+      if(d.by) parts.push('بواسطة: '+d.by);
+      if(d.newName) parts.push('→ '+d.newName);
+      if(d.badge) parts.push('شارة: '+d.badge);
+      if(d.role) parts.push('رتبة: '+d.role);
+      if(d.reason) parts.push('السبب: '+d.reason);
+      if(d.duration) parts.push(d.duration+' ثانية');
+      if(d.message) parts.push(d.message);
+      if(d.name) parts.push(d.name);
+      if(d.ip && d.ip!=='local') parts.push('IP: '+d.ip);
+      if(d.fingerprint) parts.push('بصمة: '+d.fingerprint.substring(0,8)+'...');
+      return parts.join(' | ') || '-';
+    } catch(e) { return detailsStr || '-'; }
+  }
+
+  function fmtDate(d) {
+    if(!d) return '-';
+    var dt = new Date(d);
+    var day = dt.getDate().toString().padStart(2,'0');
+    var mon = (dt.getMonth()+1).toString().padStart(2,'0');
+    var h = dt.getHours().toString().padStart(2,'0');
+    var m = dt.getMinutes().toString().padStart(2,'0');
+    return day+'/'+mon+' '+h+':'+m;
+  }
+
+  var html = '';
+  logs.forEach(function(l) {
+    var label = actionLabels[l.action] || l.action;
+    var color = actionColors[l.action] || '#888';
+    var detail = parseDetails(l.details);
+    var time = fmtDate(l.created_at);
+    html += '<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px">';
+    html += '<span style="color:#555;min-width:70px;font-size:11px;font-family:monospace">'+time+'</span>';
+    html += '<span style="background:'+color+'22;color:'+color+';padding:2px 10px;border-radius:6px;font-size:11px;font-weight:600;min-width:120px;text-align:center;border:1px solid '+color+'33">'+label+'</span>';
+    html += '<span style="color:#ccc;flex:1">'+detail+'</span>';
+    html += '</div>';
+  });
+
+  document.getElementById('logsArea').innerHTML = html || '<p style="color:#666;text-align:center;padding:40px">لا يوجد سجلات</p>';
+  var total = logs.length;
+  document.getElementById('logsPagination').innerHTML = '<span style="color:#888;font-size:12px">إجمالي: ' + total + ' سجل</span>';
+}
+
+// SETTINGS
+async function loadSettings(){
+  const r=await api('/api/admin/stats');
+  // Load features from overview stats... we need a settings endpoint
+  // For now use the poll data pattern
+}
+function toggleFeat(el,feat){
+  el.classList.toggle('on');
+  const features={};
+  features[feat]=el.classList.contains('on');
+  api('/api/admin/settings',{settings:{features}});
+}
+function toggleGuest(el){
+  el.classList.toggle('on');
+  api('/api/admin/settings',{settings:{guestAllowed:el.classList.contains('on')}});
+}
+async function changePassword(){
+  const r=await api('/api/admin/password',{oldPassword:document.getElementById('oldPass').value,newPassword:document.getElementById('newPass').value});
+  document.getElementById('passMsg').innerHTML=r.error?`<span style="color:#ff6b6b">${r.error}</span>`:'<span style="color:#2da838">تم تغيير كلمة المرور ✅</span>';
+}
+
+// HELPERS
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function fmtTime(t){if(!t)return'—';return new Date(t).toLocaleString('ar-SA',{hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'})}
+function fmtDate(t){if(!t)return'—';return new Date(t).toLocaleDateString('ar-SA',{year:'numeric',month:'short',day:'numeric'})}
+function actionColor(a){
+  if(a.includes('ban'))return'admin';
+  if(a.includes('kick'))return'admin';
+  if(a.includes('join')||a.includes('leave'))return'mod';
+  if(a.includes('role')||a.includes('badge'))return'vip';
+  return'member';
+}
+
+// Auto refresh every 10s
+setInterval(()=>{
+  const active=document.querySelector('.section.active');
+  if(active?.id==='sec-overview')loadOverview();
+},10000);
+
+
+// ===== INVITE CODES =====
+function showCreateInvite(){document.getElementById('inviteModal').classList.add('show')}
+
+async function confirmCreateInvite(){
+  const code=document.getElementById('inviteCode').value.trim();
+  const role=document.getElementById('inviteRole').value;
+  const maxUses=parseInt(document.getElementById('inviteMaxUses').value)||0;
+  const r=await api('/api/admin/invite-code/create',{code,role,maxUses});
+  if(r.ok){closeModal('inviteModal');loadInvites();alert('تم إنشاء الكود: '+r.code)}
+  else{alert(r.error)}
+}
+
+async function loadInvites(){
+  const r=await api('/api/admin/invite-codes');
+  const list=document.getElementById('invitesList');
+  if(!list)return;
+  const codes=r.codes||[];
+  if(!codes.length){list.innerHTML='<p style="color:#888;padding:16px;text-align:center">لا يوجد أكواد دعوة</p>';return}
+  var html='<table style="width:100%;border-collapse:collapse"><tr style="border-bottom:1px solid rgba(255,255,255,.1)"><th style="padding:8px;text-align:right">الكود</th><th>الاستخدامات</th><th>الحد</th><th>أنشئ بواسطة</th><th>الحالة</th><th>إجراء</th></tr>';
+  codes.forEach(function(c){
+    var status=c.enabled?'<span style="color:#22c55e">فعال</span>':'<span style="color:#ef4444">معطل</span>';
+    html+='<tr style="border-bottom:1px solid rgba(255,255,255,.05)">';
+    html+='<td style="padding:8px;font-weight:700;color:#3a76f0;cursor:pointer" onclick="navigator.clipboard.writeText(\''+c.code+'\');alert(\'\u062A\u0645 \u0627\u0644\u0646\u0633\u062E: '+c.code+'\')">'+c.code+' 📋</td>';
+    html+='<td style="padding:8px;text-align:center">'+(c.used_count||0)+'</td>';
+    html+='<td style="padding:8px;text-align:center">'+(c.max_uses>0?c.max_uses:'∞')+'</td>';
+    html+='<td style="padding:8px;text-align:center">'+(c.created_by||'-')+'</td>';
+    html+='<td style="padding:8px;text-align:center">'+status+'</td>';
+    html+='<td style="padding:8px"><button class="btn btn-red" style="padding:2px 8px;font-size:11px" onclick="deleteInvite(\''+c.code+'\')">\u062D\u0630\u0641</button></td>';
+    html+='</tr>';
+  });
+  html+='</table>';
+  list.innerHTML=html;
+}
+
+async function deleteInvite(code){
+  if(!confirm('حذف الكود: '+code+'?'))return;
+  await api('/api/admin/invite-code/delete',{code});
+  loadInvites();
+}
+
+// ===== THEME RESET =====
+async function resetTheme(){
+  if(!confirm('إرجاع الثيم للافتراضي؟ سيتم تغيير كل الألوان للقيم الأصلية.'))return;
+  const r=await api('/api/admin/reset-theme');
+  if(r.ok){alert('تم إرجاع الثيم الافتراضي');loadTheme()}
+}
+
+// ===== USER TOGGLE + RESET PASSWORD =====
+var resetPassTarget='';
+function showResetPass(username){
+  resetPassTarget=username;
+  document.getElementById('resetPassName').textContent=username;
+  document.getElementById('newPassInput').value='';
+  document.getElementById('resetPassModal').classList.add('show');
+}
+
+async function confirmResetPass(){
+  const pass=document.getElementById('newPassInput').value;
+  if(!pass||pass.length<4){alert('كلمة المرور لازم 4 أحرف على الأقل');return}
+  await api('/api/admin/user/reset-password',{username:resetPassTarget,newPassword:pass});
+  closeModal('resetPassModal');
+  alert('تم تغيير كلمة المرور');
+}
+
+async function toggleUser(username,enabled){
+  if(!confirm(enabled?'تفعيل حساب '+username+'?':'تعطيل حساب '+username+'?'))return;
+  await api('/api/admin/user/toggle',{username,enabled});
+  loadUsers();
+}
+
+// Load invites when section opens
+var showSection=showSec;var origShowSection=showSection;
+showSection=function(id){origShowSection(id);if(id==='sec-invites')loadInvites()};
+
+
+async function loadHealth(){
+  var r=await api('/api/admin/server-health');
+  var h=document.getElementById('healthContent');
+  if(!h||!r.cpu)return;
+  var cpuP=r.cpu.percent||0;
+  var memP=r.memory.percent||0;
+  var cpuC=cpuP>80?'#ef4444':cpuP>50?'#f59e0b':'#22c55e';
+  var memC=memP>80?'#ef4444':memP>50?'#f59e0b':'#22c55e';
+  var conn=r.connections||{};
+  var cap=r.capacity||{};
+  var srv=r.server||{};
+  var proc=r.process||{};
+  function fmt(s){var d=Math.floor(s/86400),hh=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60);return (d?d+'d ':'')+(hh?hh+'h ':'')+(m+'m')}
+  var card='background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px';
+  h.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px">'+
+    '<div style="'+card+'"><div style="color:#888;font-size:12px">\uD83E\uDDE0 \u0627\u0644\u0645\u0639\u0627\u0644\u062C</div><div style="font-size:28px;font-weight:700;color:'+cpuC+'">'+cpuP+'%</div><div style="font-size:11px;color:#666">'+r.cpu.model+'</div><div style="font-size:11px;color:#666">'+r.cpu.cores+' \u0623\u0646\u0648\u064A\u0629</div><div style="background:rgba(255,255,255,.1);border-radius:4px;height:6px;margin-top:8px"><div style="background:'+cpuC+';height:100%;border-radius:4px;width:'+cpuP+'%"></div></div></div>'+
+    '<div style="'+card+'"><div style="color:#888;font-size:12px">\uD83D\uDCBE \u0627\u0644\u0630\u0627\u0643\u0631\u0629</div><div style="font-size:28px;font-weight:700;color:'+memC+'">'+memP+'%</div><div style="font-size:11px;color:#666">'+(r.memory.usedMB||0)+'MB / '+(r.memory.totalMB||0)+'MB</div><div style="background:rgba(255,255,255,.1);border-radius:4px;height:6px;margin-top:8px"><div style="background:'+memC+';height:100%;border-radius:4px;width:'+memP+'%"></div></div></div>'+
+    '<div style="'+card+'"><div style="color:#888;font-size:12px">\u26A1 \u0627\u0644\u062A\u0637\u0628\u064A\u0642</div><div style="font-size:28px;font-weight:700;color:#3a76f0">'+(proc.heapUsedMB||0)+'MB</div><div style="font-size:11px;color:#666">PID: '+(proc.pid||0)+'</div><div style="font-size:11px;color:#666">\u0634\u063A\u0651\u0627\u0644: '+fmt(proc.uptime||0)+'</div><div style="font-size:11px;color:#666">Node: '+(proc.nodeVersion||'')+'</div></div>'+
+    '<div style="'+card+'"><div style="color:#888;font-size:12px">\uD83D\uDCCA \u0627\u0644\u0627\u062A\u0635\u0627\u0644\u0627\u062A</div><div style="font-size:28px;font-weight:700;color:#22c55e">'+(conn.users||0)+'</div><div style="font-size:11px;color:#666">\uD83C\uDFA4 \u0645\u0627\u064A\u0643: '+(conn.mics||0)+'</div><div style="font-size:11px;color:#666">\uD83D\uDCF7 \u0643\u0627\u0645: '+(conn.cams||0)+'</div></div>'+
+  '</div>'+
+  '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">'+
+    '<div style="'+card+'"><div style="color:#888;font-size:12px">\uD83D\uDDA5\uFE0F \u0627\u0644\u0633\u064A\u0631\u0641\u0631</div><div style="font-size:14px;color:#e0e0e0;margin-top:6px">'+(srv.hostname||'')+'</div><div style="font-size:11px;color:#666">'+(srv.platform||'')+'</div><div style="font-size:11px;color:#666">\u0634\u063A\u0651\u0627\u0644: '+fmt(srv.uptimeSeconds||0)+'</div></div>'+
+    '<div style="'+card+'"><div style="color:#888;font-size:12px">\uD83D\uDE80 \u0627\u0644\u0633\u0639\u0629</div><div style="font-size:14px;color:#e0e0e0;margin-top:6px">\u0623\u0642\u0635\u0649 \u0645\u0633\u062A\u062E\u062F\u0645\u064A\u0646: ~'+(cap.maxUsers||0)+'</div><div style="font-size:11px;color:#666">\u0623\u0642\u0635\u0649 \u0645\u0627\u064A\u0643\u0627\u062A: ~'+(cap.maxMics||0)+'</div><div style="font-size:11px;color:#666">\uD83D\uDCF7 \u0623\u0642\u0635\u0649 \u0643\u0627\u0645: ~'+(cap.maxCams||0)+'</div><div style="font-size:11px;color:#666">\u0627\u0644\u0627\u0633\u062A\u062E\u062F\u0627\u0645: '+(cap.usagePercent||0)+'%</div><div style="background:rgba(255,255,255,.1);border-radius:4px;height:6px;margin-top:8px"><div style="background:#3a76f0;height:100%;border-radius:4px;width:'+(cap.usagePercent||0)+'%"></div></div><div style="font-size:10px;color:#3a76f0;margin-top:6px">'+(cap.note||'')+'</div></div>'+
+  '</div>'+
+  (r.warnings&&r.warnings.length?'<div style="margin-bottom:12px">'+r.warnings.map(function(w){var bg=w.level==='danger'?'rgba(239,68,68,.15)':'rgba(245,158,11,.15)';var bc=w.level==='danger'?'#ef4444':'#f59e0b';return '<div style="background:'+bg+';border:1px solid '+bc+';border-radius:8px;padding:10px;margin-bottom:8px"><span style="color:'+bc+';font-weight:700">'+(w.level==='danger'?'\uD83D\uDD34':'\uD83D\uDFE1')+' '+w.msg+'</span>'+(w.fix?'<div style="color:#888;font-size:12px;margin-top:4px">\uD83D\uDCA1 '+w.fix+'</div>':'')+'</div>'}).join('')+'</div>':'');
+}
+
+if(_origSec){var _prevShowSec=showSec;showSec=function(id){_prevShowSec(id);if(id==='health')loadHealth()}}
+
+
+async function loadFilter(){api("/api/admin/filter",{action:"get"}).then(function(r){var ta=document.getElementById("filterWords");if(ta&&r.words){ta.value=r.words.join(String.fromCharCode(10));document.getElementById("filterCount").textContent=r.words.length}})}
+async function saveFilter(){var ta=document.getElementById("filterWords");var words=ta.value.split(String.fromCharCode(10)).map(function(w){return w.trim()}).filter(function(w){return w.length>0});api("/api/admin/filter",{action:"set",words:words}).then(function(r){if(r.ok){alert("تم حفظ "+words.length+" كلمة ممنوعة");document.getElementById("filterCount").textContent=words.length}else{alert(r.error||"فشل")}})}
+
+
+async function openUserProfile(username) {
+    var modal = document.getElementById('userProfileModal');
+    var content = document.getElementById('profileContent');
+    modal.style.display = 'flex';
+    document.getElementById('profileTitle').textContent = username;
+    content.innerHTML = '<div style="text-align:center;color:#888;padding:20px">جاري التحميل...</div>';
+
+    try {
+        var r = await api('/api/admin/device/lookup', {username: username});
+        var user = allUsers.find(function(u) { return (u.display_name||u.displayName||u.username) === username; });
+
+        var html = '';
+
+        // User info card
+        var roleColors = {owner:'#e0a93a',admin:'#ef4444',mod:'#22c55e',vip:'#a855f7',member:'#3a76f0',guest:'#666'};
+        var roleNames = {owner:'مؤسس',admin:'مدير',mod:'مشرف',vip:'VIP',member:'عضو',guest:'زائر'};
+        var role = user ? user.role : 'guest';
+        var color = roleColors[role] || '#666';
+
+        html += '<div style="display:flex;align-items:center;gap:12px;padding:16px;background:rgba(255,255,255,.03);border-radius:12px;margin-bottom:16px">';
+        html += '<div style="width:50px;height:50px;border-radius:12px;background:' + color + ';display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;font-weight:700">' + username.charAt(0).toUpperCase() + '</div>';
+        html += '<div><div style="font-size:18px;font-weight:700;color:#fff">' + username + '</div>';
+        html += '<span style="background:' + color + ';color:#fff;font-size:11px;padding:2px 8px;border-radius:4px">' + (roleNames[role] || role) + '</span>';
+        if (user && user.badge) html += ' <span style="color:#e0a93a;font-size:12px">' + user.badge + '</span>';
+        html += '</div></div>';
+
+        // Stats
+        html += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px">';
+        if (user) {
+            html += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:10px;text-align:center"><div style="font-size:11px;color:#888">تسجيل</div><div style="font-size:13px;color:#fff">' + (user.createdAt ? new Date(user.createdAt).toLocaleDateString('ar') : '-') + '</div></div>';
+            html += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:10px;text-align:center"><div style="font-size:11px;color:#888">آخر دخول</div><div style="font-size:13px;color:#fff">' + (user.lastSeen ? new Date(user.lastSeen).toLocaleDateString('ar') : '-') + '</div></div>';
+        }
+        html += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:10px;text-align:center"><div style="font-size:11px;color:#888">أجهزة</div><div style="font-size:13px;color:#fff">' + (r.devices ? r.devices.length : 0) + '</div></div>';
+        html += '</div>';
+
+        // Aliases - other names from same device
+        if (r.aliases && r.aliases.length > 1) {
+            html += '<div style="background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.15);border-radius:12px;padding:14px;margin-bottom:16px">';
+            html += '<div style="font-size:12px;color:#ef4444;font-weight:700;margin-bottom:8px">⚠️ أسماء أخرى من نفس الجهاز:</div>';
+            html += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+            r.aliases.forEach(function(a) {
+                var isSame = a.name === username;
+                html += '<span style="background:' + (isSame ? 'rgba(58,118,240,.2)' : 'rgba(239,68,68,.1)') + ';color:' + (isSame ? '#3a76f0' : '#ef4444') + ';padding:4px 10px;border-radius:6px;font-size:12px;font-weight:600">' + a.name + '</span>';
+            });
+            html += '</div></div>';
+        }
+
+        // Device history
+        if (r.devices && r.devices.length) {
+            html += '<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:16px">';
+            html += '<div style="font-size:12px;color:#888;font-weight:700;margin-bottom:10px">📱 سجل الأجهزة:</div>';
+            r.devices.forEach(function(d) {
+                var t = new Date(d.created_at);
+                html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px">';
+                html += '<div><div style="color:#ccc">' + (d.platform || 'unknown') + ' - ' + (d.screen_size || '?') + '</div><div style="color:#555">' + (d.ip || '?') + '</div></div>';
+                html += '<div style="color:#555">' + t.toLocaleDateString('ar') + ' ' + t.toLocaleTimeString('ar', {hour:'2-digit',minute:'2-digit'}) + '</div>';
+                html += '</div>';
+            });
+            html += '</div>';
+        }
+
+        // Actions
+        html += '<div style="display:flex;gap:8px;flex-wrap:wrap">';
+        html += '<button onclick="warnUser(\''+username+'\')" style="padding:8px 16px;border-radius:8px;border:none;background:#f59e0b;color:#fff;cursor:pointer;font-size:13px">⚠️ تحذير</button>';
+        html += '<button onclick="addNote(\''+username+'\')" style="padding:8px 16px;border-radius:8px;border:none;background:#3a76f0;color:#fff;cursor:pointer;font-size:13px">📝 ملاحظة</button>';
+        html += '<button onclick="adminKick(\''+username+'\')" style="padding:8px 16px;border-radius:8px;border:none;background:#f97316;color:#fff;cursor:pointer;font-size:13px">🗑 طرد</button>';
+        html += '<button onclick="adminBan(\''+username+'\')" style="padding:8px 16px;border-radius:8px;border:none;background:#ef4444;color:#fff;cursor:pointer;font-size:13px">🚫 حظر</button>';
+        if (r.devices && r.devices.length) {
+            var fp = r.devices[0].fingerprint;
+            html += '<button onclick="banDevice(\''+fp+'\')" style="padding:8px 16px;border-radius:8px;border:none;background:#991b1b;color:#fff;cursor:pointer;font-size:13px">📵 حظر الجهاز</button>';
+        }
+        html += '</div>';
+
+        content.innerHTML = html;
+    } catch(e) {
+        content.innerHTML = '<div style="color:#ef4444;padding:20px">خطأ: ' + e.message + '</div>';
+    }
+}
+
+function closeUserProfile() {
+    document.getElementById('userProfileModal').style.display = 'none';
+}
+
+async function banDevice(fp) {
+    if (!confirm('متأكد تبي تحظر هالجهاز؟ كل الأسماء اللي يستخدمها بتنحظر')) return;
+    var r = await api('/api/admin/device/ban', {fingerprint: fp, reason: 'حظر جهاز'});
+    if (r.ok) { alert('تم حظر الجهاز'); closeUserProfile(); }
+}
+
+
+// ===================== DATA MANAGEMENT =====================
+async function loadDataStats(){
+  try{
+  var r=await api('/api/admin/data/stats');
+  var cfg=await api('/api/admin/data/cleanup-config');
+  var c=cfg.config||{};
+  var el=document.getElementById('dataContent');
+  if(!el)return;
+  var html='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px">';
+
+  // Stats cards
+  var cards=[
+    {icon:'👥',label:'مستخدمين',value:r.usersCount,color:'#3a76f0'},
+    
+    {icon:'📋',label:'سجلات',value:r.logsCount,color:'#f59e0b'},
+    {icon:'💾',label:'حجم القاعدة',value:(r.dbSizeMB||0)+' MB',color:'#a855f7'}
+  ];
+  cards.forEach(function(cd){
+    html+='<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;text-align:center">';
+    html+='<div style="font-size:24px">'+cd.icon+'</div>';
+    html+='<div style="font-size:24px;font-weight:700;color:'+cd.color+';margin:4px 0">'+cd.value+'</div>';
+    html+='<div style="font-size:12px;color:#888">'+cd.label+'</div></div>';
+  });
+  html+='</div>';
+
+  // Auto cleanup settings
+  html+='<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin-bottom:16px">';
+  html+='<h3 style="color:#3a76f0;margin-bottom:16px;font-size:15px">⚙️ التنظيف التلقائي</h3>';
+  html+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">';
+  html+='<label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#ccc"><input type="checkbox" id="autoCleanEnabled" '+(c.autoEnabled?'checked':'')+' style="width:18px;height:18px"> تفعيل التنظيف التلقائي (كل 6 ساعات)</label></div>';
+  html+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">';
+  html+='<div><label style="font-size:12px;color:#888">حذف سجلات أقدم من (يوم)</label><input type="number" id="cleanLogDays" value="'+(c.logDays||14)+'" min="1" max="365" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:14px"></div>';
+  
+  html+='<div><label style="font-size:12px;color:#888">حذف زوار غير نشطين (يوم)</label><input type="number" id="cleanInactiveDays" value="'+(c.inactiveDays||60)+'" min="7" max="365" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:14px"></div>';
+  html+='</div>';
+  html+='<div style="display:flex;align-items:center;gap:10px;margin-top:10px">';
+  html+='<label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#ccc;font-size:13px"><input type="checkbox" id="cleanInactiveEnabled" '+(c.cleanInactive?'checked':'')+' style="width:16px;height:16px"> حذف الزوار غير النشطين تلقائياً</label></div>';
+  html+='<button onclick="saveCleanupSettings()" style="margin-top:14px;padding:10px 24px;border-radius:8px;border:none;background:#3a76f0;color:#fff;font-size:14px;cursor:pointer;font-weight:600">💾 حفظ الإعدادات</button>';
+  html+='</div>';
+
+  // Manual cleanup buttons
+  html+='<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;margin-bottom:16px">';
+  html+='<h3 style="color:#f59e0b;margin-bottom:16px;font-size:15px">🧹 تنظيف يدوي</h3>';
+  html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
+  html+='<button onclick="cleanLogsManual()" style="padding:14px;border-radius:10px;border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.08);color:#ef4444;cursor:pointer;font-size:13px">📋 حذف سجلات قديمة<br><span style="font-size:11px;color:#888">أقدم من 14 يوم</span></button>';
+  
+  html+='<button onclick="deleteAllLogs()" style="padding:14px;border-radius:10px;border:1px solid rgba(239,68,68,.5);background:rgba(239,68,68,.15);color:#ef4444;cursor:pointer;font-size:13px;font-weight:700">🗑 حذف كل السجلات<br><span style="font-size:11px;color:#888">حذف نهائي</span></button>';
+  html+='<button onclick="cleanAll()" style="padding:14px;border-radius:10px;border:1px solid rgba(239,68,68,.5);background:rgba(239,68,68,.15);color:#ef4444;cursor:pointer;font-size:13px;font-weight:700">⚠️ تنظيف شامل<br><span style="font-size:11px;color:#888">سجلات + غير نشطين</span></button>';
+  html+='</div>';
+  html+='<div id="cleanResult" style="margin-top:10px;text-align:center"></div>';
+  html+='</div>';
+
+  el.innerHTML=html;
+  }catch(e){var x=document.getElementById('dataContent');if(x)x.innerHTML='<div style="color:#ef4444;padding:20px">خطأ: '+e.message+'</div>'}
+}
+
+async function saveDataSettings(){
+  var s={
+    autoCleanEnabled:document.getElementById('dataAutoClean').classList.contains('on'),
+    inactiveDays:parseInt(document.getElementById('dataInactiveDays').value)||30,
+    maxMessagesPerRoom:parseInt(document.getElementById('dataMaxMessages').value)||10000,
+    maxLogs:parseInt(document.getElementById('dataMaxLogs').value)||5000,
+    cleanIntervalHours:parseInt(document.getElementById('dataCleanInterval').value)||24
+  };
+  var r=await api('/api/admin/data/settings',{settings:s});
+  var msg=document.getElementById('dataSettingsMsg');
+  if(r.ok){msg.style.color='#2da838';msg.textContent='\u2705 \u062a\u0645 \u0627\u0644\u062d\u0641\u0638';}
+  else{msg.style.color='#d65353';msg.textContent='\u274c '+r.error;}
+  setTimeout(function(){msg.textContent=''},3000);
+}
+
+
+async function cleanOldLogs(){
+  if(!confirm('\u0647\u0644 \u0623\u0646\u062a \u0645\u062a\u0623\u0643\u062f \u0645\u0646 \u062d\u0630\u0641 \u0627\u0644\u0633\u062c\u0644\u0627\u062a \u0627\u0644\u0623\u0642\u062f\u0645 \u0645\u0646 14 \u064a\u0648\u0645\u061f'))return;
+  var r=await api('/api/admin/data/clean-logs',{days:14});
+  document.getElementById('cleanResult').innerHTML=r.ok?'<span style="color:#2da838">\u2705 \u062a\u0645 \u062d\u0630\u0641 '+r.deleted+' \u0633\u062c\u0644</span>':'<span style="color:#d65353">\u274c '+r.error+'</span>';
+}
+
+async function cleanAll(){
+  if(!confirm('\u26a0\ufe0f \u0647\u0644 \u062a\u0631\u064a\u062f \u062a\u0646\u0641\u064a\u0630 \u0627\u0644\u062a\u0646\u0638\u064a\u0641 \u0627\u0644\u0634\u0627\u0645\u0644\u061f \u0633\u064a\u062a\u0645 \u062d\u0630\u0641 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645\u064a\u0646 \u063a\u064a\u0631 \u0627\u0644\u0646\u0634\u0637\u064a\u0646 \u0648\u0627\u0644\u0631\u0633\u0627\u0626\u0644 \u0648\u0627\u0644\u0633\u062c\u0644\u0627\u062a \u0627\u0644\u0642\u062f\u064a\u0645\u0629'))return;
+  var r=await api('/api/admin/data/clean-all');
+  if(r.ok){
+    document.getElementById('cleanResult').innerHTML='<span style="color:#2da838">\u2705 \u062a\u0645 \u0627\u0644\u062a\u0646\u0638\u064a\u0641: '+r.inactiveDeleted+' \u0645\u0633\u062a\u062e\u062f\u0645, '+r.messagesDeleted+' \u0631\u0633\u0627\u0644\u0629, '+r.logsDeleted+' \u0633\u062c\u0644</span>';
+  }else{
+    document.getElementById('cleanResult').innerHTML='<span style="color:#d65353">\u274c '+r.error+'</span>';
+  }
+}
+
+var _inactiveList=[];
+async function loadInactiveUsers(){
+  var days=parseInt(document.getElementById('inactiveDaysInput').value)||30;
+  var r=await api('/api/admin/data/inactive-users',{days:days});
+  if(!r.users){document.getElementById('inactiveUsersList').innerHTML='<span style="color:#d65353">\u274c \u062e\u0637\u0623</span>';return}
+  _inactiveList=r.users;
+  if(!r.users.length){document.getElementById('inactiveUsersList').innerHTML='<div style="color:#2da838;padding:8px">\u2705 \u0644\u0627 \u064a\u0648\u062c\u062f \u0645\u0633\u062a\u062e\u062f\u0645\u064a\u0646 \u063a\u064a\u0631 \u0646\u0634\u0637\u064a\u0646</div>';document.getElementById('btnDeleteSelected').style.display='none';document.getElementById('btnDeleteAllInactive').style.display='none';return}
+  document.getElementById('btnDeleteSelected').style.display='';
+  document.getElementById('btnDeleteAllInactive').style.display='';
+  var h='<table class="tbl"><thead><tr><th><input type="checkbox" onchange="toggleAllInactive(this)"></th><th>\u0627\u0644\u0627\u0633\u0645</th><th>\u0627\u0644\u0631\u062a\u0628\u0629</th><th>\u0622\u062e\u0631 \u0638\u0647\u0648\u0631</th></tr></thead><tbody>';
+  for(var i=0;i<r.users.length;i++){
+    var u=r.users[i];
+    var ls=u.last_seen?new Date(u.last_seen).toLocaleDateString('ar'):'N/A';
+    h+='<tr><td><input type="checkbox" class="inactiveCb" value="'+u.username.replace(/"/g,'&quot;')+'"></td>';
+    h+='<td>'+u.username+'</td><td><span class="role-badge role-'+(u.role||'guest')+'">'+(u.role||'guest')+'</span></td><td>'+ls+'</td></tr>';
+  }
+  h+='</tbody></table>';
+  document.getElementById('inactiveUsersList').innerHTML=h;
+}
+
+function toggleAllInactive(el){
+  var cbs=document.querySelectorAll('.inactiveCb');
+  for(var i=0;i<cbs.length;i++)cbs[i].checked=el.checked;
+}
+
+async function deleteSelectedInactive(){
+  var cbs=document.querySelectorAll('.inactiveCb:checked');
+  if(!cbs.length){alert('\u0627\u062e\u062a\u0631 \u0645\u0633\u062a\u062e\u062f\u0645\u064a\u0646 \u0623\u0648\u0644\u0627\u064b');return}
+  var names=[];for(var i=0;i<cbs.length;i++)names.push(cbs[i].value);
+  if(!confirm('\u062d\u0630\u0641 '+names.length+' \u0645\u0633\u062a\u062e\u062f\u0645\u061f'))return;
+  var r=await api('/api/admin/data/delete-users',{usernames:names});
+  if(r.ok){alert('\u062a\u0645 \u062d\u0630\u0641 '+r.deleted+' \u0645\u0633\u062a\u062e\u062f\u0645');loadInactiveUsers();loadDataStats();}
+  else alert('\u062e\u0637\u0623: '+r.error);
+}
+
+async function deleteAllInactive(){
+  if(!_inactiveList.length)return;
+  if(!confirm('\u26a0\ufe0f \u062d\u0630\u0641 \u062c\u0645\u064a\u0639 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645\u064a\u0646 \u063a\u064a\u0631 \u0627\u0644\u0646\u0634\u0637\u064a\u0646 ('+_inactiveList.length+')\u061f'))return;
+  var names=_inactiveList.map(function(u){return u.username});
+  var r=await api('/api/admin/data/delete-users',{usernames:names});
+  if(r.ok){alert('\u062a\u0645 \u062d\u0630\u0641 '+r.deleted+' \u0645\u0633\u062a\u062e\u062f\u0645');loadInactiveUsers();loadDataStats();}
+  else alert('\u062e\u0637\u0623: '+r.error);
+}
+
+
+async function loadDailyStats(){
+  var r=await api('/api/admin/daily-stats');
+  var el=document.getElementById('dailyStatsArea');
+  if(!el)return;
+  var html='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px">';
+  html+='<div style="background:rgba(58,118,240,.1);border:1px solid rgba(58,118,240,.2);border-radius:8px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:700;color:#3a76f0">'+r.today+'</div><div style="font-size:11px;color:#888">اليوم</div></div>';
+  html+='<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:700;color:#e0e0e0">'+r.yesterday+'</div><div style="font-size:11px;color:#888">امس</div></div>';
+  html+='<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:700;color:#e0e0e0">'+r.week+'</div><div style="font-size:11px;color:#888">هالاسبوع</div></div>';
+  html+='<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;text-align:center"><div style="font-size:24px;font-weight:700;color:#e0e0e0">'+r.month+'</div><div style="font-size:11px;color:#888">هالشهر</div></div>';
+  html+='</div>';
+  if(r.days&&r.days.length){
+    var max=Math.max.apply(null,r.days.map(function(d){return d.visitors||0}))||1;
+    html+='<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;margin-bottom:16px">';
+    html+='<div style="font-size:12px;color:#888;margin-bottom:12px">\u{1F4C8} \u0627\u0644\u0632\u0648\u0627\u0631 \u0622\u062E\u0631 7 \u0623\u064A\u0627\u0645</div>';
+    html+='<div style="display:flex;align-items:flex-end;gap:4px;height:80px">';
+    var last7=r.days.slice(0,7).reverse();
+    last7.forEach(function(d){
+      var pct=Math.round((d.visitors||0)/max*100);
+      var day=new Date(d.date).toLocaleDateString('ar',{weekday:'short'});
+      html+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px"><div style="width:100%;background:#3a76f0;border-radius:4px 4px 0 0;min-height:4px;height:'+pct+'%"></div><div style="font-size:9px;color:#888">'+day+'</div><div style="font-size:9px;color:#3a76f0">'+(d.visitors||0)+'</div></div>';
+    });
+    html+='</div></div>';
+  }
+  el.innerHTML=html;
+}
+
+
+// ===================== MIC MANAGEMENT =====================
+var _micRefreshTimer = null;
+var _micSelectedRoom = '';
+
+async function loadMicDashboard() {
+  // Load rooms into selector
+  var r = await api('/api/admin/rooms');
+  var sel = document.getElementById('micRoomSelect');
+  if (!sel) return;
+  var rooms = r.rooms || [];
+  var h = '<option value="">-- اختر غرفة --</option>';
+  for (var i = 0; i < rooms.length; i++) {
+    var rm = rooms[i];
+    h += '<option value="' + rm.id + '"' + (rm.id === _micSelectedRoom ? ' selected' : '') + '>' + (rm.icon || '🏠') + ' ' + rm.name + ' (' + rm.onlineCount + ' متصل)</option>';
+  }
+  sel.innerHTML = h;
+
+  // Build overview table
+  var ov = document.getElementById('micAllRoomsOverview');
+  if (!rooms.length) { ov.innerHTML = '<div style="color:#666">لا يوجد غرف</div>'; return; }
+  var t = '<table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr style="color:#888;text-align:right;border-bottom:1px solid rgba(255,255,255,.1)"><th style="padding:8px">الغرفة</th><th style="padding:8px">المتحدثون</th><th style="padding:8px">الحد الأقصى</th><th style="padding:8px">الطابور</th><th style="padding:8px">الحالة</th></tr></thead><tbody>';
+  for (var i = 0; i < rooms.length; i++) {
+    var rm = rooms[i];
+    var as = rm.activeSpeakers || 0;
+    var qs = rm.queueSize || 0;
+    var ms = rm.max_speakers || 1;
+    var statusColor = as > 0 ? '#22c55e' : '#666';
+    var statusText = as > 0 ? '🔊 نشط' : '🔇 صامت';
+    t += '<tr style="border-bottom:1px solid rgba(255,255,255,.05)">';
+    t += '<td style="padding:8px;color:#fff">' + (rm.icon || '🏠') + ' ' + rm.name + '</td>';
+    t += '<td style="padding:8px;color:#3a76f0;font-weight:bold">' + as + '</td>';
+    t += '<td style="padding:8px;color:#888">' + ms + '</td>';
+    t += '<td style="padding:8px;color:' + (qs > 0 ? '#e0a93a' : '#666') + '">' + qs + '</td>';
+    t += '<td style="padding:8px;color:' + statusColor + '">' + statusText + '</td>';
+    t += '</tr>';
+  }
+  t += '</tbody></table>';
+  ov.innerHTML = t;
+
+  // Refresh selected room if any
+  if (_micSelectedRoom) loadRoomMicState(_micSelectedRoom);
+}
+
+async function loadRoomMicState(roomId) {
+  _micSelectedRoom = roomId;
+  var panel = document.getElementById('micRoomSettings');
+  if (!roomId) { panel.style.display = 'none'; return; }
+  panel.style.display = '';
+
+  // Load room settings
+  var r = await api('/api/admin/rooms');
+  var rooms = r.rooms || [];
+  var room = rooms.find(function(x) { return x.id === roomId; });
+  if (room) {
+    document.getElementById('micMaxSpeakers').value = room.max_speakers || 1;
+    document.getElementById('micQueueMode').value = room.mic_queue_mode || 'fifo';
+    document.getElementById('micAutoRelease').value = room.mic_auto_release || 0;
+    document.getElementById('micWhoCanSpeak').value = room.mic_mode || 'all';
+  }
+
+  // Load speakers and queue
+  var s = await api('/api/mic/speakers', { roomId: roomId });
+  renderMicSpeakers(s.speakers || [], s.settings || {});
+  renderMicQueue(s.queue || []);
+}
+
+function renderMicSpeakers(speakers, settings) {
+  var el = document.getElementById("micActiveSpeakers");
+  var countEl = document.getElementById("micSpeakerCount");
+  var max = settings.maxSpeakers || 1;
+  countEl.textContent = "(" + speakers.length + "/" + max + ")";
+  if (!speakers.length) { el.innerHTML = '<div style="color:#666;font-size:13px">\u0644\u0627 \u064a\u0648\u062c\u062f \u0645\u062a\u062d\u062f\u062b\u0648\u0646</div>'; return; }
+  var html = "";
+  for (var i = 0; i < speakers.length; i++) {
+    var sp = speakers[i];
+    var dur = sp.duration || 0;
+    var mins = Math.floor(dur / 60);
+    var secs = dur % 60;
+    var durText = mins + ":" + (secs < 10 ? "0" : "") + secs;
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:8px;margin-bottom:8px">';
+    html += '<div style="display:flex;align-items:center;gap:10px">';
+    html += '<div style="width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse 1.5s infinite"></div>';
+    html += '<span style="color:#fff;font-weight:bold">' + sp.username + '</span>';
+    html += '<span style="color:#888;font-size:12px">\u23F1 ' + durText + '</span>';
+    html += '</div>';
+    html += '<button class="btn btn-red" style="font-size:11px;padding:4px 10px" data-mute="' + sp.username + '">\uD83D\uDD07 \u0625\u0633\u0643\u0627\u062a</button>';
+    html += '</div>';
+  }
+  el.innerHTML = html;
+  el.onclick = function(e) {
+    var btn = e.target.closest("[data-mute]");
+    if (btn) forceMuteSpeaker(btn.getAttribute("data-mute"));
+  };
+}
+
+function renderMicQueue(queue) {
+  var el = document.getElementById("micQueueList");
+  var countEl = document.getElementById("micQueueCount");
+  countEl.textContent = queue.length > 0 ? "(" + queue.length + ")" : "";
+  if (!queue.length) { el.innerHTML = '<div style="color:#666;font-size:13px">\u0627\u0644\u0637\u0627\u0628\u0648\u0631 \u0641\u0627\u0631\u063a</div>'; return; }
+  var html = "";
+  for (var i = 0; i < queue.length; i++) {
+    var q = queue[i];
+    var waitMins = Math.floor((q.waitTime || 0) / 60);
+    var waitSecs = (q.waitTime || 0) % 60;
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:rgba(224,169,58,.08);border:1px solid rgba(224,169,58,.2);border-radius:8px;margin-bottom:8px">';
+    html += '<div style="display:flex;align-items:center;gap:10px">';
+    html += '<span style="color:#e0a93a;font-weight:bold;min-width:24px">#' + q.position + '</span>';
+    html += '<span style="color:#fff">' + q.username + '</span>';
+    html += '<span style="color:#888;font-size:12px">\u23F3 ' + waitMins + ':' + (waitSecs < 10 ? '0' : '') + waitSecs + '</span>';
+    html += '</div>';
+    html += '<div style="display:flex;gap:4px">';
+    html += '<button class="btn btn-blue" style="font-size:11px;padding:4px 8px" data-approve="' + q.username + '">\u2705 \u0642\u0628\u0648\u0644</button>';
+    html += '<button class="btn btn-red" style="font-size:11px;padding:4px 8px" data-deny="' + q.username + '">\u274c \u0631\u0641\u0636</button>';
+    html += '</div>';
+    html += '</div>';
+  }
+  el.innerHTML = html;
+  el.onclick = function(e) {
+    var btn = e.target.closest("[data-approve]");
+    if (btn) { approveMicQueue(btn.getAttribute("data-approve")); return; }
+    btn = e.target.closest("[data-deny]");
+    if (btn) denyMicQueue(btn.getAttribute("data-deny"));
+  };
+}
+
+async function saveMicSettings() {
+  var roomId = _micSelectedRoom;
+  if (!roomId) return;
+  var d = {
+    roomId: roomId,
+    maxSpeakers: parseInt(document.getElementById('micMaxSpeakers').value) || 1,
+    micQueueMode: document.getElementById('micQueueMode').value,
+    micAutoRelease: parseInt(document.getElementById('micAutoRelease').value) || 0,
+    micMode: document.getElementById('micWhoCanSpeak').value
+  };
+  var r = await api('/api/admin/room/mic-settings', d);
+  var msg = document.getElementById('micSettingsMsg');
+  if (r.ok) {
+    msg.style.color = '#2da838';
+    msg.textContent = '✅ تم الحفظ';
+    loadMicDashboard();
+  } else {
+    msg.style.color = '#d65353';
+    msg.textContent = '❌ ' + (r.error || 'فشل الحفظ');
+  }
+  setTimeout(function() { msg.textContent = ''; }, 3000);
+}
+
+async function forceMuteSpeaker(username) {
+  if (!confirm('هل تريد إسكات ' + username + '؟')) return;
+  var r = await api('/api/mic/force-off', { roomId: _micSelectedRoom, targetUsername: username });
+  if (r.ok) {
+    loadRoomMicState(_micSelectedRoom);
+    loadMicDashboard();
+  } else {
+    alert(r.error || 'فشل الإسكات');
+  }
+}
+
+async function approveMicQueue(username) {
+  var r = await api('/api/mic/queue/approve', { roomId: _micSelectedRoom, targetUsername: username });
+  if (r.ok) {
+    loadRoomMicState(_micSelectedRoom);
+  } else {
+    alert(r.error || 'فشل القبول');
+  }
+}
+
+async function denyMicQueue(username) {
+  var r = await api('/api/mic/queue/deny', { roomId: _micSelectedRoom, targetUsername: username });
+  if (r.ok) {
+    loadRoomMicState(_micSelectedRoom);
+  } else {
+    alert(r.error || 'فشل الرفض');
+  }
+}
+
+
+// Load bans list
+async function loadBans() {
+  var r = await api('/api/admin/bans', {token: token});
+  var bans = r.bans || [];
+  var content = document.getElementById('bansContent');
+  if (!content) { content = document.createElement('div'); content.id = 'bansContent'; document.getElementById('sec-bans').appendChild(content); }
+  if (!bans.length) { content.innerHTML = '<p style="color:#888;text-align:center;padding:40px">لا يوجد محظورين</p>'; return; }
+  content.innerHTML = '';
+  bans.forEach(function(b) {
+    var div = document.createElement('div');
+    div.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:10px;border-bottom:1px solid rgba(255,255,255,.05)';
+    div.innerHTML = '<div><span style="color:#fff;font-weight:600">' + b.username + '</span><span style="color:#888;font-size:12px;margin-right:8px">' + (b.reason || '-') + '</span></div>';
+    var btn = document.createElement('button');
+    btn.className = 'btn btn-blue';
+    btn.textContent = 'فك الحظر';
+    btn.onclick = (function(name) { return function() { unbanUser(name); }; })(b.username);
+    div.appendChild(btn);
+    content.appendChild(div);
+  });
+}
+
+// Load rooms for broadcast dropdown
+function showAddPlan() { var f=document.getElementById('addPlanForm'); f.style.display=f.style.display==='none'?'block':'none'; }
+
+async function loadSubs() {
+  // Load plans
+  var pr = await api('/api/admin/sub/plans', {token:token});
+  var plans = pr.plans || [];
+  var plansHtml = '';
+  plans.forEach(function(p) {
+    plansHtml += '<div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;margin-bottom:8px">';
+    plansHtml += '<div style="display:flex;align-items:center;gap:12px"><div style="width:12px;height:12px;border-radius:50%;background:'+p.color+'"></div>';
+    plansHtml += '<div><b style="color:#fff">'+p.name_ar+'</b> <span style="color:#888">('+p.name+')</span>';
+    plansHtml += '<div style="font-size:12px;color:#888">'+p.price+' '+p.currency+' / '+p.duration_days+' \u064A\u0648\u0645 | \u0634\u0627\u0631\u0629: '+p.badge+'</div></div></div>';
+    plansHtml += '<div style="display:flex;gap:4px"><button class="btn btn-blue" style="font-size:11px" onclick="editPlan('+p.id+')">تعديل</button><button class="btn btn-red" style="font-size:11px" onclick="deletePlan('+p.id+')">حذف</button></div></div>';
+    plansHtml += '<div id="editPlan_'+p.id+'" style="display:none;padding:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:0 0 10px 10px;margin-top:-8px;margin-bottom:8px">';
+    plansHtml += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:8px">';
+    plansHtml += '<div><label style="font-size:11px;color:#888">الاسم EN</label><input id="ep_name_'+p.id+'" value="'+p.name+'" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>';
+    plansHtml += '<div><label style="font-size:11px;color:#888">الاسم عربي</label><input id="ep_ar_'+p.id+'" value="'+p.name_ar+'" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>';
+    plansHtml += '<div><label style="font-size:11px;color:#888">السعر</label><input id="ep_price_'+p.id+'" type="number" value="'+p.price+'" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>';
+    plansHtml += '<div><label style="font-size:11px;color:#888">العملة</label><select id="ep_currency_'+p.id+'" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"><option value="BHD"'+(p.currency==='SAR'?' selected':'')+'>BHD دينار</option><option value="SAR"'+(p.currency==='SAR'?' selected':'')+'>SAR ريال</option><option value="USD"'+(p.currency==='USD'?' selected':'')+'>USD دولار</option><option value="EUR"'+(p.currency==='EUR'?' selected':'')+'>EUR يورو</option><option value="KWD"'+(p.currency==='KWD'?' selected':'')+'>KWD دينار كويتي</option><option value="AED"'+(p.currency==='AED'?' selected':'')+'>AED درهم</option><option value="QAR"'+(p.currency==='QAR'?' selected':'')+'>QAR ريال قطري</option><option value="OMR"'+(p.currency==='OMR'?' selected':'')+'>OMR ريال عماني</option></select></div>';
+    plansHtml += '</div>';
+    plansHtml += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px">';
+    plansHtml += '<div><label style="font-size:11px;color:#888">المدة (يوم)</label><input id="ep_days_'+p.id+'" type="number" value="'+p.duration_days+'" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>';
+    plansHtml += '<div><label style="font-size:11px;color:#888">الشارة</label><input id="ep_badge_'+p.id+'" value="'+p.badge+'" style="width:100%;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff"></div>';
+    plansHtml += '<div><label style="font-size:11px;color:#888">اللون</label><input id="ep_color_'+p.id+'" type="color" value="'+p.color+'" style="width:100%;padding:2px;height:30px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06)"></div>';
+    plansHtml += '<div style="display:flex;align-items:flex-end"><button class="btn btn-blue" style="width:100%" onclick="savePlan('+p.id+')">💾 حفظ</button></div>';
+    plansHtml += '</div>';
+    // Features editor
+    var feats = [];
+    try { feats = JSON.parse(p.features || '[]'); } catch(e) {}
+    plansHtml += '<div style="margin-top:10px"><label style="font-size:11px;color:#888">المميزات (كل سطر = ميزة)</label><textarea id="ep_features_'+p.id+'" rows="4" style="width:100%;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;font-size:13px;resize:vertical;direction:rtl">'+feats.join('\n')+'</textarea></div>';
+    plansHtml += '</div>';
+  });
+  document.getElementById('subsPlans').innerHTML = plansHtml || '<p style="color:#666">\u0644\u0627 \u062A\u0648\u062C\u062F \u0628\u0627\u0642\u0627\u062A</p>';
+
+  // Load plan selector
+  var sel = document.getElementById('sub_plan');
+  sel.innerHTML = plans.map(function(p) { return '<option value="'+p.id+'">'+p.name_ar+' ('+p.price+' '+p.currency+')</option>'; }).join('');
+
+  // Load subscribers
+  var sr = await api('/api/admin/sub/subscribers', {token:token});
+  var subs = sr.subscribers || [];
+  var subsHtml = '';
+  subs.forEach(function(s) {
+    var exp = new Date(s.expires_at);
+    var days = Math.ceil((exp - Date.now()) / 86400000);
+    var color = days > 7 ? '#22c55e' : days > 0 ? '#f59e0b' : '#ef4444';
+    subsHtml += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px;border-bottom:1px solid rgba(255,255,255,.05)">';
+    subsHtml += '<div><b style="color:#fff">'+s.username+'</b> <span style="background:'+s.plan_color+';color:#000;padding:2px 8px;border-radius:4px;font-size:11px">'+s.plan_name_ar+'</span>';
+    subsHtml += '<div style="font-size:11px;color:'+color+'">\u0645\u062A\u0628\u0642\u064A: '+days+' \u064A\u0648\u0645</div></div>';
+    subsHtml += '<button class="btn btn-red" style="font-size:11px" onclick="deactivateSub(\''+s.username+'\')">\u0625\u0644\u063A\u0627\u0621</button></div>';
+  });
+  document.getElementById('subsList').innerHTML = subsHtml || '<p style="color:#666">\u0644\u0627 \u064A\u0648\u062C\u062F \u0645\u0634\u062A\u0631\u0643\u064A\u0646</p>';
+}
+
+function editPlan(id) {
+  var f = document.getElementById('editPlan_' + id);
+  if (f) f.style.display = f.style.display === 'none' ? 'block' : 'none';
+}
+
+async function savePlan(id) {
+  var gv = function(x) { var e = document.getElementById(x); return e ? e.value : ''; };
+  var r = await api('/api/admin/sub/plan/update', {
+    token: token, id: id,
+    name: gv('ep_name_'+id), nameAr: gv('ep_ar_'+id),
+    price: parseFloat(gv('ep_price_'+id)) || 0,
+    durationDays: parseInt(gv('ep_days_'+id)) || 30,
+    badge: gv('ep_badge_'+id), color: gv('ep_color_'+id), currency: gv('ep_currency_'+id),
+    features: (document.getElementById('ep_features_'+id).value || '').split('\n').filter(function(f){return f.trim();})
+  });
+  if (r.ok) { alert('تم حفظ الباقة! ✅'); loadSubs(); }
+  else alert(r.error || 'فشل');
+}
+
+async function createPlan() {
+  var r = await api('/api/admin/sub/plan/create', {
+    token: token,
+    name: document.getElementById('np_name').value,
+    nameAr: document.getElementById('np_nameAr').value,
+    price: parseFloat(document.getElementById('np_price').value) || 0,
+    currency: document.getElementById('np_currency').value || 'SAR',
+    durationDays: parseInt(document.getElementById('np_days').value) || 30,
+    badge: document.getElementById('np_badge').value,
+    color: document.getElementById('np_color').value,
+    features: (document.getElementById('np_features').value || '').split('\n').filter(function(f){return f.trim();})
+  });
+  if (r.ok) { document.getElementById('addPlanForm').style.display='none'; loadSubs(); }
+}
+
+async function deletePlan(id) {
+  if (!confirm('\u062D\u0630\u0641 \u0627\u0644\u0628\u0627\u0642\u0629\u061F')) return;
+  await api('/api/admin/sub/plan/delete', {token:token, id:id});
+  loadSubs();
+}
+
+async function activateSub() {
+  var user = document.getElementById('sub_user').value.trim();
+  var planId = parseInt(document.getElementById('sub_plan').value);
+  if (!user) { alert('\u0627\u062F\u062E\u0644 \u0627\u0633\u0645 \u0627\u0644\u0645\u0633\u062A\u062E\u062F\u0645'); return; }
+  var r = await api('/api/admin/sub/activate', {token:token, username:user, planId:planId});
+  if (r.ok) { alert('\u062A\u0645 \u062A\u0641\u0639\u064A\u0644 \u0627\u0644\u0627\u0634\u062A\u0631\u0627\u0643! \u2705'); document.getElementById('sub_user').value=''; loadSubs(); }
+  else alert(r.error || '\u0641\u0634\u0644');
+}
+
+async function deactivateSub(username) {
+  if (!confirm('\u0625\u0644\u063A\u0627\u0621 \u0627\u0634\u062A\u0631\u0627\u0643 ' + username + '\u061F')) return;
+  await api('/api/admin/sub/deactivate', {token:token, username:username});
+  loadSubs();
+}
+
+
+// ===== SETTINGS TABS =====
+function showSettingsTab(tab) {
+  ['site','roles','features','security'].forEach(function(t) {
+    var el = document.getElementById('settingsTab_'+t);
+    if(el) el.style.display = t===tab ? '' : 'none';
+  });
+  // Update tab buttons
+  var btns = document.querySelectorAll('#sec-settings .sec-header ~ div:first-of-type .btn');
+  btns.forEach(function(b){ b.className = 'btn btn-gray'; });
+  event.target.className = 'btn btn-blue';
+  // Load data
+  if(tab==='site') loadSiteSettings();
+  if(tab==='roles') loadRoles();
+}
+
+async function loadSiteSettings() {
+  var r = await api('/api/admin/site-settings', {token:token});
+  document.getElementById('siteName').value = r.name || '';
+  document.getElementById('siteDescription').value = r.description || '';
+  document.getElementById('siteKeywords').value = r.keywords || '';
+  document.getElementById('siteTopbarText').value = r.topbar_text || r.topbarText || '';
+  document.getElementById('siteTopbarLink').value = r.topbar_link || r.topbarLink || '';
+  document.getElementById('siteWelcome').value = r.welcome || '';
+}
+
+async function saveSiteSettings() {
+  var r = await api('/api/admin/site-settings', {token:token, settings:{
+    name: document.getElementById('siteName').value,
+    description: document.getElementById('siteDescription').value,
+    keywords: document.getElementById('siteKeywords').value,
+    topbar_text: document.getElementById('siteTopbarText').value,
+    topbar_link: document.getElementById('siteTopbarLink').value,
+    welcome: document.getElementById('siteWelcome').value
+  }});
+  if(r.ok) alert('\u062A\u0645 \u062D\u0641\u0638 \u0625\u0639\u062F\u0627\u062F\u0627\u062A \u0627\u0644\u0645\u0648\u0642\u0639! \u2705');
+  else alert(r.error||'\u0641\u0634\u0644');
+}
+
+
+// Cache roles for dropdowns
+var _cachedRoles = [];
+async function loadRolesForDropdowns() {
+  try {
+    var r = await api('/api/admin/roles', {token: token});
+    _cachedRoles = r.roles || [];
+    // Fill new mod dropdown
+    var sel = document.getElementById('new_mod_role');
+    if (sel) {
+      sel.innerHTML = _cachedRoles.map(function(role) {
+        return '<option value="' + role.name + '">' + (role.icon||'') + ' ' + (role.name_ar||role.name) + '</option>';
+      }).join('');
+    }
+  } catch(e) {}
+}
+
+function _roleOptionsHTML(currentRole) {
+  return _cachedRoles.map(function(role) {
+    var sel = role.name === currentRole ? ' selected' : '';
+    return '<option value="' + role.name + '"' + sel + '>' + (role.icon||'') + ' ' + (role.name_ar||role.name) + '</option>';
+  }).join('');
+}
+
+async function loadRoles() {
+  var r = await api('/api/admin/roles', {token:token});
+  var roles = r.roles || [];
+  var html = '';
+  roles.forEach(function(role) {
+    var sys = role.is_system ? ' <span style="font-size:10px;color:#555">(\u0623\u0633\u0627\u0633\u064A)</span>' : '';
+    html += '<div style="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid rgba(255,255,255,.05)">';
+    html += '<div style="width:12px;height:12px;border-radius:50%;background:'+role.color+';flex-shrink:0"></div>';
+    html += '<div style="flex:1"><span style="color:#fff;font-weight:600">'+(role.icon||'')+' '+(role.name_ar||role.name)+sys+'</span>';
+    html += '<span style="color:#555;font-size:11px;margin-right:8px">'+role.name+' | \u0627\u0644\u062A\u0631\u062A\u064A\u0628: '+role.priority+'</span></div>';
+    html += '<input type="color" value="'+role.color+'" onchange="updateRole('+role.id+',\'color\',this.value)" style="width:30px;height:24px;border:none;cursor:pointer">';
+    html += '<input type="number" value="'+role.priority+'" onchange="updateRole('+role.id+',\'priority\',parseInt(this.value))" style="width:50px;padding:4px;border-radius:4px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:#fff;text-align:center">';
+    if (!role.is_system) {
+      html += '<button class="btn btn-red" style="font-size:11px;padding:4px 8px" onclick="deleteRole('+role.id+')">\u062D\u0630\u0641</button>';
+    }
+    html += '</div>';
+  });
+  document.getElementById('rolesList').innerHTML = html || '<p style="color:#888">\u0644\u0627 \u064A\u0648\u062C\u062F \u0631\u062A\u0628</p>';
+}
+
+async function createRole() {
+  var name = document.getElementById('newRoleName').value.trim();
+  var nameAr = document.getElementById('newRoleNameAr').value.trim();
+  var priority = parseInt(document.getElementById('newRolePriority').value) || 50;
+  var color = document.getElementById('newRoleColor').value;
+  if(!name) { alert('\u0627\u062F\u062E\u0644 \u0627\u0633\u0645 \u0627\u0644\u0631\u062A\u0628\u0629'); return; }
+  var r = await api('/api/admin/role/create', {token:token, name:name, nameAr:nameAr||name, priority:priority, color:color});
+  if(r.ok) { loadRoles(); document.getElementById('newRoleName').value=''; document.getElementById('newRoleNameAr').value=''; }
+  else alert(r.error||'\u0641\u0634\u0644');
+}
+
+async function updateRole(id, field, value) {
+  var data = {token:token, id:id};
+  data[field] = value;
+  await api('/api/admin/role/update', data);
+}
+
+async function deleteRole(id) {
+  if(!confirm('\u062D\u0630\u0641 \u0647\u0630\u0647 \u0627\u0644\u0631\u062A\u0628\u0629\u061F')) return;
+  var r = await api('/api/admin/role/delete', {token:token, id:id});
+  if(r.ok) loadRoles();
+  else alert(r.error||'\u0641\u0634\u0644');
+}
+
+
+
+function showAddContract() {
+  var f = document.getElementById('addContractForm');
+  f.style.display = f.style.display === 'none' ? 'block' : 'none';
+  var today = new Date().toISOString().split('T')[0];
+  var next = new Date(); next.setMonth(next.getMonth()+1);
+  document.getElementById('cStart').value = today;
+  document.getElementById('cEnd').value = next.toISOString().split('T')[0];
+  // Load mods list
+  api('/api/admin/mods', {token:token}).then(function(r) {
+    var sel = document.getElementById('cUser');
+    sel.innerHTML = '<option value="">\u0627\u062E\u062A\u0631 \u0645\u0634\u0631\u0641...</option>';
+    (r.mods||[]).forEach(function(m) { sel.innerHTML += '<option value="'+(m.display_name||m.name)+'">'+m.display_name+' ('+m.role+')</option>'; });
+  });
+  // Load rooms list
+  api('/api/admin/rooms', {token:token}).then(function(r) {
+    var sel = document.getElementById('cRoom');
+    sel.innerHTML = '<option value="">\u0627\u062E\u062A\u0631 \u063A\u0631\u0641\u0629...</option>';
+    (r.rooms||[]).forEach(function(rm) { sel.innerHTML += '<option value="'+rm.name+'">'+(rm.icon||'')+' '+rm.name+'</option>'; });
+  });
+}
+
+async function addContract() {
+  var username = document.getElementById('cUser').value || document.getElementById('cUserManual').value;
+  var roomName = document.getElementById('cRoom').value || document.getElementById('cRoomManual').value;
+  var subType = document.getElementById('cType').value;
+  var d = {
+    token: token,
+    username: username,
+    roomName: subType ? subType + (roomName ? ' - ' + roomName : '') : roomName,
+    price: parseFloat(document.getElementById('cPrice').value) || 0,
+    currency: document.getElementById('cCurrency').value || 'SAR',
+    startDate: document.getElementById('cStart').value,
+    endDate: document.getElementById('cEnd').value,
+    notes: document.getElementById('cNotes').value
+  };
+  if (!username) { alert('\u0627\u062E\u062A\u0631 \u0627\u0644\u0645\u0634\u062A\u0631\u0643'); return; }
+  var r = await api('/api/admin/rental/add', d);
+  if (r.ok) { alert('\u062A\u0645 \u0627\u0644\u0625\u0636\u0627\u0641\u0629 \u2705'); document.getElementById('addContractForm').style.display = 'none'; loadContracts(); }
+  else alert(r.error || '\u0641\u0634\u0644');
+}
+
+async function loadContracts() {
+  var r = await api('/api/admin/rentals', {token: token});
+  var items = r.rentals || [];
+  var el = document.getElementById('contractsContent');
+  if (!el) return;
+  if (!items.length) { el.innerHTML = '<p style="color:#888;text-align:center;padding:20px">\u0644\u0627 \u064A\u0648\u062C\u062F \u0639\u0642\u0648\u062F</p>'; return; }
+  var html = '';
+  var now = new Date();
+  items.forEach(function(c) {
+    var end = new Date(c.end_date);
+    var start = new Date(c.start_date);
+    var totalDays = Math.ceil((end - start) / 86400000);
+    var daysLeft = Math.ceil((end - now) / 86400000);
+    var pct = Math.max(0, Math.min(100, totalDays > 0 ? (daysLeft / totalDays * 100) : 0));
+    var barColor = daysLeft <= 0 ? '#ef4444' : daysLeft <= 3 ? '#ef4444' : daysLeft <= 7 ? '#f59e0b' : '#22c55e';
+    var statusText = daysLeft <= 0 ? '<span style="color:#ef4444;font-weight:700">\u0645\u0646\u062A\u0647\u064A!</span>' : '<span style="color:'+barColor+'">' + daysLeft + ' \u064A\u0648\u0645</span>';
+    var borderColor = daysLeft <= 3 ? 'rgba(239,68,68,.4)' : 'rgba(255,255,255,.08)';
+
+    html += '<div style="background:rgba(255,255,255,.03);border:1px solid '+borderColor+';border-radius:12px;padding:16px;margin-bottom:12px">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">';
+    html += '<div style="display:flex;gap:6px;flex-wrap:wrap">';
+    html += '<button class="btn btn-blue" style="font-size:11px;padding:4px 10px" onclick="editContract('+c.id+')">\u270F\uFE0F \u062A\u0639\u062F\u064A\u0644</button>';
+    html += '<button class="btn btn-blue" style="font-size:11px;padding:4px 10px" onclick="notifyContract(\''+c.username+'\')">\uD83D\uDCE2 \u062A\u0646\u0628\u064A\u0647</button>';
+    html += '<button class="btn btn-blue" style="font-size:11px;padding:4px 10px" onclick="renewContract('+c.id+')">\uD83D\uDD04 \u062A\u062C\u062F\u064A\u062F</button>';
+    html += '<button class="btn btn-red" style="font-size:11px;padding:4px 10px" onclick="deleteContract('+c.id+')">\u062D\u0630\u0641</button>';
+    html += '</div>';
+    html += '<div style="text-align:right">';
+    html += '<div style="font-size:18px;font-weight:700;color:#fff">' + c.username + '</div>';
+    html += '<div style="font-size:14px;color:var(--accent);margin-top:2px">' + (c.room_name||'-') + '</div>';
+    html += '<div style="font-size:13px;color:#888;margin-top:2px">' + c.price + ' ' + c.currency + '</div>';
+    html += '</div></div>';
+    html += '<div style="display:flex;justify-content:space-between;font-size:12px;color:#888;margin-bottom:4px">';
+    html += '<span>\u0627\u0644\u0645\u062A\u0628\u0642\u064A: ' + statusText + '</span>';
+    html += '<span>' + start.toLocaleDateString('ar') + ' \u2192 ' + end.toLocaleDateString('ar') + '</span>';
+    html += '</div>';
+    html += '<div style="background:rgba(255,255,255,.1);border-radius:4px;height:6px"><div style="background:'+barColor+';height:100%;border-radius:4px;width:'+pct+'%;transition:width .3s"></div></div>';
+    if (c.notes) html += '<div style="font-size:11px;color:#666;margin-top:6px">\uD83D\uDCDD ' + c.notes + '</div>';
+    html += '</div>';
+  });
+  el.innerHTML = html;
+}
+
+function editContract(id) {
+  var price = prompt('\u0627\u0644\u0633\u0639\u0631:');
+  var endDate = prompt('\u062A\u0627\u0631\u064A\u062E \u0627\u0644\u0627\u0646\u062A\u0647\u0627\u0621 (YYYY-MM-DD):');
+  var notes = prompt('\u0645\u0644\u0627\u062D\u0638\u0627\u062A:');
+  var d = {token:token, id:id};
+  if (price) d.price = parseFloat(price);
+  if (endDate) d.endDate = endDate;
+  if (notes !== null) d.notes = notes;
+  api('/api/admin/rental/update', d).then(function(r) { if(r.ok) { alert('\u062A\u0645 \u2705'); loadContracts(); } else alert(r.error); });
+}
+
+function notifyContract(username) {
+  var msg = prompt('\u0631\u0633\u0627\u0644\u0629 \u0627\u0644\u062A\u0646\u0628\u064A\u0647:', '\u0627\u0634\u062A\u0631\u0627\u0643\u0643 \u064A\u0646\u062A\u0647\u064A \u0642\u0631\u064A\u0628\u0627. \u0627\u0644\u0631\u062C\u0627\u0621 \u0627\u0644\u062A\u062C\u062F\u064A\u062F.');
+  if (!msg) return;
+  api('/api/admin/rental/notify', {token:token, username:username, message:msg}).then(function(r) { if(r.ok) alert('\u062A\u0645 \u0627\u0644\u0625\u0631\u0633\u0627\u0644 \u2705'); });
+}
+
+function renewContract(id) {
+  var months = prompt('\u062A\u062C\u062F\u064A\u062F \u0643\u0645 \u0634\u0647\u0631\u061F', '1');
+  if (!months) return;
+  var d = new Date(); d.setMonth(d.getMonth() + parseInt(months));
+  api('/api/admin/rental/update', {token:token, id:id, endDate:d.toISOString().split('T')[0]}).then(function(r) { if(r.ok) { alert('\u062A\u0645 \u0627\u0644\u062A\u062C\u062F\u064A\u062F \u2705'); loadContracts(); } });
+}
+
+function deleteContract(id) {
+  if (!confirm('\u062D\u0630\u0641\u061F')) return;
+  api('/api/admin/rental/delete', {token:token, id:id}).then(function(r) { if(r.ok) loadContracts(); });
+}
+
+
+async function loadRules() {
+  var r = await api('/api/rules', {});
+  var ta = document.getElementById('rulesTextarea');
+  if (ta) ta.value = r.rules || '';
+}
+async function saveRules() {
+  var text = document.getElementById('rulesTextarea').value;
+  var r = await api('/api/admin/settings', {token: token, settings: {chat_rules: text}});
+  if (r.ok) alert('تم حفظ القوانين! ✅');
+  else alert(r.error || 'فشل');
+}
+
+async function sendBroadcast() {
+  var text = document.getElementById('broadcastText').value.trim();
+  if (!text) { alert('اكتب نص الإعلان'); return; }
+  var roomId = document.getElementById('broadcastRoom').value;
+  var data = {token: token, text: text};
+  if (roomId) data.roomId = roomId;
+  var r = await api('/api/admin/announce', data);
+  if (r.ok) {
+    alert('تم إرسال الإعلان بنجاح!');
+    document.getElementById('broadcastText').value = '';
+  } else {
+    alert(r.error || 'فشل الإرسال');
+  }
+}
+
+async function loadBroadcastRooms() {
+  var r = await api('/api/admin/rooms', {token: token});
+  var sel = document.getElementById('broadcastRoom');
+  if (sel && r.rooms) {
+    sel.innerHTML = '<option value="">كل الغرف</option>' + r.rooms.map(function(rm) {
+      return '<option value="' + rm.id + '">' + rm.name + '</option>';
+    }).join('');
+  }
+}
+
+// Load invite codes
+
+async function confirmCreateInvite() {
+  var code = (document.getElementById('inviteCode') ? document.getElementById('inviteCode').value : '').trim();
+  var maxUses = parseInt(document.getElementById('inviteMaxUses') ? document.getElementById('inviteMaxUses').value : '0') || 0;
+  var r = await api('/api/admin/invite-code/create', {token: token, code: code || undefined, maxUses: maxUses});
+  if (r.ok) { alert('تم إنشاء الكود: ' + (r.code || code)); closeModal('inviteModal'); loadInvites(); }
+  else { alert(r.error || 'فشل'); }
+}
+
+// Delete invite code
+
+async function toggleUserEnabled(username) {
+  var r = await api('/api/admin/user/toggle', {token: token, username: username});
+  if (r.ok) { alert(r.enabled ? 'تم تفعيل المستخدم' : 'تم تعطيل المستخدم'); loadUsers(); }
+  else alert(r.error || 'فشل');
+}
+
+
+</script>
+<div id="userProfileModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;align-items:center;justify-content:center">
+<div style="background:#1e293b;border-radius:16px;padding:24px;width:500px;max-width:95vw;max-height:85vh;overflow-y:auto;border:1px solid rgba(255,255,255,.1)">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+<h2 style="color:#fff;margin:0" id="profileTitle">...</h2>
+<button onclick="closeUserProfile()" style="background:none;border:none;color:#888;font-size:24px;cursor:pointer">&times;</button>
+</div>
+<div id="profileContent">...</div>
+</div>
+</div>
+</body>
+</html>

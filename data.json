@@ -1,0 +1,456 @@
+{
+  "adminPassword": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+  "theme": {
+    "primary": "#3a76f0",
+    "bg": "#1a1a2e",
+    "sidebar": "#141e30",
+    "accent": "#e0a93a",
+    "text": "#e0e0e0",
+    "headerGrad": [
+      "#2a1a3e",
+      "#1a2a4e"
+    ],
+    "marqueeColor": "#ffcc00",
+    "font": "Segoe UI, Tahoma, Arial, sans-serif"
+  },
+  "rooms": {
+    "general": {
+      "name": "الغرفة العامة",
+      "marquee": "مرحباً بكم",
+      "maxUsers": 0,
+      "perms": {
+        "micMode": "all",
+        "camMode": "all",
+        "chatMode": "all"
+      }
+    }
+  },
+  "users": {
+    "ddd": {
+      "displayName": "ddd",
+      "role": "owner",
+      "badge": "مؤسس",
+      "registeredAt": 1774427428026,
+      "lastSeen": 1774427428027,
+      "permissions": []
+    },
+    "تت": {
+      "displayName": "تت",
+      "role": "member",
+      "badge": "",
+      "registeredAt": 1774427431761,
+      "lastSeen": 1774427431762,
+      "permissions": []
+    },
+    "ىىىىىىىىىىى": {
+      "displayName": "ىىىىىىىىىىى",
+      "role": "member",
+      "badge": "",
+      "registeredAt": 1774427435524,
+      "lastSeen": 1774427435524,
+      "permissions": []
+    },
+    "لللللله": {
+      "displayName": "لللللله",
+      "role": "member",
+      "badge": "",
+      "registeredAt": 1774427439140,
+      "lastSeen": 1774427439141,
+      "permissions": []
+    },
+    "ثثثثثثث": {
+      "displayName": "ثثثثثثث",
+      "role": "member",
+      "badge": "",
+      "registeredAt": 1774427522999,
+      "lastSeen": 1774427558416,
+      "permissions": []
+    },
+    "سسسسسسس": {
+      "displayName": "سسسسسسس",
+      "role": "member",
+      "badge": "",
+      "registeredAt": 1774427529472,
+      "lastSeen": 1774427529473,
+      "permissions": []
+    },
+    "ييييييييي": {
+      "displayName": "ييييييييي",
+      "role": "member",
+      "badge": "",
+      "registeredAt": 1774427534374,
+      "lastSeen": 1774427534375,
+      "permissions": []
+    },
+    "test123": {
+      "displayName": "test123",
+      "role": "member",
+      "badge": "",
+      "registeredAt": 1774427577803,
+      "lastSeen": 1774427577803,
+      "permissions": []
+    },
+    "test": {
+      "displayName": "test",
+      "role": "guest",
+      "badge": "",
+      "registeredAt": 1774427607168,
+      "lastSeen": 1774427607168,
+      "permissions": []
+    },
+    "يييي": {
+      "displayName": "يييي",
+      "role": "guest",
+      "badge": "",
+      "registeredAt": 1774427694160,
+      "lastSeen": 1774427694161,
+      "permissions": []
+    },
+    "s": {
+      "displayName": "s",
+      "role": "admin",
+      "badge": "",
+      "registeredAt": 1774428389597,
+      "lastSeen": 1774428705754,
+      "permissions": [
+        "canKick",
+        "canBan",
+        "canMute",
+        "canRenameRoom",
+        "canEditMarquee",
+        "canManageRooms"
+      ]
+    }
+  },
+  "bans": [],
+  "logs": [
+    {
+      "action": "leave",
+      "actor": "s",
+      "target": "",
+      "details": "طلع من الغرفة",
+      "time": 1774428792631
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774428765355
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774428203660
+    },
+    {
+      "action": "mod-account-create",
+      "actor": "admin",
+      "target": "uuuu",
+      "details": "كود: AAA8",
+      "time": 1774428184880
+    },
+    {
+      "action": "leave",
+      "actor": "يييي",
+      "target": "",
+      "details": "طلع من الغرفة",
+      "time": 1774428011776
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774427987128
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774427865625
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774427771463
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774427719649
+    },
+    {
+      "action": "leave",
+      "actor": "test",
+      "target": "",
+      "details": "طلع من الغرفة",
+      "time": 1774427695109
+    },
+    {
+      "action": "join",
+      "actor": "يييي",
+      "target": "",
+      "details": "دخل الغرفة",
+      "time": 1774427694161
+    },
+    {
+      "action": "join",
+      "actor": "test",
+      "target": "",
+      "details": "دخل الغرفة",
+      "time": 1774427607169
+    },
+    {
+      "action": "join",
+      "actor": "test123",
+      "target": "",
+      "details": "دخل الغرفة",
+      "time": 1774427577804
+    },
+    {
+      "action": "join",
+      "actor": "ثثثثثثث",
+      "target": "",
+      "details": "دخل الغرفة",
+      "time": 1774427558417
+    },
+    {
+      "action": "join",
+      "actor": "ييييييييي",
+      "target": "",
+      "details": "دخل الغرفة",
+      "time": 1774427534376
+    },
+    {
+      "action": "join",
+      "actor": "سسسسسسس",
+      "target": "",
+      "details": "دخل الغرفة",
+      "time": 1774427529473
+    },
+    {
+      "action": "join",
+      "actor": "ثثثثثثث",
+      "target": "",
+      "details": "دخل الغرفة",
+      "time": 1774427524269
+    },
+    {
+      "action": "join",
+      "actor": "ثثثثثثث",
+      "target": "",
+      "details": "دخل الغرفة",
+      "time": 1774427523000
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774427500830
+    },
+    {
+      "action": "mod-account-create",
+      "actor": "admin",
+      "target": "uuuu",
+      "details": "كود: AAA",
+      "time": 1774427494208
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774427469818
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774427449429
+    },
+    {
+      "action": "join",
+      "actor": "لللللله",
+      "target": "",
+      "details": "دخل الغرفة",
+      "time": 1774427439142
+    },
+    {
+      "action": "join",
+      "actor": "ىىىىىىىىىىى",
+      "target": "",
+      "details": "دخل الغرفة",
+      "time": 1774427435525
+    },
+    {
+      "action": "join",
+      "actor": "تت",
+      "target": "",
+      "details": "دخل الغرفة",
+      "time": 1774427431763
+    },
+    {
+      "action": "join",
+      "actor": "ddd",
+      "target": "",
+      "details": "دخل الغرفة",
+      "time": 1774427428028
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774427363172
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774427320094
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774427274255
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774427177419
+    },
+    {
+      "action": "admin-login-fail",
+      "actor": "unknown",
+      "target": "",
+      "details": "محاولة دخول فاشلة",
+      "time": 1774427171383
+    },
+    {
+      "action": "admin-login-fail",
+      "actor": "unknown",
+      "target": "",
+      "details": "محاولة دخول فاشلة",
+      "time": 1774427169865
+    },
+    {
+      "action": "admin-login-fail",
+      "actor": "unknown",
+      "target": "",
+      "details": "محاولة دخول فاشلة",
+      "time": 1774427166346
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774427158152
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774426729414
+    },
+    {
+      "action": "admin-login",
+      "actor": "admin",
+      "target": "",
+      "details": "دخل لوحة التحكم",
+      "time": 1774426348566
+    },
+    {
+      "action": "admin-login-fail",
+      "actor": "unknown",
+      "target": "",
+      "details": "محاولة دخول فاشلة",
+      "time": 1774426343734
+    }
+  ],
+  "mods": [
+    {
+      "displayName": "s",
+      "code": "7799",
+      "password": "f6e0a1e2ac41945a9aa7ff8a8aaa0cebc12a3bcc981a929ad5cf810a090e11ae",
+      "role": "admin",
+      "badge": "",
+      "permissions": [
+        "canKick",
+        "canBan",
+        "canMute",
+        "canRenameRoom",
+        "canEditMarquee",
+        "canManageRooms"
+      ]
+    },
+    {
+      "displayName": "jjj",
+      "code": "7777",
+      "password": "d7697570462f7562b83e81258de0f1e41832e98072e44c36ec8efec46786e24e",
+      "role": "admin",
+      "badge": "",
+      "permissions": [
+        "canKick",
+        "canBan",
+        "canMute",
+        "canRenameRoom",
+        "canEditMarquee",
+        "canManageRooms"
+      ]
+    }
+  ],
+  "modAccounts": {
+    "AAA": {
+      "displayName": "uuuu",
+      "pinHash": "61be55a8e2f6b4e172338bddf184d6dbee29c98853e0a0485ecee7f27b9af0b4",
+      "role": "mod",
+      "badge": "",
+      "permissions": [
+        "canKick",
+        "canBan",
+        "canMute",
+        "canRenameRoom",
+        "canEditMarquee",
+        "canManageRooms"
+      ],
+      "enabled": true,
+      "createdAt": 1774427494207
+    },
+    "AAA8": {
+      "displayName": "uuuu",
+      "pinHash": "61be55a8e2f6b4e172338bddf184d6dbee29c98853e0a0485ecee7f27b9af0b4",
+      "role": "mod",
+      "badge": "",
+      "permissions": [
+        "canKick",
+        "canBan",
+        "canMute",
+        "canRenameRoom",
+        "canEditMarquee",
+        "canManageRooms"
+      ],
+      "enabled": true,
+      "createdAt": 1774428184880
+    }
+  },
+  "settings": {
+    "guestAllowed": true
+  }
+}

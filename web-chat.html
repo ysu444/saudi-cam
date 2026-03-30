@@ -1,0 +1,3136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>دردشة سعودي كام - دردشة كتابية صوتية كام محادثه لايف</title>
+
+<!-- SEO Meta -->
+<meta name="description" content="سعودي كام - أفضل دردشة عربية مجانية. شات كتابي وصوتي وكام لايف. غرف محادثة متعددة مع مايك وكاميرا. تعرف على أصدقاء جدد من السعودية والخليج والعالم العربي.">
+<meta name="keywords" content="شات, دردشة, سعودي كام, شات خليجي, شات عربي, دردشة كتابية, دردشة صوتية, كام, لايف, محادثة, غرف شات, chat, saudi chat, gulf chat, arab chat, تعارف, صوتي, مايك, saudi.cam, شات سعودي, دردشة سعودية, شات السعودية, شات الكويت, شات الامارات, شات قطر, شات عمان">
+<meta name="author" content="saudi.cam">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="googlebot" content="index, follow">
+<link rel="canonical" href="https://saudi.cam/">
+
+<!-- Open Graph (Facebook/WhatsApp) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://saudi.cam/">
+<meta property="og:title" content="سعودي كام - دردشة كتابية صوتية كام لايف">
+<meta property="og:description" content="أفضل دردشة عربية مجانية - شات كتابي وصوتي وكام لايف مع غرف متعددة. تعرف على أصدقاء جدد!">
+<meta property="og:image" content="https://saudi.cam/og-image.png">
+<meta property="og:locale" content="ar_SA">
+<meta property="og:site_name" content="سعودي كام">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="سعودي كام - دردشة كتابية صوتية كام لايف">
+<meta name="twitter:description" content="أفضل دردشة عربية مجانية - تعرف على أصدقاء جدد من السعودية والخليج">
+<meta name="twitter:image" content="https://saudi.cam/og-image.png">
+
+<!-- PWA -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a1a2e" id="metaThemeColor">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/icon.svg">
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+:root{
+--bg:#1a1a2e;--bg2:#16213e;--bg3:#0f3460;
+--sidebar:#141e30;--accent:#3a76f0;--gold:#e0a93a;
+--text:#e8e8e8;--text2:#aaa;--border:#2a2a4a;
+--owner:#e0a93a;--admin:#ef4444;--mod:#22c55e;--vip:#a855f7;--member:#3a76f0;--guest:#888;
+--radius:10px;
+--login-card:var(--sidebar);--login-btn:var(--accent);
+}
+html,body{height:100%;overflow:hidden;font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text);direction:rtl;}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+input,textarea,button,select{font-family:inherit;direction:rtl;}
+button{cursor:pointer;border:none;background:none;color:inherit;font-size:inherit;}
+
+/* ===== LOGIN ===== */
+#loginScreen{
+display:flex;align-items:center;justify-content:center;
+height:100%;
+background:linear-gradient(135deg,var(--bg) 0%,var(--bg2) 50%,var(--bg3) 100%);
+}
+.login-card{
+background:rgba(20,30,48,0.95);border:1px solid var(--border);background:var(--login-card);
+border-radius:16px;padding:40px 36px;width:380px;max-width:92vw;
+text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.login-logo{margin-bottom:12px;}
+.login-logo svg{width:56px;height:56px;}
+.login-title{font-size:28px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.login-sub{color:var(--text2);font-size:15px;margin-bottom:28px;}
+.login-input{
+width:100%;padding:12px 16px;border-radius:var(--radius);
+border:1px solid var(--border);background:var(--bg);color:var(--text);
+font-size:15px;margin-bottom:14px;text-align:center;outline:none;
+transition:border-color .2s;
+}
+.login-input:focus{border-color:var(--accent);}
+.login-btn{
+width:100%;padding:13px;border-radius:var(--radius);font-size:15px;
+font-weight:600;transition:all .2s;margin-bottom:10px;
+}
+.login-btn.primary{background:var(--login-btn);color:#fff;}
+.login-btn.primary:hover{filter:brightness(0.85);}
+.login-btn.outline{background:transparent;color:var(--accent);border:1.5px solid var(--accent);}
+.login-btn.outline:hover{background:rgba(255,255,255,0.05);}
+.login-error{color:#ef4444;font-size:13px;margin-top:8px;min-height:20px;}
+#modForm{display:none;margin-top:16px;}
+#modForm .login-input{margin-bottom:10px;}
+
+/* ===== MAIN LAYOUT ===== */
+#chatScreen{display:none;height:100%;flex-direction:column;}
+#chatScreen.active{display:flex;}
+
+/* Top Bar */
+.topbar{
+display:flex;align-items:center;gap:10px;
+padding:8px 16px;background:var(--sidebar);border-bottom:1px solid var(--border);
+min-height:50px;flex-shrink:0;
+position:sticky;top:0;z-index:50;flex-shrink:0;}
+.topbar-logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;white-space:nowrap;}
+.topbar-logo svg{width:28px;height:28px;flex-shrink:0;}
+.topbar-room{
+background:var(--bg);padding:4px 12px;border-radius:6px;
+font-size:13px;color:var(--gold);border:1px solid var(--border);
+white-space:nowrap;
+}
+.topbar-marquee{
+flex:1;overflow:hidden;position:relative;height:24px;min-width:0;
+}
+.marquee-text{
+position:absolute;white-space:nowrap;
+animation:marquee 20s linear infinite;
+font-size:13px;color:var(--gold);line-height:24px;
+}
+@keyframes marquee{
+0%{transform:translateX(-100%);}
+100%{transform:translateX(100%);}
+}
+.topbar-actions{display:flex;gap:6px;flex-shrink:0;}
+.topbar-btn{
+padding:5px 10px;border-radius:6px;font-size:12px;
+background:rgba(255,255,255,0.07);transition:all .2s;white-space:nowrap;
+}
+.topbar-btn:hover{background:rgba(255,255,255,0.14);}
+.connection-dot{
+width:8px;height:8px;border-radius:50%;
+background:#22c55e;flex-shrink:0;
+}
+.connection-dot.offline{background:#ef4444;}
+
+
+/* Pinned Banner */
+.pinned-banner{
+display:none;padding:8px 16px;background:var(--bg2);
+border-bottom:1px solid var(--border);font-size:13px;
+color:var(--text);align-items:center;gap:8px;flex-shrink:0;
+}
+.pinned-banner.visible{display:flex;}
+.pinned-banner .pin-icon{color:var(--gold);font-size:16px;flex-shrink:0;}
+.pinned-banner .pin-text{flex:1;}
+.pinned-banner .pin-close{background:none;border:none;color:var(--text2);font-size:18px;cursor:pointer;padding:0 4px;}
+.pinned-banner .pin-close:hover{color:var(--text);}
+/* Body */
+.chat-body{display:flex;flex:1;overflow:hidden;}
+
+/* Sidebar */
+.sidebar{
+width:220px;flex-shrink:0;background:var(--sidebar);
+border-left:1px solid var(--border);display:flex;flex-direction:column;
+overflow:hidden;
+}
+.sidebar-tabs{display:flex;border-bottom:1px solid var(--border);}
+.sidebar-tab{
+flex:1;padding:10px 0;text-align:center;font-size:13px;
+color:var(--text2);cursor:pointer;transition:all .2s;
+border-bottom:2px solid transparent;
+}
+.sidebar-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.sidebar-content{flex:1;overflow-y:auto;padding:8px;}
+.online-count{
+padding:6px 12px;font-size:12px;color:var(--text2);
+border-bottom:1px solid var(--border);text-align:center;
+}
+.user-item{
+display:flex;align-items:center;gap:8px;
+padding:6px 8px;border-radius:6px;cursor:pointer;
+transition:background .2s;
+}
+.user-item:hover{background:rgba(255,255,255,0.05);}
+.user-avatar{
+width:32px;height:32px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+font-weight:700;font-size:14px;color:var(--text);flex-shrink:0;
+}
+.user-info{flex:1;min-width:0;display:flex;align-items:center;gap:4px;}
+.user-name{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.user-badge{
+font-size:9px;padding:1px 5px;border-radius:3px;
+color:#fff;font-weight:700;white-space:nowrap;flex-shrink:0;
+}
+.user-icons{display:flex;gap:2px;font-size:12px;flex-shrink:0;}
+.room-item{display:flex;align-items:center;gap:8px;padding:10px 14px;cursor:pointer;transition:all .2s;border-radius:0;border-right:3px solid transparent;}
+.room-item:hover,.room-item.active{background:rgba(255,255,255,0.1);border-right:3px solid var(--accent);}
+.room-icon{font-size:20px;flex-shrink:0;}
+.room-name{font-size:13px;flex:1;}
+
+/* Main area */
+.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+
+/* Video strip */
+.video-strip{
+display:none;flex-shrink:0;overflow-x:auto;padding:6px;gap:6px;
+background:rgba(0,0,0,0.3);border-bottom:1px solid var(--border);
+}
+.video-strip.has-videos{display:flex;}
+.video-container{position:relative;width:200px;height:150px;border-radius:10px;overflow:hidden;background:#000;flex-shrink:0;border:2px solid rgba(255,255,255,.1);}
+.video-container video{width:100%;height:100%;object-fit:cover;border-radius:8px;background:var(--bg);}
+.video-label{
+position:absolute;bottom:4px;right:4px;
+background:rgba(0,0,0,0.7);padding:2px 8px;border-radius:4px;
+font-size:11px;color:var(--text);
+}
+.video-close{
+position:absolute;top:4px;left:4px;
+background:rgba(0,0,0,0.7);border-radius:50%;
+width:22px;height:22px;display:flex;align-items:center;justify-content:center;
+font-size:12px;color:#fff;cursor:pointer;
+}
+
+/* Messages */
+.messages{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:3px;background:var(--bg);}
+.msg{font-size:14px;line-height:1.6;word-break:break-word;}
+.msg-time{color:var(--text2);font-size:11px;margin-left:6px;font-family:monospace;}
+.msg-sender{font-weight:600;margin-left:4px;}
+.msg-system{
+text-align:center;font-style:italic;color:var(--text2);
+font-size:13px;padding:4px 0;
+}
+.msg-announce{
+background:rgba(224,169,58,0.12);border:1px solid rgba(224,169,58,0.3);
+border-radius:8px;padding:10px 14px;text-align:center;
+color:var(--gold);font-weight:600;
+}
+
+/* Fasl / Mention area */
+.fasl-area{
+display:none;flex-shrink:0;max-height:180px;overflow-y:auto;
+border-top:2px solid var(--gold);background:rgba(224,169,58,0.05);
+padding:8px 16px;
+}
+.fasl-area.visible{display:block;}
+.fasl-msg{font-size:13px;line-height:1.5;padding:2px 0;color:var(--gold);}
+
+/* Input Bar */
+.input-bar{display:flex;flex-direction:column;gap:6px;padding:10px 16px;background:var(--sidebar);border-top:1px solid var(--border);flex-shrink:0;}
+.input-row{display:flex;gap:8px;align-items:center;}
+.input-text{
+flex:1;padding:10px 14px;border-radius:var(--radius);
+border:1px solid var(--border);background:var(--bg);color:#fff;
+font-size:14px;outline:none;resize:none;
+}
+.input-text:focus{border-color:var(--accent);}
+.send-btn{padding:10px 20px;border-radius:var(--radius);background:var(--accent);color:var(--text);font-weight:600;font-size:14px;transition:all .2s;flex-shrink:0;}
+.send-btn:hover{filter:brightness(0.85);}
+.controls-row{
+display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;
+}
+.ctrl-btn{padding:4px 10px;border-radius:var(--radius);font-size:12px;background:rgba(255,255,255,0.07);transition:all .2s;color:var(--text2);}
+.ctrl-btn:hover{background:rgba(255,255,255,0.14);}
+.ctrl-btn.active{background:var(--accent);color:#fff;}
+.ctrl-btn.private-active{background:var(--admin);color:#fff;}
+.private-target{
+padding:4px 10px;border-radius:6px;font-size:12px;
+background:rgba(239,68,68,0.15);color:#ef4444;
+display:none;align-items:center;gap:4px;
+}
+.private-target.visible{display:flex;}
+
+/* Modals */
+.modal-overlay{
+display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);
+z-index:1000;align-items:center;justify-content:center;
+}
+.modal-overlay.active{display:flex;}
+.modal{
+background:var(--sidebar);border:1px solid var(--border);
+border-radius:14px;padding:28px;width:380px;max-width:92vw;
+}
+.modal h3{margin-bottom:16px;font-size:18px;}
+.modal input,.modal textarea{
+width:100%;padding:10px 14px;border-radius:var(--radius);
+border:1px solid var(--border);background:var(--bg);color:#fff;
+font-size:14px;outline:none;margin-bottom:12px;
+}
+.modal-btns{display:flex;gap:8px;justify-content:flex-start;}
+.modal-btn{
+padding:8px 20px;border-radius:var(--radius);font-size:14px;
+font-weight:600;
+}
+.modal-btn.primary{background:var(--accent);color:#fff;}
+.modal-btn.cancel{background:rgba(255,255,255,0.1);color:var(--text2);}
+
+/* Context Menu */
+.context-menu{
+display:none;position:fixed;z-index:1001;
+background:var(--sidebar);border:1px solid var(--border);
+border-radius:12px;padding:6px 0;min-width:180px;max-width:220px;
+max-height:80vh;overflow-y:auto;
+box-shadow:0 8px 30px rgba(0,0,0,0.6);
+}
+.context-menu.active{display:block;}
+.context-item{
+padding:8px 16px;font-size:13px;cursor:pointer;transition:background .2s;
+}
+.context-item:hover{background:rgba(255,255,255,0.08);}
+.context-item.danger{color:#ef4444;}
+
+/* ===== MOBILE ===== */
+.mobile-bar{
+display:none;flex-shrink:0;
+padding:8px 12px;background:var(--sidebar);
+border-top:1px solid var(--border);
+justify-content:space-around;
+flex-shrink:0;z-index:40;}
+.mobile-bar button{font-size:22px;padding:6px 12px;}
+.mobile-users-panel{
+display:none;position:fixed;bottom:0;left:0;right:0;
+max-height:60vh;background:var(--sidebar);
+border-top:2px solid var(--accent);border-radius:16px 16px 0 0;
+z-index:900;overflow-y:auto;padding:12px;
+animation:slideUp .3s ease;
+}
+.mobile-users-panel.active{display:block;}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.mobile-settings-menu{
+display:none;position:fixed;bottom:60px;left:12px;right:12px;
+background:var(--sidebar);border:1px solid var(--border);
+border-radius:12px;z-index:900;padding:8px 0;
+box-shadow:0 -8px 24px rgba(0,0,0,0.4);
+}
+.mobile-settings-menu.active{display:block;}
+.mobile-settings-item{
+padding:12px 20px;font-size:14px;cursor:pointer;transition:background .2s;
+display:flex;align-items:center;gap:10px;
+}
+.mobile-settings-item:hover{background:rgba(255,255,255,0.06);}
+
+
+.mobile-marquee{display:none;overflow:hidden;height:24px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;position:relative;}
+.mobile-marquee .marquee-text{position:absolute;white-space:nowrap;animation:marquee 20s linear infinite;font-size:12px;color:var(--gold);line-height:24px;padding:0 12px;}
+@media(max-width:768px){
+.sidebar{display:none !important;}
+.topbar-actions .topbar-btn.desktop-only{display:none;}
+.mobile-bar{display:flex;}
+.topbar{padding:6px 10px;gap:6px;}
+.topbar-logo span{display:none;}
+.topbar-room{font-size:12px;padding:3px 8px;}
+.messages{padding:8px 10px;}
+.topbar-marquee{display:none !important;}
+.mobile-marquee{display:block;}
+}
+
+
+@media(max-width:768px){
+  #speakerBar{padding:4px 8px !important;font-size:11px !important;}
+  .speaker-tag{padding:2px 8px;font-size:11px;}
+}
+/* iOS Keyboard Fix */
+@supports(height: 100dvh) {
+  #chatScreen.active { height: 100dvh; }
+}
+
+.plan-card{background:var(--bg2);border:2px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;text-align:center;transition:all .3s;}
+.plan-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3);}
+.plan-card.featured{border-color:var(--gold);background:linear-gradient(135deg,rgba(255,215,0,.05),rgba(255,215,0,.02));}
+.plan-card .plan-badge{display:inline-block;padding:4px 16px;border-radius:20px;font-size:12px;font-weight:700;color:#fff;margin-bottom:8px;}
+.plan-card .plan-name{font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.plan-card .plan-price{font-size:28px;font-weight:800;margin:8px 0;}
+.plan-card .plan-duration{font-size:12px;color:var(--text2);margin-bottom:12px;}
+.plan-card .plan-features{text-align:right;margin:12px 0;padding:0 8px;}
+.plan-card .plan-feature{padding:4px 0;font-size:13px;color:var(--text);display:flex;align-items:center;gap:6px;}
+.plan-card .plan-feature::before{content:'✅';font-size:12px;}
+
+.reply-bar{display:none;padding:6px 12px;background:var(--bg2);border-top:1px solid var(--border);border-right:3px solid var(--accent);margin:0 16px;border-radius:0 6px 6px 0;font-size:12px;color:var(--text2);align-items:center;gap:8px;}
+.reply-bar.visible{display:flex;}
+.reply-bar .reply-text{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.reply-bar .reply-close{background:none;border:none;color:var(--text2);font-size:16px;cursor:pointer;padding:0 4px;}
+.msg-reply-ref{padding:4px 8px;background:rgba(255,255,255,.05);border-right:2px solid var(--accent);border-radius:0 4px 4px 0;margin-bottom:4px;font-size:11px;color:var(--text2);cursor:pointer;}
+.msg-reply-ref:hover{background:rgba(255,255,255,.08);}
+
+.mention{color:var(--accent);font-weight:700;cursor:pointer;}
+.mention:hover{text-decoration:underline;}
+
+@keyframes voicePulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+.speaker-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:16px;font-size:12px;font-weight:600;color:var(--text);background:rgba(255,255,255,.06);border:2px solid transparent;transition:all .3s;}
+.speaker-tag.speaking{border-color:#22c55e;background:rgba(34,197,94,.1);animation:voicePulse 1.5s infinite;}
+.speaker-dot{width:6px;height:6px;border-radius:50%;background:#555;transition:background .2s;}
+.speaker-tag.speaking .speaker-dot{background:#22c55e;}
+
+.audio-unlock-banner{display:none;position:fixed;bottom:120px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:12px 28px;border-radius:var(--radius);font-size:14px;font-weight:600;cursor:pointer;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.4);animation:pulse 1.5s infinite;text-align:center;max-width:90vw;}
+.audio-unlock-banner.visible{display:block;}
+</style>
+
+<script>
+// Load theme BEFORE page renders to prevent flash
+(function(){
+  try {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/theme', false); // SYNCHRONOUS
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send('{}');
+    if (xhr.status === 200) {
+      var data = JSON.parse(xhr.responseText);
+      if (data.theme && typeof data.theme === 'object') {
+        var t = data.theme;
+        var root = document.documentElement;
+        var map = {primary:'--accent',accent:'--gold',border:'--border',bg:'--bg',bg2:'--bg2',bg3:'--bg3',sidebar:'--sidebar',text:'--text',text2:'--text2',owner:'--owner',admin:'--admin',mod:'--mod',vip:'--vip',member:'--member',guest:'--guest'};
+        for (var key in map) { if (t[key]) root.style.setProperty(map[key], t[key]); }
+        if (t.radius) root.style.setProperty('--radius', t.radius);
+        if (t.loginCard) root.style.setProperty('--login-card', t.loginCard);
+        if (t.loginBtn) root.style.setProperty('--login-btn', t.loginBtn);
+        var meta = document.getElementById('metaThemeColor'); if (meta && t.primary) meta.content = t.primary;
+      }
+    }
+  } catch(e) {}
+})();
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"سعودي كام","url":"https://saudi.cam","description":"دردشة عربية مجانية - شات كتابي وصوتي وكام لايف","applicationCategory":"CommunicationApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"SAR"},"inLanguage":"ar","author":{"@type":"Organization","name":"saudi.cam","url":"https://saudi.cam"}}
+</script>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+<div class="login-card">
+
+<div class="login-sub">ادخل اسمك وابدأ المحادثة</div>
+<input type="text" id="nameInput" class="login-input" placeholder="اسمك هنا..." maxlength="20" autocomplete="off">
+<button class="login-btn primary" onclick="guestLogin()">دخول كزائر</button>
+<button class="login-btn outline" onclick="toggleModForm()">دخول الأعضاء والمشرفين</button>
+<div id="modForm">
+<input type="text" id="codeInput" class="login-input" placeholder="كود الدخول" autocomplete="off">
+<input type="password" id="pinInput" class="login-input" placeholder="رمز PIN" autocomplete="off">
+<button class="login-btn primary" onclick="modLogin()">دخول</button>
+</div>
+<div class="login-error" id="loginError"></div>
+</div>
+</div>
+
+<div id="roomSelectScreen" style="display:none">
+<div class="login-card" style="width:420px;max-width:95vw;max-height:80vh;overflow-y:auto">
+<h1 class="login-title">اختر غرفة</h1>
+<div class="login-sub">اضغط على الغرفة للدخول</div>
+<div id="roomSelectList" style="margin-top:16px"></div>
+</div></div>
+<audio id="remoteAudio" autoplay playsinline></audio>
+<!-- CHAT SCREEN -->
+<div id="chatScreen">
+<!-- Top Bar -->
+<div class="topbar">
+<div class="topbar-logo">
+<svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="56" height="56" rx="14" fill="currentColor" style="color:var(--accent)"/>
+<path d="M28 12C19.2 12 12 18.3 12 26c0 4.4 2.4 8.3 6.2 10.8L16 42l6.5-3.3c1.7.5 3.6.8 5.5.8 8.8 0 16-6.3 16-14S36.8 12 28 12z" fill="#fff"/>
+<circle cx="21" cy="26" r="2.5" fill="#3a76f0"/>
+<circle cx="28" cy="26" r="2.5" fill="#3a76f0"/>
+<circle cx="35" cy="26" r="2.5" fill="#3a76f0"/>
+</svg>
+<a href="https://saudi.cam/" target="_blank" style="color:inherit;text-decoration:none">saudi.cam</a>
+</div>
+<div class="topbar-room" id="roomNameDisplay">الغرفة</div>
+<div class="topbar-marquee"><span class="marquee-text" id="marqueeText"></span></div>
+<span class="connection-dot" id="connDot" title="متصل"></span>
+<div class="topbar-actions">
+<button class="topbar-btn desktop-only" data-perm="canRenameRoom" onclick="openRenameModal()" title="تسمية الغرفة" style="display:none">تسمية الغرفة</button>
+<button class="topbar-btn desktop-only" data-perm="canEditMarquee" onclick="openMarqueeModal()" title="الرسالة المتحركة" style="display:none">الرسالة المتحركة</button>
+<button class="topbar-btn desktop-only" data-perm="broadcast" onclick="openBroadcastModal()" title="بث عام" style="display:none">بث عام</button>
+<button class="topbar-btn" id="subsBtn" onclick="showSubsPlans()">⭐ الاشتراكات</button>
+<button class="topbar-btn" id="rulesBtn" onclick="showRules()">📜 القوانين</button>
+<button class="topbar-btn" onclick="doLogout()">خروج</button>
+</div>
+</div>
+
+<div class="pinned-banner" id="pinnedBanner"><span class="pin-icon">📌</span><span class="pin-text" id="pinnedText"></span><button class="pin-close" onclick="closePinnedBanner()">&times;</button></div>
+<div class="mobile-marquee" id="mobileMarquee"><span class="marquee-text" id="mobileMarqueeText"></span></div>
+<div class="chat-body">
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+<div class="sidebar-tabs">
+<div class="sidebar-tab active" data-tab="users" onclick="switchSidebarTab('users')">العامة</div>
+<div class="sidebar-tab" data-tab="rooms" onclick="switchSidebarTab('rooms')">غرف المحادثة</div>
+</div>
+<div class="online-count" id="onlineCount">متصلون: 0</div>
+<div class="sidebar-content" id="sidebarContent">
+<div id="usersTab"></div>
+<div id="roomsTab" style="display:none"></div>
+</div>
+</div>
+
+<!-- Main Area -->
+<div class="main-area">
+<div class="video-strip" id="videoStrip"></div>
+<div class="messages" id="messages"></div>
+<div class="fasl-area" id="faslArea"></div>
+<div class="reply-bar" id="replyBar"><span>💬</span><span class="reply-text" id="replyText"></span><span style="font-size:10px;color:var(--text2);margin-right:8px" id="replyMode">عام</span><button class="reply-close" onclick="cancelReply()">&times;</button></div>
+<div class="input-bar">
+<div class="input-row">
+<input type="text" class="input-text" id="msgInput" placeholder="اكتب رسالتك..." autocomplete="off">
+<button class="send-btn" onclick="sendMessage()">إرسال</button>
+</div>
+<div class="controls-row">
+<button class="ctrl-btn" id="micBtn" onclick="toggleMic()">🎤 مايك</button>
+<button class="ctrl-btn" id="handBtn" onclick="toggleHand()">✋ رفع يد</button>
+<button class="ctrl-btn" id="camBtn" onclick="toggleCam()">📷 كاميرا</button>
+<button class="ctrl-btn" id="flipBtn" onclick="flipCam()">🔄 قلب</button>
+<button class="ctrl-btn" id="faslBtn" onclick="toggleFasl()">📥 فاصل</button>
+<button class="ctrl-btn" onclick="clearChat()">🗑️ مسح</button>
+<button class="ctrl-btn" id="privateBtn" onclick="togglePrivateMode()">🔒 خاص</button>
+<button class="ctrl-btn" id="muteBtn" onclick="toggleMuteAll()" style="display:none">🔇 كتم</button>
+<div class="private-target" id="privateTarget">
+<span>خاص إلى: <b id="privateTargetName"></b></span>
+<button onclick="clearPrivateTarget()" style="color:#ef4444;font-size:16px;">&times;</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Mobile Bottom Bar -->
+<div class="mobile-bar" id="mobileBar">
+<button onclick="toggleMobileUsers()">👥</button>
+<button onclick="toggleMobileRooms()">&#x1F3E0;</button>
+<button onclick="toggleMic()">🎤</button>
+<button id="mobileHandBtn" onclick="toggleHand()">✋</button>
+<button onclick="toggleCam()">📷</button>
+<button onclick="toggleMobileSettings()">⚙️</button>
+</div>
+</div>
+
+<!-- Mobile Users Panel -->
+<div class="mobile-users-panel" id="mobileUsersPanel">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+<b style="font-size:15px;">المتصلون</b>
+<button onclick="toggleMobileUsers()" style="font-size:20px;">&times;</button>
+</div>
+<div id="mobileUsersList"></div>
+</div>
+
+<!-- Mobile Settings Menu -->
+<div class="mobile-settings-menu" id="mobileSettingsMenu">
+<div class="mobile-settings-item" onclick="toggleFasl();closeMobileSettings();">📥 فاصل</div>
+<div class="mobile-settings-item" onclick="flipCam();closeMobileSettings();">🔄 قلب الكاميرا</div>
+<div class="mobile-settings-item" onclick="showSubsPlans();closeMobileSettings();">⭐ الاشتراكات</div>
+<div class="mobile-settings-item" onclick="showRules();closeMobileSettings();">📜 القوانين</div>
+<div class="mobile-settings-item" onclick="togglePrivateMode();closeMobileSettings();">🔒 وضع خاص</div>
+<div class="mobile-settings-item" onclick="clearChat();closeMobileSettings();">🗑️ مسح المحادثة</div>
+<div class="mobile-settings-item" data-perm="canRenameRoom" onclick="openRenameModal();closeMobileSettings();" style="display:none">✏️ تسمية الغرفة</div>
+<div class="mobile-settings-item" data-perm="canEditMarquee" onclick="openMarqueeModal();closeMobileSettings();" style="display:none">📢 الرسالة المتحركة</div>
+<div class="mobile-settings-item" data-perm="broadcast" onclick="openBroadcastModal();closeMobileSettings();" style="display:none">📣 بث عام</div>
+<div class="mobile-settings-item" data-perm="canMuteAll" onclick="toggleMuteAll();closeMobileSettings();" style="display:none">🔇 كتم الكل</div>
+</div>
+
+<!-- Rename Room Modal -->
+<div class="modal-overlay" id="renameModal">
+<div class="modal">
+<h3>تسمية الغرفة</h3>
+<input type="text" id="renameInput" placeholder="اسم الغرفة الجديد" autocomplete="off">
+<div class="modal-btns">
+<button class="modal-btn primary" onclick="submitRename()">حفظ</button>
+<button class="modal-btn cancel" onclick="closeModal('renameModal')">إلغاء</button>
+</div>
+</div>
+</div>
+
+<!-- Marquee Modal -->
+<div class="modal-overlay" id="marqueeModal">
+<div class="modal">
+<h3>الرسالة المتحركة</h3>
+<input type="text" id="marqueeInput" placeholder="نص الرسالة المتحركة" autocomplete="off">
+<div class="modal-btns">
+<button class="modal-btn primary" onclick="submitMarquee()">حفظ</button>
+<button class="modal-btn cancel" onclick="closeModal('marqueeModal')">إلغاء</button>
+</div>
+</div>
+</div>
+
+<!-- Broadcast Modal -->
+<div class="modal-overlay" id="broadcastModal">
+<div class="modal">
+<h3>بث عام</h3>
+<textarea id="broadcastInput" rows="3" placeholder="اكتب رسالة البث..." style="resize:vertical;"></textarea>
+<div class="modal-btns">
+<button class="modal-btn primary" onclick="submitBroadcast()">إرسال</button>
+<button class="modal-btn cancel" onclick="closeModal('broadcastModal')">إلغاء</button>
+</div>
+</div>
+</div>
+
+<!-- Context Menu -->
+<div class="context-menu" id="contextMenu">
+<div class="context-item" onclick="setPrivateTarget(contextTarget)">💬 رسالة خاصة</div>
+<div class="context-item" data-perm="canWarn" onclick="modWarn()">⚠️ تحذير</div>
+<div class="context-item" data-perm="canRename" onclick="modRenameUser()">✏️ تغيير اسمه</div>
+<div class="context-item" data-perm="canBadge" onclick="modBadge()">🏅 تغيير شارته</div>
+<div class="context-item" data-perm="canPromote" onclick="modPromote()">⬆️ ترقية</div>
+<div class="context-item" data-perm="canMicOff" onclick="modMicOff()">🎤 قفل مايكه</div>
+<div class="context-item" data-perm="canMicBlock" id="ctxMicBlock" onclick="toggleMicBlock()">🚫🎤 منع مايك</div>
+
+<div class="context-item" data-perm="canCamOff" onclick="modCamOff()">📷 قفل كامه</div>
+<div class="context-item" data-perm="canCamBlock" id="ctxCamBlock" onclick="toggleCamBlock()">🚫📷 منع كام</div>
+
+<div class="context-item" data-perm="canMute" onclick="modAction('mute')">🔇 كتم</div>
+<div class="context-item" data-perm="canChatBlock" id="ctxChatBlock" onclick="toggleChatBlock()">🚫💬 منع كتابة</div>
+
+<div class="context-item danger" data-perm="canKick" onclick="modAction('kick')">🚪 طرد</div>
+<div class="context-item danger" data-perm="canBan" onclick="modAction('ban')">⛔ حظر اسم</div>
+<div class="context-item danger" data-perm="canDeviceBan" onclick="modDeviceBan()">📵 حظر جهاز</div>
+<div class="context-item" data-perm="canViewIP" onclick="modViewDevice()">📱 معلومات الجهاز</div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+// Multi-speaker mic state
+var _isSpeaking = false;
+var _myStreamName = null;
+var _micQueuePosition = -1;
+var _activeMicListeners = {}; // streamName -> RTCPeerConnection
+var _currentRoomSpeakers = [];
+
+
+/* ===== STATE ===== */
+let sessionId = null;
+var _loginData = null;
+let socket = null;
+let myUsername = '';
+let myDisplayName = '';
+
+// ===== PERMISSION SYSTEM =====
+
+function hasPermission(perm) {
+  if (myRole === 'admin' || myRole === 'owner') return true;
+  return myPermissions.indexOf(perm) >= 0;
+}
+
+
+// ===== PINNED BANNER =====
+var _pinnedDismissed = {};
+
+function showSubsPlans() {
+  fetch('/api/sub/plans', {method:'POST', headers:{'Content-Type':'application/json'}, body:'{}'})
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var plans = data.plans || [];
+      var container = document.getElementById('subsPlansCards');
+      if (!plans.length) {
+        container.innerHTML = '<p style="color:var(--text2);text-align:center;padding:20px">لا توجد باقات حالياً</p>';
+        document.getElementById('subsModal').classList.add('active');
+        return;
+      }
+      var html = '';
+      plans.forEach(function(p, i) {
+        var features = [];
+        try { features = JSON.parse(p.features || '[]'); } catch(e) {}
+        var isFeatured = i === Math.floor(plans.length / 2);
+        html += '<div class="plan-card' + (isFeatured ? ' featured' : '') + '">';
+        html += '<div class="plan-badge" style="background:' + p.color + '">' + p.badge + '</div>';
+        html += '<div class="plan-name">' + p.name_ar + '</div>';
+        html += '<div class="plan-price" style="color:' + p.color + '">' + p.price + ' <span style="font-size:14px">' + p.currency + '</span></div>';
+        html += '<div class="plan-duration">' + p.duration_days + ' يوم</div>';
+        html += '<div class="plan-features">';
+        features.forEach(function(f) {
+          html += '<div class="plan-feature">' + f + '</div>';
+        });
+        html += '</div>';
+        if (isFeatured) html += '<div style="color:var(--gold);font-size:11px;font-weight:700;margin-top:8px">⭐ الأكثر شعبية</div>';
+        html += '</div>';
+      });
+      container.innerHTML = html;
+      document.getElementById('subsModal').classList.add('active');
+    }).catch(function() {});
+}
+
+function showRules() {
+  fetch('/api/rules', {method:'POST', headers:{'Content-Type':'application/json'}, body:'{}'})
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      document.getElementById('rulesContent').textContent = data.rules || 'لا توجد قوانين';
+      document.getElementById('rulesModal').classList.add('active');
+    }).catch(function() {});
+}
+
+
+// ===== REPLY SYSTEM =====
+var _replyTo = null;
+function setReply(username, text) {
+  // Set persistent target - stays until X
+  _replyTo = { from: username, text: (text || '').substring(0, 80) };
+  document.getElementById('replyText').innerHTML = '<b>' + username + '</b>';
+  document.getElementById('replyBar').classList.add('visible');
+  document.getElementById('msgInput').placeholder = 'اكتب لـ ' + username + '...';
+  document.getElementById('msgInput').focus();
+  // Update mode indicator
+  var rm = document.getElementById('replyMode');
+  if (rm) { rm.textContent = privateMode ? 'خاص' : 'عام'; rm.style.color = privateMode ? '#ef4444' : 'var(--text2)'; }
+}
+function cancelReply() {
+  _replyTo = null;
+  document.getElementById('replyBar').classList.remove('visible');
+  document.getElementById('msgInput').placeholder = 'اكتب رسالتك...';
+}
+
+
+// ===== NOTIFICATIONS =====
+var _notifSound = null;
+function initNotifications() {
+  // Create notification sound
+  _notifSound = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbsGczHjqR0teleUo3aLvS0Kl3Tj1Xn8/Wo35eRFOl2NO1i2VVY63g3bqOaF1vqdrPr4dkUWuv4d+5j2VPbLPk3ruSaFpnqdrQroVhTGmu4eCzimNQa7Ll4biUbl5pq9vRro5rW2654N/JpIBkUnK35eC4kWlbbbvh372egmhaeL7h3buYdWJdfcDj3sGdf3FnhcXj28KffXNphcbi2sKjhnl2iscA');
+  // Request permission
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+function requestNotifPermission() {
+  if ('Notification' in window) Notification.requestPermission();
+}
+function sendNotification(title, body) {
+  // Play sound
+  if (_notifSound) { try { _notifSound.currentTime = 0; _notifSound.play().catch(function(){}); } catch(e){} }
+  // Browser notification (only if tab not focused)
+  if (document.hidden && 'Notification' in window && Notification.permission === 'granted') {
+    try { new Notification(title, { body: body, icon: '/icon.svg', tag: 'chat-notif' }); } catch(e) {}
+  }
+}
+
+
+function highlightMentions(text) {
+  return text.replace(/@(\S+)/g, '<span class="mention">@$1</span>');
+}
+
+
+function copyMessage(text) {
+  navigator.clipboard.writeText(text).then(function() {
+    // Show brief toast
+    var toast = document.createElement('div');
+    toast.textContent = '✅ تم النسخ';
+    toast.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:8px 20px;border-radius:8px;font-size:13px;z-index:9999;';
+    document.body.appendChild(toast);
+    setTimeout(function() { toast.remove(); }, 1500);
+  }).catch(function() {});
+}
+
+
+var _msgContextData = null;
+function showMsgContext(e, from, text) {
+  e.preventDefault();
+  _msgContextData = { from: from, text: text };
+  var menu = document.getElementById('msgContextMenu');
+  menu.classList.add('active');
+  var x = e.clientX, y = e.clientY;
+  var vw = window.innerWidth, vh = window.innerHeight;
+  if (x + 130 > vw) x = vw - 140;
+  if (y + 80 > vh) y = vh - 90;
+  menu.style.top = y + 'px';
+  menu.style.left = x + 'px';
+}
+function copyMsgText() { if (_msgContextData) copyMessage(_msgContextData.text); document.getElementById('msgContextMenu').classList.remove('active'); }
+function replyMsgText() { if (_msgContextData) setReply(_msgContextData.from, _msgContextData.text); document.getElementById('msgContextMenu').classList.remove('active'); }
+
+function showPinnedBanner(text, roomId) {
+  var banner = document.getElementById('pinnedBanner');
+  var textEl = document.getElementById('pinnedText');
+  if (!text || _pinnedDismissed[roomId]) {
+    banner.classList.remove('visible');
+    return;
+  }
+  textEl.textContent = text;
+  banner.classList.add('visible');
+}
+function closePinnedBanner() {
+  document.getElementById('pinnedBanner').classList.remove('visible');
+  if (currentRoomId) _pinnedDismissed[currentRoomId] = true;
+}
+
+function applyPermissions() {
+  // Topbar buttons
+  showIf('.topbar-btn[data-perm="canRenameRoom"]', hasPermission('canRenameRoom'));
+  showIf('.topbar-btn[data-perm="canEditMarquee"]', hasPermission('canEditMarquee'));
+  showIf('.topbar-btn[data-perm="broadcast"]', myRole === 'admin' || myRole === 'owner');
+
+  // Control buttons
+  showIf('#muteBtn', hasPermission('canMuteAll'));
+
+  // Mobile settings
+  document.querySelectorAll('.mobile-settings-item[data-perm]').forEach(function(el) {
+    var perm = el.getAttribute('data-perm');
+    if (perm === 'broadcast') {
+      el.style.display = (myRole === 'admin' || myRole === 'owner') ? '' : 'none';
+    } else {
+      el.style.display = hasPermission(perm) ? '' : 'none';
+    }
+  });
+}
+
+function showIf(selector, show) {
+  var el = document.querySelector(selector);
+  if (el) el.style.display = show ? '' : 'none';
+}
+
+let myRole = '';
+let myBadge = '';
+let currentRoomId = '';
+let currentRoomName = '';
+let users = [];
+let rooms = [];
+let polling = false;
+let connected = true;
+let privateMode = false;
+let privateTargetUser = '';
+let faslVisible = false;
+let micOn = false;
+let camOn = false;
+let localStream = null;
+let localVideoStream = null;
+let facingMode = 'user';
+let muteAll = false;
+let handRaised = false;
+let currentMicHolder = null;
+let contextTarget = '';
+let activeVideos = {};
+let longPressTimer = null;
+
+const ROLE_WEIGHT = {owner:6,admin:5,mod:4,vip:3,member:2,guest:1};
+const ROLE_COLOR = {owner:'var(--owner)',admin:'var(--admin)',mod:'var(--mod)',vip:'var(--vip)',member:'var(--member)',guest:'var(--guest)'};
+const ROLE_LABEL = {owner:'مؤسس',admin:'مدير',mod:'مشرف',vip:'VIP',member:'عضو'};
+const AVATAR_COLORS = ['#3a76f0','#e0a93a','#22c55e','#ef4444','#a855f7','#06b6d4','#f97316','#ec4899'];
+
+/* ===== API ===== */
+
+// Device Fingerprint
+function getFingerprint() {
+    var data = [
+        navigator.userAgent,
+        screen.width + 'x' + screen.height,
+        screen.colorDepth,
+        navigator.language,
+        navigator.platform,
+        new Date().getTimezoneOffset(),
+        navigator.hardwareConcurrency || 0,
+        navigator.maxTouchPoints || 0,
+        (navigator.languages || []).join(',')
+    ].join('|');
+    // Simple hash
+    var hash = 0;
+    for (var i = 0; i < data.length; i++) {
+        var c = data.charCodeAt(i);
+        hash = ((hash << 5) - hash) + c;
+        hash = hash & hash;
+    }
+    return Math.abs(hash).toString(16).padStart(8, '0');
+}
+var deviceFingerprint = getFingerprint();
+async function api(endpoint, body) {
+    try {
+        const r = await fetch(endpoint, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(body)
+        });
+        if (!r.ok) {
+            const err = await r.json().catch(() => ({error:'خطأ في الاتصال'}));
+            throw new Error(err.error || 'خطأ ' + r.status);
+        }
+        return await r.json();
+    } catch (e) {
+        if (e.message === 'Failed to fetch') {
+            setConnected(false);
+            throw new Error('لا يمكن الاتصال بالخادم');
+        }
+        throw e;
+    }
+}
+
+function setConnected(state) {
+    connected = state;
+    const dot = document.getElementById('connDot');
+    dot.className = 'connection-dot' + (state ? '' : ' offline');
+    dot.title = state ? 'متصل' : 'غير متصل';
+}
+
+/* ===== LOGIN ===== */
+function toggleModForm() {
+    const f = document.getElementById('modForm');
+    f.style.display = f.style.display === 'none' ? 'block' : 'none';
+}
+
+async function guestLogin() {
+    const name = document.getElementById('nameInput').value.trim();
+    if (!name) { showLoginError('الرجاء إدخال اسمك'); return; }
+    showLoginError('');
+    try {
+        const data = await api('/api/login', {username: name, fingerprint: deviceFingerprint, userAgent: navigator.userAgent, screenSize: screen.width+'x'+screen.height, language: navigator.language, platform: navigator.platform});
+        handleLoginSuccess(data);
+    } catch (e) {
+        showLoginError(e.message);
+    }
+}
+
+async function modLogin() {
+    const code = document.getElementById('codeInput').value.trim();
+    const pin = document.getElementById('pinInput').value.trim();
+    if (!code || !pin) { showLoginError('الرجاء إدخال الكود و PIN'); return; }
+    showLoginError('');
+    try {
+        const data = await api('/api/mod-login', {code, pin, fingerprint: deviceFingerprint, userAgent: navigator.userAgent, screenSize: screen.width+'x'+screen.height, language: navigator.language, platform: navigator.platform});
+        handleLoginSuccess(data);
+    } catch (e) {
+        showLoginError(e.message);
+    }
+}
+
+function showLoginError(msg) {
+    document.getElementById('loginError').textContent = msg;
+}
+
+function handleLoginSuccess(data) {
+    sessionId = data.sessionId;
+    _loginData = data;
+    myUsername = data.displayName || data.username;
+    myRole = data.role || "guest";
+    myBadge = data.badge || "";
+    myPermissions = data.permissions || [];
+    applyPermissions();
+    initNotifications();
+    if (data.rooms && data.rooms.length > 0) { showRoomSelect(data.rooms); return; }
+    myUsername = data.username;
+    myDisplayName = data.displayName || data.username;
+    myRole = data.role || 'guest';
+    myBadge = data.badge || '';
+    myPermissions = data.permissions || [];
+    currentRoomId = data.roomId || '';
+
+    if (data.users) {
+        users = data.users;
+        // Auto-listen to anyone already on mic
+        users.forEach(function(u) {
+            if (u.mic && u.name !== myUsername && u.micStream) {
+                listenToMic(u.name);
+            }
+        });
+    }
+    if (data.rooms) rooms = data.rooms;
+
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('chatScreen').className = 'active';
+    document.getElementById('chatScreen').style.display = 'flex';
+        // Unlock audio after room select (user gesture)
+        setTimeout(function() { if (window._pendingAudioRetries && window._pendingAudioRetries.length) { var p = window._pendingAudioRetries.slice(); window._pendingAudioRetries = []; p.forEach(function(a) { a.play().catch(function(){}); }); } }, 200);
+
+    renderUsers();
+    renderRooms();
+
+    if (data.recentMessages) {
+        data.recentMessages.forEach(m => handleMsg(m));
+    }
+
+    connectSocket();
+}
+
+/* ===== POLLING ===== */
+function connectSocket() {
+    if (socket) { socket.disconnect(); }
+    socket = io({ auth: { sessionId: sessionId }, transports: ['websocket', 'polling'] });
+
+    socket.on('connect', function() {
+        setConnected(true);
+        console.log('Socket.IO connected');
+    });
+
+    socket.on('disconnect', function() {
+        setConnected(false);
+        console.log('Socket.IO disconnected');
+    });
+
+    socket.on('reconnect', function() {
+        setConnected(true);
+        console.log('Socket.IO reconnected');
+    });
+
+    socket.on('auth-error', function(data) {
+        console.log('Auth error:', data);
+        doLogout();
+    });
+
+    socket.on('kicked', function() {
+        alert('تم طردك من الغرفة');
+        doLogout();
+    });
+
+    socket.on('banned', function() {
+        alert('تم حظرك');
+        doLogout();
+    });
+
+    // Receive initial data on connect
+    socket.on('init-data', function(data) {
+        if (data.users) { users = data.users; renderUsers(); }
+        if (data.rooms) { rooms = data.rooms; renderRooms(); }
+        if (data.roomName) {
+            currentRoomName = data.roomName;
+            document.getElementById('roomNameDisplay').textContent = data.roomName;
+        }
+        if (data.marquee) { document.getElementById('marqueeText').textContent = data.marquee; var mmt4 = document.getElementById('mobileMarqueeText'); if(mmt4) mmt4.textContent = data.marquee; }
+        if (data.role) myRole = data.role;
+    });
+
+    // Real-time messages
+    socket.on('room-message', function(msg) {
+        handleMsg(msg);
+    });
+
+    // Users list update
+    socket.on('users-update', function(newUsers) {
+        var alreadyListening = {};
+        users.forEach(function(u) { if (u.mic) alreadyListening[u.name] = true; });
+        var oldStreams = {};
+        users.forEach(function(u) {
+            if (u.camStream) oldStreams[u.name + '_cam'] = u.camStream;
+            if (u.micStream) oldStreams[u.name + '_mic'] = u.micStream;
+            if (u.hand) oldStreams[u.name + '_hand'] = true;
+        });
+        users = newUsers;
+        users.forEach(function(u) {
+            if (oldStreams[u.name + '_cam']) u.camStream = oldStreams[u.name + '_cam'];
+            if (oldStreams[u.name + '_mic']) u.micStream = oldStreams[u.name + '_mic'];
+            if (oldStreams[u.name + '_hand']) u.hand = true;
+        });
+        renderUsers();
+        users.forEach(function(u) {
+            if (u.mic && u.name !== myUsername && u.micStream && !alreadyListening[u.name]) {
+                listenToMic(u.name);
+            }
+        });
+    });
+
+    // Rooms update
+    socket.on('rooms-update', function(newRooms) {
+        rooms = newRooms;
+        renderRooms();
+    });
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+/* ===== MESSAGE HANDLING ===== */
+function handleMsg(msg) {
+    switch (msg.type) {
+        case 'name-change':
+            if (msg.oldName && msg.newName) {
+              users.forEach(function(u) { if (u.name === msg.oldName) u.name = msg.newName; });
+              renderUsers();
+              if (myUsername === msg.oldName) myUsername = msg.newName;
+            }
+            appendSystem({text: msg.text});
+            break;
+        case 'warning':
+            // Handled via personal-warning socket event
+            break;
+        case 'clear-chat':
+            document.getElementById('messages').innerHTML = '';
+            appendSystem({text: '\u062A\u0645 \u0645\u0633\u062D \u0627\u0644\u0631\u0633\u0627\u0626\u0644'});
+            break;
+        case 'chat-unblocked':
+            if (msg.target === myUsername) {
+              var uInp = document.getElementById('msgInput');
+              if (uInp) {
+                uInp.disabled = false;
+                uInp.placeholder = 'اكتب رسالتك...';
+                uInp.style.background = '';
+                uInp.style.borderColor = '';
+              }
+              var uBtn = document.querySelector('.send-btn');
+              if (uBtn) { uBtn.disabled = false; uBtn.style.opacity = '1'; }
+              appendSystem({text: '✅ تم رفع منع الكتابة عنك'});
+            }
+            break;
+        case 'chat-blocked':
+            if (msg.target === myUsername) {
+              var inp = document.getElementById('msgInput');
+              if (inp) {
+                inp.disabled = true;
+                inp.placeholder = '⛔ تم منعك من الكتابة لمدة ' + Math.floor((msg.duration||300)/60) + ' دقائق';
+                inp.style.background = 'rgba(239,68,68,0.15)';
+                inp.style.borderColor = 'var(--admin)';
+                var sBtn = document.querySelector('.send-btn');
+                if (sBtn) { sBtn.disabled = true; sBtn.style.opacity = '0.3'; }
+                setTimeout(function() {
+                  inp.disabled = false;
+                  inp.placeholder = 'اكتب رسالتك...';
+                  inp.style.background = '';
+                  inp.style.borderColor = '';
+                  if (sBtn) { sBtn.disabled = false; sBtn.style.opacity = '1'; }
+                  appendSystem({text: '✅ تم رفع منع الكتابة عنك'});
+                }, (msg.duration||300) * 1000);
+              }
+            }
+            break;
+        case 'chat-lock':
+            appendSystem({text: msg.locked ? '\uD83D\uDD12 \u062A\u0645 \u0642\u0641\u0644 \u0627\u0644\u0643\u062A\u0627\u0628\u0629' : '\uD83D\uDD13 \u062A\u0645 \u0641\u062A\u062D \u0627\u0644\u0643\u062A\u0627\u0628\u0629'});
+            break;
+        case 'mention-notify':
+            if (msg.from !== myUsername) {
+              sendNotification('💬 ' + msg.from, msg.text || '');
+              appendToFasl(msg.from, 'to ' + myUsername, msg.text || '');
+            }
+            break;
+        case 'mention-sent':
+            appendToFasl(myUsername, 'to ' + msg.target, msg.text || '');
+            break;
+        case 'reply-notify':
+            if (msg.from !== myUsername) {
+              sendNotification('↩️ ' + msg.from + ' رد عليك', msg.text || '');
+              appendToFasl(msg.from, 'to ' + myUsername, msg.text || '');
+            }
+            break;
+        case 'announcement':
+            appendSystem({text: '📢 ' + msg.text, type: 'announcement'});
+            break;
+        case 'chat':
+            appendChat(msg);
+            checkMention(msg);
+            break;
+        case 'private':
+            if (msg.target === myUsername) {
+              if (msg.from !== myUsername) sendNotification('🔒 ' + msg.from, msg.text || '');
+              appendFasl(msg, true);
+            }
+            break;
+        case 'private-sent':
+            if (msg.from === myUsername) {
+              appendFasl(msg, false);
+            }
+            break;
+        case 'system':
+            appendSystem(msg);
+            break;
+        case 'join':
+            if (msg.from && !users.find(function(u){return u.name===msg.from})) {
+                users.push({name:msg.from, role:msg.role||'guest', badge:msg.badge||'', cam:false, mic:false});
+                renderUsers();
+            }
+            appendSystem(msg);
+            break;
+        case 'leave':
+            if (msg.from) {
+                users = users.filter(function(u){return u.name!==msg.from});
+                renderUsers();
+            }
+            appendSystem(msg);
+            break;
+        case 'mic-on':
+            var _mu=users.find(function(x){return x.name===(msg.username||msg.from)});if(_mu)_mu.micStream=msg.streamName;
+            setUserMedia(msg.username||msg.from,'mic',true);
+            onMicOn(msg.username||msg.from, msg.streamName, msg.roomId);
+            appendSystem(msg);
+            break;
+        case 'mic-off':
+            setUserMedia(msg.username||msg.from,'mic',false);
+            onMicOff(msg.username||msg.from, msg.roomId);
+            appendSystem(msg);
+            break;
+        case 'mic-approved':
+        case 'mic-denied':
+        case 'mic-queued':
+        case 'mic-force-off':
+        case 'mic-timeout-warning':
+        case 'speaker-list-update':
+            handleMicSignal(msg);
+            break;
+        case 'cam-on':
+            var _cu=users.find(function(x){return x.name===(msg.username||msg.from)});if(_cu)_cu.camStream=msg.streamName;setUserMedia(msg.username||msg.from,'cam',true);
+            break;
+        case 'cam-refresh':
+            var _cru=users.find(function(x){return x.name===(msg.username||msg.from)});if(_cru)_cru.camStream=msg.streamName;
+            // Reconnect if watching
+            var vid=document.getElementById('video-'+(msg.username||msg.from));
+            if(vid){vid.remove();delete activeVideos[msg.username||msg.from];checkVideoStrip();setTimeout(function(){openVideoFeed(msg.username||msg.from)},1500)}
+            appendSystem(msg);
+            break;
+        case 'cam-off':
+            setUserMedia(msg.username || msg.from, 'cam', false);
+            removeVideo(msg.username || msg.from);
+            appendSystem(msg);
+            break;
+        case 'room-renamed':
+            if (msg.text) {
+                currentRoomName = msg.text;
+                document.getElementById('roomNameDisplay').textContent = msg.text;
+            }
+            appendSystem(msg);
+            break;
+        case 'pinned-update':
+            showPinnedBanner(msg.text || '', currentRoomId);
+            break;
+        case 'marquee-update':
+            document.getElementById('marqueeText').textContent = msg.text || ''; var mmt = document.getElementById('mobileMarqueeText'); if(mmt) mmt.textContent = msg.text || '';
+            break;
+        case 'announce':
+            appendAnnounce(msg);
+            break;
+        case 'hand-raise':
+            var hu = users.find(function(x){return x.name===(msg.username||msg.from)});
+            if(hu) hu.hand = true;
+            renderUsers();
+            appendSystem(msg);
+            break;
+        case 'hand-lower':
+            var hlu = users.find(function(x){return x.name===(msg.username||msg.from)});
+            if(hlu) hlu.hand = false;
+            renderUsers();
+            break;
+        case 'allow-mic':
+            if ((msg.target || msg.username) === myUsername) {
+                appendSystem({text: '🎤 تم السماح لك بالمايك!'});
+            }
+            break;
+        case 'mic-taken':
+            currentMicHolder = msg.username || msg.from;
+            appendSystem(msg);
+            break;
+        case 'mic-released':
+            currentMicHolder = null;
+            appendSystem(msg);
+            break;
+        default:
+            appendSystem(msg);
+    }
+}
+
+function formatTime(ts) {
+    if (!ts) return '';
+    const d = new Date(ts);
+    const h = d.getHours().toString().padStart(2,'0');
+    const m = d.getMinutes().toString().padStart(2,'0');
+    return h + ':' + m;
+}
+
+
+// Dynamic role colors from server
+var _roleColors = {};
+function loadRoleColors() {
+  fetch('/api/roles', {method:'POST', headers:{'Content-Type':'application/json'}, body:'{}'})
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.roles) {
+        data.roles.forEach(function(role) {
+          _roleColors[role.name] = role.color;
+        });
+      }
+    }).catch(function(){});
+}
+loadRoleColors();
+
+function getRoleColor(role) {
+    // Check dynamic colors first
+    if (_roleColors[role]) return _roleColors[role];
+    // Fallback to CSS variables
+    var map = {owner:'var(--owner)',admin:'var(--admin)',mod:'var(--mod)',vip:'var(--vip)',member:'var(--member)',guest:'var(--guest)'};
+    return map[role] || 'var(--text)';
+  }
+
+function appendChat(msg) {
+    const el = document.createElement('div');
+    el.className = 'msg';
+    const role = msg.role || 'guest';
+    const color = getRoleColor(role);
+    const sender = msg.from || msg.username || '?';
+    var html = '';
+    html += '<span class="msg-time">' + formatTime(msg.timestamp) + '</span>';
+    if (msg.target && !msg.private) {
+      // "from to target: text" format
+      html += '<span class="msg-sender" style="color:' + color + ';cursor:pointer" data-sender="' + esc(sender) + '">' + esc(sender) + '</span>';
+      html += '<span style="color:var(--text2);font-size:11px"> to </span>';
+      html += '<span style="color:var(--accent);font-weight:600">' + esc(msg.target) + '</span>';
+      html += '<span style="color:var(--text2)">:</span> ';
+    } else {
+      html += '<span class="msg-sender" style="color:' + color + ';cursor:pointer" data-sender="' + esc(sender) + '">' + esc(sender) + ':</span> ';
+    }
+    html += highlightMentions(esc(msg.text));
+    el.innerHTML = html;
+    // Click on sender name = set as target
+    var senderEl = el.querySelector('.msg-sender');
+    if (senderEl && sender !== myUsername) {
+      senderEl.onclick = function() { setReply(sender, ''); };
+    }
+    el.oncontextmenu = function(e) { showMsgContext(e, sender, msg.text || ''); };
+    document.getElementById('messages').appendChild(el);
+    scrollChat();
+}
+
+function appendSystem(msg) {
+    const el = document.createElement('div');
+    el.className = 'msg msg-system';
+    el.textContent = msg.text || (msg.from + ' ' + msg.type);
+    document.getElementById('messages').appendChild(el);
+    scrollChat();
+}
+
+function appendAnnounce(msg) {
+    const el = document.createElement('div');
+    el.className = 'msg msg-announce';
+    el.textContent = msg.text;
+    document.getElementById('messages').appendChild(el);
+    scrollChat();
+}
+
+
+// Unified function to add to fasl and auto-open it
+function appendToFasl(from, label, text) {
+  var area = document.getElementById('faslArea');
+  if (!area) return;
+  var el = document.createElement('div');
+  el.className = 'fasl-msg';
+  var isPrivate = label.indexOf('خاص') >= 0;
+  var icon = isPrivate ? '🔒' : '💬';
+  var labelColor = isPrivate ? '#ef4444' : 'var(--accent)';
+  el.innerHTML = '<span class="msg-time">' + formatTime(Date.now()) + '</span> '
+    + '<span style="color:' + labelColor + '">' + icon + ' ' + esc(from) + ' ' + label + ':</span> ' + esc(text);
+  area.appendChild(el);
+  area.scrollTop = area.scrollHeight;
+  if (!faslVisible) {
+    faslVisible = true;
+    area.classList.add('visible');
+    var btn = document.getElementById('faslBtn');
+    if (btn) btn.classList.add('active');
+  }
+}
+
+function appendFasl(msg, incoming) {
+    var area = document.getElementById('faslArea');
+    var el = document.createElement('div');
+    el.className = 'fasl-msg';
+    var html = '<span class="msg-time">' + formatTime(msg.timestamp) + '</span> ';
+    if (incoming) {
+      html += '<span style="color:#ef4444">🔒 ' + esc(msg.from || '') + ' to ' + myUsername + ' (خاص):</span> ' + esc(msg.text);
+    } else {
+      html += '<span style="color:#f59e0b">🔒 ' + myUsername + ' to ' + esc(msg.target || '') + ' (خاص):</span> ' + esc(msg.text);
+    }
+    el.innerHTML = html;
+    area.appendChild(el);
+    area.scrollTop = area.scrollHeight;
+    if (!faslVisible) {
+      faslVisible = true;
+      area.classList.add('visible');
+      var btn = document.getElementById('faslBtn');
+      if (btn) btn.classList.add('active');
+    }
+}
+
+function checkMention(msg) {
+    if (msg.text && myUsername && msg.from !== myUsername && msg.text.indexOf('@' + myUsername) >= 0) {
+      sendNotification('📌 ' + msg.from + ' ذكرك', msg.text);
+      appendToFasl(msg.from, 'to @' + myUsername, msg.text);
+    }
+}
+
+function scrollChat() {
+    const m = document.getElementById('messages');
+    while (m.children.length > 50) { m.removeChild(m.firstChild); }
+    requestAnimationFrame(() => { m.scrollTop = m.scrollHeight; });
+}
+
+function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+}
+
+/* ===== SEND ===== */
+async function sendMessage() {
+    const input = document.getElementById('msgInput');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+
+    const body = {sessionId, text};
+    if (privateMode && privateTargetUser) {
+        body.private = true;
+        body.target = privateTargetUser;
+    }
+
+    try {
+        if (socket) {
+            socket.emit('send-message', {text: text, private: privateMode, target: (_replyTo ? _replyTo.from : privateTargetUser) || undefined, replyTo: _replyTo || undefined}, function(resp) {
+                if (resp && resp.error) appendSystem({text: resp.error});
+            });
+        }
+    } catch (e) {
+        appendSystem({text: 'خطأ في الإرسال: ' + e.message});
+    }
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey && document.activeElement === document.getElementById('msgInput')) {
+        e.preventDefault();
+        sendMessage();
+    }
+});
+
+/* ===== USER LIST ===== */
+function renderUsers() {
+    const sorted = [...users].sort((a, b) => {
+        // Mic holder always first
+        if (a.mic && !b.mic) return -1;
+        if (!a.mic && b.mic) return 1;
+        // Cam users second
+        if (a.cam && !b.cam) return -1;
+        if (!a.cam && b.cam) return 1;
+        // Then by role
+        return (ROLE_WEIGHT[b.role] || 0) - (ROLE_WEIGHT[a.role] || 0);
+    });
+    document.getElementById('onlineCount').textContent = 'متصلون: ' + users.length;
+
+    const html = sorted.map(u => {
+        const role = u.role || 'guest';
+        const color = AVATAR_COLORS[Math.abs(hashStr(u.name)) % AVATAR_COLORS.length];
+        const letter = u.name ? u.name.charAt(0).toUpperCase() : '?';
+        var badgeText = u.badge || (role !== 'guest' ? (ROLE_LABEL[role] || role) : '');
+            const badgeHtml = badgeText
+            ? '<span class="user-badge" style="background:' + getRoleColor(role) + '">' + esc(badgeText) + '</span>'
+            : '';
+        const icons = [];
+        if (u.mic) icons.push('🎤');
+        if (u.cam) icons.push('<span style="cursor:pointer" onclick="openVideoFeed(\'' + esc(u.name) + '\')">📷</span>');
+        const iconsHtml = icons.length ? '<span class="user-icons">' + icons.join('') + '</span>' : '';
+
+        return '<div class="user-item" oncontextmenu="showContext(event,\'' + esc(u.name) + '\')"'
+            + ' ontouchstart="startLongPress(event,\'' + esc(u.name) + '\')" ontouchend="cancelLongPress()" ontouchmove="cancelLongPress()"'
+            + ' onclick="setPrivateTarget(\'' + esc(u.name) + '\')">'
+            + '<div class="user-avatar" style="background:' + color + '">' + letter + '</div>'
+            + '<div class="user-info">'
+            + '<span class="user-name">' + esc(u.name) + '</span>'
+            + badgeHtml + iconsHtml
+            + '</div></div>';
+    }).join('');
+
+    document.getElementById('usersTab').innerHTML = html;
+    document.getElementById('mobileUsersList').innerHTML = html;
+}
+
+function hashStr(s) {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = ((h << 5) - h) + s.charCodeAt(i);
+    return h;
+}
+
+function setUserMedia(username, type, on) {
+    const u = users.find(u => u.name === username);
+    if (u) u[type] = on;
+    renderUsers();
+}
+
+/* ===== ROOMS ===== */
+function renderRooms() {
+    var html = rooms.map(function(r) {
+        var active = r.id === currentRoomId ? ' active' : '';
+        var count = r.online || 0;
+        var cc = count > 0 ? 'var(--mod)' : 'var(--text2)';
+        return '<div class="room-item' + active + '" onclick="joinRoom(\x27' + esc(r.id) + '\x27)">'
+            + '<span class="room-icon">' + (r.icon || String.fromCodePoint(128172)) + '</span>'
+            + '<span class="room-name">' + esc(r.name) + '</span>'
+            + '<span style="margin-right:auto;font-size:11px;color:' + cc + '">' + count + String.fromCodePoint(128100) + '</span>'
+            + '</div>';
+    }).join('');
+    document.getElementById('roomsTab').innerHTML = html;
+}
+
+async function joinRoom(roomId) {
+    // Release mic if speaking
+    if (_isSpeaking && currentRoomId) {
+        await releaseMic();
+        fetch('/api/mic/release', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({sessionId:sessionId, roomId:currentRoomId})}).catch(function(){});
+    }
+    if (roomId === currentRoomId) return;
+    stopAllMedia();
+    if (!socket) return;
+    socket.emit('join-room', {roomId: roomId}, function(data) {
+        if (data.error) { appendSystem({text: 'error: ' + data.error}); return; }
+        currentRoomId = (data.room && data.room.id) || roomId;
+        currentRoomName = (data.room && data.room.name) ? data.room.name : '';
+        document.getElementById('roomNameDisplay').textContent = currentRoomName;
+        var marquee = (data.room && data.room.marquee) ? data.room.marquee : '';
+        document.getElementById('marqueeText').textContent = marquee; var mmt2 = document.getElementById('mobileMarqueeText'); if(mmt2) mmt2.textContent = marquee;
+        if (currentRoomId) delete _pinnedDismissed[currentRoomId];
+        var pinned = (data.room && data.room.pinned_msg) ? data.room.pinned_msg : '';
+        showPinnedBanner(pinned, currentRoomId);
+        if (data.onlineUsers) { users = data.onlineUsers; }
+        else if (data.users) { users = data.users; }
+        renderUsers();
+        if (data.rooms) { rooms = data.rooms; renderRooms(); }
+        document.getElementById('messages').innerHTML = '';
+        autoListenRoom();
+    });
+}
+
+function switchSidebarTab(tab) {
+    document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+    document.getElementById('usersTab').style.display = tab === 'users' ? '' : 'none';
+    document.getElementById('roomsTab').style.display = tab === 'rooms' ? '' : 'none';
+}
+
+/* ===== PRIVATE MODE ===== */
+function togglePrivateMode() {
+    privateMode = !privateMode;
+    document.getElementById('privateBtn').classList.toggle('private-active', privateMode);
+    if (!privateMode) clearPrivateTarget();
+  var rm = document.getElementById("replyMode"); if (rm) rm.textContent = privateMode ? "خاص" : "عام"; if (rm) rm.style.color = privateMode ? "#ef4444" : "var(--text2)";
+}
+
+function setPrivateTarget(name) {
+    if (name === myUsername) return;
+    privateTargetUser = name;
+    privateMode = true;
+    document.getElementById('privateBtn').classList.add('private-active');
+    document.getElementById('privateTargetName').textContent = name;
+    document.getElementById('privateTarget').classList.add('visible');
+    document.getElementById('msgInput').focus();
+    closeContextMenu();
+}
+
+function clearPrivateTarget() {
+    privateTargetUser = '';
+    privateMode = false;
+    document.getElementById('privateBtn').classList.remove('private-active');
+    document.getElementById('privateTarget').classList.remove('visible');
+}
+
+/* ===== FASL ===== */
+function toggleFasl() {
+    faslVisible = !faslVisible;
+    document.getElementById('faslArea').classList.toggle('visible', faslVisible);
+    document.getElementById('faslBtn').classList.toggle('active', faslVisible);
+}
+
+/* ===== CLEAR CHAT ===== */
+function clearChat() {
+    document.getElementById('messages').innerHTML = '';
+    document.getElementById('faslArea').innerHTML = '';
+}
+
+/* ===== MUTE ALL ===== */
+function toggleMuteAll() {
+    muteAll = !muteAll;
+    document.getElementById('muteBtn').classList.toggle('active', muteAll);
+}
+
+/* ===== MEDIA: MIC ===== */
+async function toggleMic() {
+    if (_isSpeaking) {
+        // Release mic
+        await releaseMic();
+    } else if (_micQueuePosition > 0) {
+        // Cancel queue request
+        await cancelMicQueue();
+    } else {
+        // Request mic from server
+        await requestMic();
+    }
+}
+
+async function requestMic() {
+    var res;
+    try {
+        res = await new Promise(function(resolve) {
+            if (socket) {
+                socket.emit('mic-request', {}, function(r) { resolve(r); });
+            } else {
+                fetch('/api/mic/request', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ sessionId: sessionId, roomId: currentRoomId, username: myUsername })
+                }).then(function(r) { return r.json(); }).then(resolve);
+            }
+        });
+    } catch(e) {
+        appendSystem({text: '\u062e\u0637\u0623 \u0641\u064a \u0637\u0644\u0628 \u0627\u0644\u0645\u0627\u064a\u0643: ' + e.message});
+        return;
+    }
+
+    if (res.approved) {
+        await startMicPublishing(res.streamName);
+    } else if (res.queued) {
+        _micQueuePosition = res.position;
+        updateMicBtnState('queued');
+        showMicToast('\u062a\u0645 \u0625\u0636\u0627\u0641\u062a\u0643 \u0644\u0644\u0637\u0627\u0628\u0648\u0631 - \u0627\u0644\u0645\u0648\u0642\u0639: ' + res.position);
+    } else if (res.denied || res.error) {
+        showMicToast(res.error || '\u063a\u064a\u0631 \u0645\u0633\u0645\u0648\u062d \u0628\u0627\u0644\u062a\u062d\u062f\u062b');
+    }
+}
+
+async function startMicPublishing(streamName) {
+    try {
+        localStream = await navigator.mediaDevices.getUserMedia({
+            audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+        });
+    } catch(e) {
+        appendSystem({text: '\u062a\u0645 \u0631\u0641\u0636 \u0625\u0630\u0646 \u0627\u0644\u0645\u0627\u064a\u0643\u0631\u0648\u0641\u0648\u0646'});
+        // Release the server-side slot
+        fetch('/api/mic/release', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ sessionId: sessionId, roomId: currentRoomId })
+        }).catch(function(){});
+        return;
+    }
+
+    var _mpc = await publishWHIP(localStream, '/hls/' + streamName + '/whip');
+    if (_mpc) window._micPC = _mpc;
+
+    _audioUnlocked = true;
+    var ab = document.getElementById("audioUnlockBanner"); if (ab) ab.classList.remove("visible");
+    _isSpeaking = true;
+    _myStreamName = streamName;
+    micOn = true;
+    updateMicBtnState('speaking');
+    // Add self to speaker bar + detect own voice
+    detectOwnVoice();
+    var selfExists = _currentRoomSpeakers.find(function(s) { return s.username === myUsername; });
+    if (!selfExists) _currentRoomSpeakers.push({ username: myUsername, streamName: streamName });
+    renderSpeakerBar();
+}
+
+async function releaseMic() {
+    // Stop local stream
+    if (localStream) {
+        localStream.getTracks().forEach(function(t) { t.stop(); });
+        localStream = null;
+    }
+    if (window._micPC) {
+        try { window._micPC.close(); } catch(e) {}
+        window._micPC = null;
+    }
+
+    stopVoiceDetection(myUsername);
+    _isSpeaking = false;
+    _myStreamName = null;
+    _micQueuePosition = -1;
+    micOn = false;
+    updateMicBtnState('idle');
+
+    try {
+        await fetch('/api/mic/release', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ sessionId: sessionId, roomId: currentRoomId })
+        });
+    } catch(e) {}
+}
+
+async function cancelMicQueue() {
+    _micQueuePosition = -1;
+    updateMicBtnState('idle');
+    try {
+        await fetch('/api/mic/queue/remove', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ sessionId: sessionId, roomId: currentRoomId })
+        });
+    } catch(e) {}
+}
+
+function updateMicBtnState(state) {
+    var btn = document.getElementById('micBtn');
+    if (!btn) return;
+    switch(state) {
+        case 'idle':
+            btn.textContent = '\uD83C\uDFA4 \u0645\u0627\u064a\u0643';
+            btn.classList.remove('active');
+            btn.style.background = '';
+            break;
+        case 'speaking':
+            btn.textContent = '\uD83D\uDD34 \u0645\u0641\u062a\u0648\u062d';
+            btn.classList.add('active');
+            btn.style.background = 'rgba(214,83,83,0.3)';
+            break;
+        case 'queued':
+            btn.textContent = '\u23F3 \u0637\u0627\u0628\u0648\u0631 ' + _micQueuePosition;
+            btn.classList.remove('active');
+            btn.style.background = 'rgba(224,169,58,0.3)';
+            break;
+    }
+}
+
+function showMicToast(msg) {
+    appendSystem({text: msg});
+}
+
+/* ===== MEDIA: CAM ===== */
+async function toggleCam() {
+    if (camOn) {
+        camOn = false;
+        document.getElementById('camBtn').classList.remove('active');
+        if (localVideoStream) { localVideoStream.getTracks().forEach(t => t.stop()); localVideoStream = null; } if(window._camPC){window._camPC.close();window._camPC=null}
+        removeLocalPreview();
+        api('/api/signal', {sessionId, type:'cam-off'}).catch(function(){});
+    } else {
+        try {
+            localVideoStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:facingMode, width:{ideal:1280}, height:{ideal:720}}});
+            camOn = true;
+            document.getElementById('camBtn').classList.add('active');
+            const streamName = 'cam-' + sessionId.substring(0, 12);
+            api('/api/signal', {sessionId, type:'cam-on', streamName}); // fire and forget
+            var _pc = await publishWHIP(localVideoStream, '/hls/' + streamName + '/whip'); if(_pc) window._camPC = _pc;
+            addLocalPreview(localVideoStream);
+        } catch(e) {
+            appendSystem({text:'خطأ في تشغيل الكاميرا: ' + e.message});
+        }
+    }
+}
+
+async function flipCam() {
+    if (!camOn) return;
+    facingMode = facingMode === 'user' ? 'environment' : 'user';
+
+    // Stop old stream
+    if (localVideoStream) { localVideoStream.getTracks().forEach(t => t.stop()); }
+
+    // Close old WHIP connection
+    if (window._camPC) { window._camPC.close(); window._camPC = null; }
+
+    try {
+        localVideoStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:facingMode, width:{ideal:1280}, height:{ideal:720}}, audio:false});
+        var streamName = 'cam-' + sessionId.substring(0, 12);
+
+        // Republish with new stream
+        var pc = await publishWHIP(localVideoStream, '/hls/' + streamName + '/whip');
+        if (pc) window._camPC = pc;
+
+        addLocalPreview(localVideoStream);
+
+        // Signal viewers to reconnect
+        (socket ? socket.emit('signal', {type: 'cam-refresh', streamName: streamName}) : null).catch(function(){});
+    } catch(e) {
+        appendSystem({text:'خطأ في قلب الكاميرا: ' + e.message});
+    }
+}
+
+/* ===== WHIP PUBLISH ===== */
+async function publishWHIP(stream, url) {
+    try {
+        const pc = new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
+        stream.getTracks().forEach(t => pc.addTrack(t, stream));
+        const offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
+        await new Promise(function(resolve){if(pc.iceGatheringState==='complete'){resolve();return}pc.addEventListener('icegatheringstatechange',function c(){if(pc.iceGatheringState==='complete'){pc.removeEventListener('icegatheringstatechange',c);resolve()}});setTimeout(resolve,3000)});
+        const res = await fetch(url, {method:'POST',headers:{'Content-Type':'application/sdp'},body:pc.localDescription.sdp});
+        if(res.ok){const sdp=await res.text();await pc.setRemoteDescription({type:'answer',sdp});console.log('WHIP OK:',url);return pc}else{console.warn('WHIP fail:',res.status)}
+    } catch(e) { console.warn('WHIP error:', e); }
+    return null;
+}
+
+/* ===== VIDEO VIEWING ===== */
+function addLocalPreview(stream) {
+    removeLocalPreview();
+    const strip = document.getElementById('videoStrip');
+    const container = document.createElement('div');
+    container.className = 'video-container';
+    container.id = 'video-local';
+    const video = document.createElement('video');
+    video.srcObject = stream;
+    video.autoplay = true;
+    video.muted = true;
+    video.style.transform = 'scaleX(-1)'; // mirror for self-view
+    video.playsInline = true;
+    container.appendChild(video);
+    const label = document.createElement('div');
+    label.className = 'video-label';
+    label.textContent = 'أنت';
+    container.appendChild(label);
+    const close = document.createElement('div');
+    close.className = 'video-close';
+    close.textContent = '✕';
+    close.onclick = () => toggleCam();
+    container.appendChild(close);
+    strip.appendChild(container);
+    strip.classList.add('has-videos');
+}
+
+function removeLocalPreview() {
+    const el = document.getElementById('video-local');
+    if (el) el.remove();
+    checkVideoStrip();
+}
+
+function openVideoFeed(username) {
+    const id = 'video-' + username;
+    if (document.getElementById(id)) return;
+
+    // Find stream name from user data
+    var u = users.find(function(x){return x.name === username});
+    var streamName = (u && u.camStream) ? u.camStream : null;
+
+    if (!streamName) {
+        appendSystem({text: 'جاري البحث عن بث ' + username + '...'});
+        // Try common pattern
+        streamName = 'cam-unknown';
+    }
+
+    var whepUrl = '/hls/' + streamName + '/whep';
+
+    const strip = document.getElementById('videoStrip');
+    const container = document.createElement('div');
+    container.className = 'video-container';
+    container.id = id;
+    const video = document.createElement('video');
+    video.autoplay = true;
+    video.playsInline = true;
+    video.muted = false;
+    container.appendChild(video);
+    const label = document.createElement('div');
+    label.className = 'video-label';
+    label.textContent = username;
+    container.appendChild(label);
+    const close = document.createElement('div');
+    close.className = 'video-close';
+    close.textContent = '\u2715';
+    close.onclick = function() { container.remove(); if(activeVideos[username]){if(activeVideos[username].close)activeVideos[username].close()} delete activeVideos[username]; checkVideoStrip(); };
+    container.appendChild(close);
+    strip.appendChild(container);
+    strip.classList.add('has-videos');
+
+    // Connect via WHEP
+    var viewPC = new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
+    viewPC.addTransceiver('video', {direction:'recvonly'});
+    viewPC.addTransceiver('audio', {direction:'recvonly'});
+    viewPC.ontrack = function(e) {
+        video.srcObject = e.streams[0];
+        video.play().catch(function(){});
+    };
+
+    viewPC.createOffer().then(function(o) {
+        return viewPC.setLocalDescription(o);
+    }).then(function() {
+        return new Promise(function(r) {
+            if (viewPC.iceGatheringState === 'complete') { r(); return; }
+            viewPC.addEventListener('icegatheringstatechange', function c() {
+                if (viewPC.iceGatheringState === 'complete') { viewPC.removeEventListener('icegatheringstatechange', c); r(); }
+            });
+            setTimeout(r, 3000);
+        });
+    }).then(function() {
+        return fetch(whepUrl, {method:'POST', headers:{'Content-Type':'application/sdp'}, body: viewPC.localDescription.sdp});
+    }).then(function(r) {
+        if (r.ok) return r.text();
+        throw new Error('WHEP ' + r.status);
+    }).then(function(sdp) {
+        viewPC.setRemoteDescription({type:'answer', sdp: sdp});
+        activeVideos[username] = viewPC;
+    }).catch(function(e) {
+        console.warn('WHEP cam error:', e);
+        // Show error in video box
+        label.textContent = username + ' (جاري الاتصال...)';
+        // Retry after 2 seconds
+        setTimeout(function() {
+            if (document.getElementById(id)) {
+                container.remove();
+                delete activeVideos[username];
+                checkVideoStrip();
+                openVideoFeed(username);
+            }
+        }, 3000);
+    });
+}
+
+function removeVideo(username) {
+    const id = 'video-' + username;
+    const el = document.getElementById(id);
+    if (el) el.remove();
+    if(activeVideos[username]){if(activeVideos[username].close)activeVideos[username].close();else if(activeVideos[username].destroy)activeVideos[username].destroy();}
+    delete activeVideos[username];
+    checkVideoStrip();
+}
+
+function checkVideoStrip() {
+    const strip = document.getElementById('videoStrip');
+    strip.classList.toggle('has-videos', strip.children.length > 0);
+}
+
+/* ===== MODALS ===== */
+function openRenameModal() {
+    document.getElementById('renameInput').value = currentRoomName || '';
+    document.getElementById('renameModal').classList.add('active');
+}
+function openMarqueeModal() {
+    document.getElementById('marqueeInput').value = '';
+    document.getElementById('marqueeModal').classList.add('active');
+}
+function openBroadcastModal() {
+    document.getElementById('broadcastInput').value = '';
+    document.getElementById('broadcastModal').classList.add('active');
+}
+function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+}
+
+async function submitRename() {
+    const name = document.getElementById('renameInput').value.trim();
+    if (!name) return;
+    closeModal('renameModal');
+    try {
+        await api('/api/rename-room', {sessionId, name});
+    } catch(e) {
+        appendSystem({text:'خطأ: ' + e.message});
+    }
+}
+
+async function submitMarquee() {
+    const marquee = document.getElementById('marqueeInput').value.trim();
+    closeModal('marqueeModal');
+    try {
+        await api('/api/rename-room', {sessionId, marquee});
+    } catch(e) {
+        appendSystem({text:'خطأ: ' + e.message});
+    }
+}
+
+async function submitBroadcast() {
+    const text = document.getElementById('broadcastInput').value.trim();
+    if (!text) return;
+    closeModal('broadcastModal');
+    try {
+        await api('/api/send', {sessionId, text: '/announce ' + text});
+    } catch(e) {
+        appendSystem({text:'خطأ: ' + e.message});
+    }
+}
+
+/* ===== CONTEXT MENU (MOD ACTIONS) ===== */
+
+// ===== MOD ACTIONS FROM CONTEXT MENU =====
+
+function toggleMicBlock() { var el = document.getElementById('ctxMicBlock'); if (el && el.getAttribute('data-blocked')==='1') { api('/api/mod/mic-unblock', {sessionId:sessionId, target:contextTarget}); } else { modMicBlock(); } closeContextMenu(); }
+function toggleCamBlock() { var el = document.getElementById('ctxCamBlock'); if (el && el.getAttribute('data-blocked')==='1') { api('/api/mod/cam-unblock', {sessionId:sessionId, target:contextTarget}); } else { modCamBlock(); } closeContextMenu(); }
+function toggleChatBlock() { var el = document.getElementById('ctxChatBlock'); if (el && el.getAttribute('data-blocked')==='1') { api('/api/mod/chat-unblock', {sessionId:sessionId, target:contextTarget}); } else { modChatBlock(); } closeContextMenu(); }
+
+function modWarn() {
+  closeContextMenu();
+  var overlay = document.createElement('div');
+  overlay.id = 'warnModal';
+  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:9999';
+  overlay.innerHTML = '<div style="background:var(--sidebar,#141e30);border:1px solid var(--border,#2a2a4a);border-radius:16px;padding:24px;width:380px;max-width:90vw">'
+    + '<h3 style="color:#f59e0b;margin-bottom:16px;text-align:center">\u26A0\uFE0F \u062A\u062D\u0630\u064A\u0631 ' + contextTarget + '</h3>'
+    + '<textarea id="warnMsg" placeholder="\u0631\u0633\u0627\u0644\u0629 \u0627\u0644\u062A\u062D\u0630\u064A\u0631..." style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;font-size:14px;height:80px;resize:none;margin-bottom:12px"></textarea>'
+    + '<div style="margin-bottom:16px"><label style="color:#888;font-size:12px;margin-bottom:6px;display:block">\u0646\u0648\u0639 \u0627\u0644\u062A\u062D\u0630\u064A\u0631:</label>'
+    + '<select id="warnType" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff">'
+    + '<option value="normal">\u26A0\uFE0F \u062A\u062D\u0630\u064A\u0631 \u0639\u0627\u062F\u064A</option>'
+    + '<option value="final">\u{1F534} \u062A\u062D\u0630\u064A\u0631 \u0623\u062E\u064A\u0631 (\u0642\u0628\u0644 \u0627\u0644\u062D\u0638\u0631)</option>'
+    + '<option value="with_block">\u26D4 \u062A\u062D\u0630\u064A\u0631 + \u0645\u0646\u0639 \u0643\u062A\u0627\u0628\u0629 5 \u062F\u0642\u0627\u0626\u0642</option>'
+    + '</select></div>'
+    + '<div style="display:flex;gap:8px"><button onclick="sendWarnNow()" style="flex:1;padding:10px;border-radius:8px;border:none;background:#f59e0b;color:#000;font-weight:600;cursor:pointer">\u0625\u0631\u0633\u0627\u0644</button>'
+    + '<button onclick="document.getElementById(\u0027warnModal\u0027).remove()" style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:none;color:#888;cursor:pointer">\u0625\u0644\u063A\u0627\u0621</button></div>'
+    + '</div>';
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+  document.getElementById('warnMsg').focus();
+}
+function sendWarnNow() {
+  var msg = document.getElementById('warnMsg').value.trim();
+  var warnType = document.getElementById('warnType').value;
+  if (!msg) { alert('\u0627\u0643\u062A\u0628 \u0631\u0633\u0627\u0644\u0629 \u0627\u0644\u062A\u062D\u0630\u064A\u0631'); return; }
+  api('/api/mod/warn', {sessionId:sessionId, target:contextTarget, message:msg, warnType:warnType}).then(function(r) {
+    if (r.ok) {
+      document.getElementById('warnModal').remove();
+      appendSystem({text: '\u2705 \u062A\u0645 \u0625\u0631\u0633\u0627\u0644 \u0627\u0644\u062A\u062D\u0630\u064A\u0631 (' + r.totalWarnings + ' \u0625\u062C\u0645\u0627\u0644\u064A)'});
+      if (warnType === 'with_block') {
+        api('/api/mod/chat-block', {sessionId:sessionId, target:contextTarget, duration:300});
+      }
+    }
+  });
+}
+function modRenameUser() { var n = prompt('\u0627\u0644\u0627\u0633\u0645 \u0627\u0644\u062C\u062F\u064A\u062F:'); if (!n) return; api('/api/mod/rename-user', {sessionId:sessionId, target:contextTarget, newName:n}); closeContextMenu(); }
+function modBadge() { var b = prompt('\u0627\u0644\u0634\u0627\u0631\u0629 \u0627\u0644\u062C\u062F\u064A\u062F\u0629 (\u0627\u062A\u0631\u0643\u0647 \u0641\u0627\u0636\u064A \u0644\u0644\u062D\u0630\u0641):'); if (b===null) return; api('/api/mod/badge', {sessionId:sessionId, target:contextTarget, badge:b}); closeContextMenu(); }
+function modPromote() { var r = prompt('\u0627\u0644\u0631\u062A\u0628\u0629 (member/vip):'); if (!r) return; api('/api/mod/action', {sessionId:sessionId, action:'promote', target:contextTarget, role:r}); closeContextMenu(); }
+function modMicOff() { api('/api/mod/mic-off', {sessionId:sessionId, target:contextTarget}); closeContextMenu(); }
+function modMicBlock() {
+  api('/api/mod/mic-block', {sessionId:sessionId, target:contextTarget});
+  closeContextMenu();
+}
+function modMicUnblock() {
+  api('/api/mod/mic-unblock', {sessionId:sessionId, target:contextTarget});
+  closeContextMenu();
+}
+function modCamOff() { api('/api/mod/cam-off', {sessionId:sessionId, target:contextTarget}); closeContextMenu(); }
+function modCamBlock() {
+  api('/api/mod/cam-block', {sessionId:sessionId, target:contextTarget});
+  closeContextMenu();
+}
+function modCamUnblock() {
+  api('/api/mod/cam-unblock', {sessionId:sessionId, target:contextTarget});
+  closeContextMenu();
+}
+function modChatBlock() {
+  // Check if already blocked - toggle
+  api('/api/mod/chat-block', {sessionId:sessionId, target:contextTarget, duration:300});
+  closeContextMenu();
+}
+function modChatUnblock() {
+  api('/api/mod/chat-unblock', {sessionId:sessionId, target:contextTarget});
+  closeContextMenu();
+}
+function modDeviceBan() { if (!confirm('\u062D\u0638\u0631 \u062C\u0647\u0627\u0632 ' + contextTarget + '\u061F')) return; api('/api/mod/device-ban', {sessionId:sessionId, target:contextTarget}); closeContextMenu(); }
+function modViewDevice() {
+  api('/api/mod/device-info', {sessionId:sessionId, target:contextTarget}).then(function(r) {
+    if (!r.devices || !r.devices.length) { alert('\u0644\u0627 \u062A\u0648\u062C\u062F \u0628\u064A\u0627\u0646\u0627\u062A'); return; }
+    var d = r.devices[0];
+    alert('\uD83D\uDCF1 ' + contextTarget + '\n\u0627\u0644\u0646\u0638\u0627\u0645: ' + (d.platform||'-') + '\n\u0627\u0644\u0645\u062A\u0635\u0641\u062D: ' + (d.user_agent||'-').substring(0,50) + '\n\u0627\u0644\u0634\u0627\u0634\u0629: ' + (d.screen_size||'-') + '\n\u0627\u0644\u0644\u063A\u0629: ' + (d.language||'-') + '\nIP: ' + (d.ip||'-'));
+  }); closeContextMenu();
+}
+
+function showContext(e, username) {
+    // Check block status and toggle button text
+    api('/api/mod/check-blocks', {sessionId: sessionId, target: username}).then(function(r) {
+      var mic = document.getElementById('ctxMicBlock');
+      var cam = document.getElementById('ctxCamBlock');
+      var cht = document.getElementById('ctxChatBlock');
+      if (mic) {
+        if (r.micBlocked) { mic.innerHTML = '✅ فك منع مايك'; mic.style.color = '#22c55e'; mic.setAttribute('data-blocked','1'); }
+        else { mic.innerHTML = '🚫🎤 منع مايك'; mic.style.color = ''; mic.setAttribute('data-blocked','0'); }
+      }
+      if (cam) {
+        if (r.camBlocked) { cam.innerHTML = '✅ فك منع كام'; cam.style.color = '#22c55e'; cam.setAttribute('data-blocked','1'); }
+        else { cam.innerHTML = '🚫📷 منع كام'; cam.style.color = ''; cam.setAttribute('data-blocked','0'); }
+      }
+      if (cht) {
+        if (r.chatBlocked) { cht.innerHTML = '✅ فك منع كتابة'; cht.style.color = '#22c55e'; cht.setAttribute('data-blocked','1'); }
+        else { cht.innerHTML = '🚫💬 منع كتابة'; cht.style.color = ''; cht.setAttribute('data-blocked','0'); }
+      }
+    }).catch(function(){});
+    // Show/hide context items based on permissions
+    document.querySelectorAll('#contextMenu .context-item[data-perm]').forEach(function(el) {
+      var perm = el.getAttribute('data-perm');
+      el.style.display = hasPermission(perm) ? '' : 'none';
+    });
+    e.preventDefault();
+    if (username === myUsername) return;
+    contextTarget = username;
+    const menu = document.getElementById('contextMenu');
+    menu.classList.add('active');
+    var mw = menu.offsetWidth;
+    var mh = menu.offsetHeight;
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    var x = e.clientX;
+    var y = e.clientY;
+    // Keep inside viewport
+    if (x + mw > vw) x = vw - mw - 10;
+    if (x < 10) x = 10;
+    if (y + mh > vh) y = vh - mh - 10;
+    if (y < 10) y = 10;
+    menu.style.top = y + 'px';
+    menu.style.left = x + 'px';
+    menu.style.right = 'auto';
+}
+
+function closeContextMenu() {
+    document.getElementById('contextMenu').classList.remove('active');
+}
+
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.context-menu')) { closeContextMenu(); var mc = document.getElementById('msgContextMenu'); if(mc) mc.classList.remove('active'); }
+    if (!e.target.closest('.mobile-settings-menu') && !e.target.closest('.mobile-bar')) closeMobileSettings();
+});
+
+document.querySelectorAll('.modal-overlay').forEach(m => {
+    m.addEventListener('click', function(e) {
+        if (e.target === m) m.classList.remove('active');
+    });
+});
+
+async function modAction(action) {
+    closeContextMenu();
+    if (!contextTarget) return;
+    try {
+        await api('/api/mod/action', {sessionId, action, target: contextTarget});
+    } catch(e) {
+        appendSystem({text:'خطأ: ' + e.message});
+    }
+}
+
+/* ===== LONG PRESS (MOBILE) ===== */
+function startLongPress(e, username) {
+    longPressTimer = setTimeout(() => {
+        const touch = e.touches[0];
+        showContext({preventDefault:()=>{}, clientX:touch.clientX, clientY:touch.clientY}, username);
+    }, 600);
+}
+function cancelLongPress() {
+    if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
+}
+
+/* ===== MOBILE PANELS ===== */
+function toggleMobileUsers() {
+    const panel = document.getElementById('mobileUsersPanel');
+    panel.classList.toggle('active');
+    closeMobileSettings();
+}
+function toggleMobileSettings() {
+    const menu = document.getElementById('mobileSettingsMenu');
+    menu.classList.toggle('active');
+    document.getElementById('mobileUsersPanel').classList.remove('active');
+}
+function closeMobileSettings() {
+    document.getElementById('mobileSettingsMenu').classList.remove('active');
+}
+
+/* ===== LOGOUT ===== */
+
+// ===== WARNING POPUP =====
+function showWarningPopup(data) {
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:99999;animation:fadeIn .3s';
+  var typeLabel = data.warnType === 'final' ? '\u{1F534} \u062A\u062D\u0630\u064A\u0631 \u0623\u062E\u064A\u0631' : data.warnType === 'with_block' ? '\u26D4 \u062A\u062D\u0630\u064A\u0631 + \u0645\u0646\u0639' : '\u26A0\uFE0F \u062A\u062D\u0630\u064A\u0631';
+  var borderColor = data.warnType === 'final' ? '#ef4444' : data.warnType === 'with_block' ? '#f59e0b' : '#f59e0b';
+  overlay.innerHTML = '<div style="background:var(--bg,#1a1a2e);border:2px solid '+borderColor+';border-radius:20px;padding:36px;max-width:420px;width:90%;text-align:center;animation:scaleIn .3s">'
+    + '<div style="font-size:56px;margin-bottom:16px">\u26A0\uFE0F</div>'
+    + '<div style="color:'+borderColor+';font-size:22px;font-weight:700;margin-bottom:8px">' + typeLabel + '</div>'
+    + '<div style="color:#ccc;font-size:13px;margin-bottom:16px">\u0645\u0646 \u0627\u0644\u0645\u0634\u0631\u0641: <b style="color:#fff">' + (data.from || '') + '</b></div>'
+    + '<div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;margin-bottom:16px;color:#fff;font-size:16px;line-height:1.6">' + (data.message || '') + '</div>'
+    + '<div style="color:#888;font-size:12px;margin-bottom:20px">\u0639\u062F\u062F \u0627\u0644\u062A\u062D\u0630\u064A\u0631\u0627\u062A: <b style="color:'+borderColor+'">' + (data.totalWarnings || 1) + '</b></div>'
+    + '<button onclick="this.closest(\u0027div[style*=position\u005C:fixed]\u0027).remove()" style="padding:12px 40px;border-radius:10px;border:none;background:'+borderColor+';color:#fff;font-size:15px;font-weight:600;cursor:pointer">\u0641\u0647\u0645\u062A</button>'
+    + '</div>';
+  document.body.appendChild(overlay);
+}
+
+// Check for unseen warnings on login
+function checkUnseenWarnings() {
+  if (!sessionId) return;
+  api('/api/check-warnings', {sessionId: sessionId}).then(function(r) {
+    if (r.warnings && r.warnings.length > 0) {
+      r.warnings.forEach(function(w, i) {
+        setTimeout(function() {
+          showWarningPopup({ message: w.message, from: w.warned_by, warnType: w.warn_type, totalWarnings: r.warnings.length });
+        }, i * 1500);
+      });
+    }
+  }).catch(function(){});
+}
+
+// ===== THEME SYSTEM =====
+function applyTheme(theme) {
+  if (!theme || typeof theme !== 'object') return;
+  var root = document.documentElement;
+  var map = {primary:'--accent',accent:'--gold',border:'--border',bg:'--bg',bg2:'--bg2',bg3:'--bg3',sidebar:'--sidebar',text:'--text',text2:'--text2',owner:'--owner',admin:'--admin',mod:'--mod',vip:'--vip',member:'--member',guest:'--guest'};
+  for (var key in map) { if (theme[key]) root.style.setProperty(map[key], theme[key]); }
+  if (theme.radius) root.style.setProperty('--radius', theme.radius);
+  if (theme.loginCard) root.style.setProperty('--login-card', theme.loginCard);
+  if (theme.loginBtn) root.style.setProperty('--login-btn', theme.loginBtn);
+  if (theme.font) root.style.fontFamily = theme.font + ', Tahoma, Arial, sans-serif';
+  if (theme.marqueeColor) { var mq = document.getElementById('marqueeText'); if (mq) mq.style.color = theme.marqueeColor; }
+  var meta = document.querySelector('meta[name="theme-color"]');
+  if (meta && theme.primary) meta.content = theme.primary;
+}
+
+// Load theme from server on page load
+function loadThemeFromServer() {
+  fetch('/api/theme', {method:'POST', headers:{'Content-Type':'application/json'}, body:'{}'})
+    .then(function(r) { return r.json(); })
+    .then(function(data) { if (data.theme) applyTheme(data.theme); })
+    .catch(function() {});
+}
+// Theme loaded in <head> to prevent flash
+
+function doLogout() {
+    // 1. Stop ALL media first (mic + cam + listeners)
+    stopAllMedia();
+    // 2. Disconnect socket
+    if (socket) { socket.disconnect(); socket = null; }
+    polling = false;
+    // 3. Logout API
+    try { api('/api/logout', {sessionId}).catch(function(){}); } catch(e) {}
+    sessionId = null;
+    // 4. Reset UI
+    document.getElementById('chatScreen').style.display = 'none';
+    document.getElementById('chatScreen').className = '';
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('messages').innerHTML = '';
+    document.getElementById('faslArea').innerHTML = '';
+    document.getElementById('videoStrip').innerHTML = '';
+    // 5. Hide pinned banner + mobile marquee
+    var pb = document.getElementById('pinnedBanner'); if(pb) pb.classList.remove('visible');
+    var mm = document.getElementById('mobileMarqueeText'); if(mm) mm.textContent = '';
+    // 6. Reset state
+    users = []; rooms = [];
+    micOn = false; camOn = false;
+    _isSpeaking = false; _myStreamName = null; _micQueuePosition = -1;
+    privateMode = false; privateTargetUser = '';
+    document.getElementById('micBtn').classList.remove('active');
+    document.getElementById('camBtn').classList.remove('active');
+    clearPrivateTarget();
+}
+
+/* ===== INIT ===== */
+document.getElementById('nameInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') guestLogin();
+});
+document.getElementById('pinInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') modLogin();
+});
+
+
+
+
+
+
+
+function showAudioUnlock(username) {
+    // Remove old banner if exists
+    var old = document.getElementById('audioUnlock');
+    if (old) old.remove();
+
+    var banner = document.createElement('div');
+    banner.id = 'audioUnlock';
+    banner.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--text);padding:12px 24px;border-radius:var(--radius);font-size:14px;font-weight:600;cursor:pointer;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.4);animation:pulse 1.5s infinite';
+    banner.textContent = '\uD83D\uDD0A \u0627\u0636\u063A\u0637 \u0644\u0633\u0645\u0627\u0639 ' + username;
+    banner.onclick = function() {
+        var audio = document.getElementById('remoteAudio');
+        if (audio) audio.play().catch(function(){});
+        banner.remove();
+    };
+    document.body.appendChild(banner);
+
+    // Auto-remove after 10s
+    setTimeout(function() { if (banner.parentNode) banner.remove(); }, 10000);
+}
+
+
+function showRoomSelect(roomList) {
+    document.getElementById('loginScreen').style.display = 'none';
+    var rs = document.getElementById('roomSelectScreen');
+    rs.style.display = 'flex';
+    rs.style.alignItems = 'center';
+    rs.style.justifyContent = 'center';
+    rs.style.height = '100vh';
+    rs.style.background = 'linear-gradient(135deg,var(--bg),var(--bg2),var(--bg3))';
+    var list = document.getElementById('roomSelectList');
+    list.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:10px';
+    list.innerHTML = '';
+    roomList.forEach(function(r) {
+        var div = document.createElement('div');
+        div.style.cssText = 'display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;cursor:pointer;text-align:center;aspect-ratio:1;min-height:100px';
+        div.onmouseover = function() { this.style.background = 'rgba(255,255,255,.12)'; this.style.borderColor = 'var(--accent)'; };
+        div.onmouseout = function() { this.style.background = 'rgba(255,255,255,.05)'; this.style.borderColor = 'var(--border)'; };
+        div.onclick = function() {
+          // Unlock audio on this click
+          try {
+            if (!window._audioCtxUnlocked) {
+              var ac = new (window.AudioContext || window.webkitAudioContext)();
+              ac.resume();
+              window._sharedAudioCtx = ac;
+              var s = document.createElement('audio');
+              s.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=';
+              s.play().catch(function(){});
+              window._audioCtxUnlocked = true;
+            }
+          } catch(e) {}
+          selectRoom(r.id);
+        };
+        var onlineCount = r.online || 0;
+        var countColor = onlineCount > 0 ? 'var(--mod)' : 'var(--text2)';
+        div.innerHTML = '<span style="font-size:36px">' + (r.icon || '💬') + '</span><div style="color:var(--text);font-size:14px;font-weight:600">' + r.name + '</div><div style="color:' + countColor + ';font-size:12px">👤 ' + onlineCount + ' متواجد</div>';
+        list.appendChild(div);
+    });
+}
+
+async function selectRoom(roomId) {
+    // Release mic if speaking in current room
+    if (_isSpeaking && currentRoomId) {
+        await releaseMic();
+        fetch('/api/mic/release', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({sessionId:sessionId, roomId:currentRoomId})}).catch(function(){});
+    }
+    // PRE-UNLOCK: Create audio context NOW during user gesture
+    try {
+      if (!window._audioCtxUnlocked) {
+        var actx = new (window.AudioContext || window.webkitAudioContext)();
+        actx.resume();
+        window._sharedAudioCtx = actx;
+        // Play silent sound to fully unlock audio
+        var silent = document.createElement('audio');
+        silent.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=';
+        silent.play().catch(function(){});
+        window._audioCtxUnlocked = true;
+      }
+    } catch(e) {}
+    stopAllMedia();
+    try {
+        var data = await api('/api/join-room', {sessionId: sessionId, roomId: roomId});
+        currentRoomId = roomId;
+        currentRoomName = (data.room && data.room.name) ? data.room.name : '';
+        users = data.onlineUsers || data.users || [];
+        rooms = _loginData.rooms || [];
+        if (data.messages) data.messages.forEach(function(m) { handleMsg(m); });
+        document.getElementById('roomSelectScreen').style.display = 'none';
+        document.getElementById('chatScreen').className = 'active';
+        document.getElementById('chatScreen').style.display = 'flex';
+        document.getElementById('roomNameDisplay').textContent = currentRoomName;
+        if (data.room && data.room.marquee) { document.getElementById('marqueeText').textContent = data.room.marquee; var mmt3 = document.getElementById('mobileMarqueeText'); if(mmt3) mmt3.textContent = data.room.marquee; }
+        // Show pinned banner
+        if (currentRoomId) delete _pinnedDismissed[currentRoomId];
+        var pinnedMsg = (data.room && data.room.pinned_msg) ? data.room.pinned_msg : '';
+        showPinnedBanner(pinnedMsg, currentRoomId);
+        renderUsers();
+        renderRooms();
+        // Auto-listen to active mic in room
+        autoListenRoom();
+        connectSocket();
+    } catch(e) {
+        alert(e.message || 'error');
+    }
+}
+
+// Removed duplicate beforeunload/pagehide - handled in unified handler below
+
+function toggleHand() {
+    handRaised = !handRaised;
+    var btn = document.getElementById('handBtn');
+    if (btn) btn.classList.toggle('active', handRaised);
+    var mBtn = document.getElementById('mobileHandBtn');
+    if (mBtn) mBtn.style.color = handRaised ? 'var(--gold)' : '';
+    if (socket) socket.emit(handRaised ? 'hand-raise' : 'hand-lower');
+}
+
+function allowMic(username) {
+    api('/api/signal', {sessionId: sessionId, type: 'allow-mic', target: username});
+}
+
+// iOS audio unlock - on first touch, create AudioContext
+document.addEventListener('touchstart', function iosUnlock() {
+    var ctx = new (window.AudioContext || window.webkitAudioContext)();
+    ctx.resume().then(function() { console.log('AudioContext unlocked'); });
+    var audio = document.getElementById('remoteAudio');
+    if (audio) { audio.play().catch(function(){}); audio.pause(); }
+    if (window._sharedAudioCtx && window._sharedAudioCtx.state === 'suspended') window._sharedAudioCtx.resume();
+    document.removeEventListener('touchstart', iosUnlock);
+}, {once: true});
+
+function toggleMobileRooms() {
+    var panel = document.getElementById('mobileRoomsPanel');
+    var overlay = document.getElementById('mobileRoomsOverlay');
+    if (!panel) return;
+    if (panel.style.display === 'flex') { closeMobileRooms(); return; }
+    var list = document.getElementById('mobileRoomsList');
+    if (!list) return;
+    list.innerHTML = '';
+    rooms.forEach(function(r) {
+        var active = r.id === currentRoomId;
+        var count = r.online || 0;
+        var div = document.createElement('div');
+        div.style.cssText = 'display:flex;align-items:center;gap:12px;padding:14px 12px;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer;background:' + (active ? 'rgba(58,118,240,.15)' : 'transparent') + ';border-radius:8px;margin-bottom:4px';
+        div.onclick = function() { joinRoom(r.id); closeMobileRooms(); };
+        var countColor = count > 0 ? 'var(--mod)' : 'var(--text2)';
+        div.innerHTML = '<span style="font-size:24px">' + (r.icon || String.fromCodePoint(128172)) + '</span><div style="flex:1"><div style="color:' + (active ? 'var(--accent)' : 'var(--text)') + ';font-size:15px;font-weight:' + (active ? '700' : '400') + '">' + r.name + '</div><div style="font-size:11px;color:' + countColor + '">' + count + ' ' + String.fromCodePoint(128100) + '</div></div>' + (active ? '<span style="color:var(--accent);font-size:20px">' + String.fromCodePoint(9679) + '</span>' : '');
+        list.appendChild(div);
+    });
+    panel.style.display = 'flex';
+    panel.style.flexDirection = 'column';
+    panel.style.transform = 'translateY(0)';
+    overlay.style.display = 'block';
+}
+
+function closeMobileRooms() {
+    var p = document.getElementById('mobileRoomsPanel');
+    var o = document.getElementById('mobileRoomsOverlay');
+    if (p) { p.style.transform = 'translateY(100%)'; setTimeout(function(){ p.style.display = 'none'; }, 300); }
+    if (o) o.style.display = 'none';
+}
+
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}
+
+
+// iOS Keyboard - proper fix
+(function() {
+    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (!window.visualViewport) return;
+    
+    var chatScreen = null;
+    var mobileBar = null;
+    var inputArea = null;
+    
+    function getElements() {
+        chatScreen = document.getElementById('chatScreen');
+        mobileBar = document.querySelector('.mobile-bar');
+        inputArea = document.querySelector('.input-area');
+    }
+    
+    window.visualViewport.addEventListener('resize', function() {
+        getElements();
+        if (!chatScreen || chatScreen.style.display === 'none') return;
+        
+        var vh = window.visualViewport.height;
+        chatScreen.style.height = vh + 'px';
+        
+        // Hide mobile toolbar when keyboard is open
+        var keyboardOpen = vh < window.innerHeight * 0.75;
+        if (mobileBar) mobileBar.style.display = keyboardOpen ? 'none' : '';
+    });
+    
+    window.visualViewport.addEventListener('scroll', function() {
+        // Prevent scroll offset
+        window.scrollTo(0, 0);
+    });
+    
+    // When input focused, scroll messages to bottom
+    document.addEventListener('focusin', function(e) {
+        if (e.target.id === 'chatInput') {
+            setTimeout(function() {
+                var msgs = document.getElementById('messages');
+                if (msgs) msgs.scrollTop = msgs.scrollHeight;
+                window.scrollTo(0, 0);
+            }, 400);
+        }
+    });
+    
+    // When input blurred, restore
+    document.addEventListener('focusout', function(e) {
+        if (e.target.id === 'chatInput') {
+            setTimeout(function() {
+                getElements();
+                if (chatScreen) chatScreen.style.height = '';
+                if (mobileBar) mobileBar.style.display = '';
+                window.scrollTo(0, 0);
+            }, 100);
+        }
+    });
+})();
+
+// Heartbeat + logout on close
+var _hbInterval = null;
+// Heartbeat removed - Socket.IO handles connection state
+function startHeartbeat() {} // no-op, kept for backward compat
+
+// Socket.IO handles disconnect automatically
+// Keep sendBeacon for mic release as safety net
+window.addEventListener('beforeunload', function() {
+    if (_isSpeaking && sessionId && currentRoomId) {
+        var blob = new Blob([JSON.stringify({ sessionId: sessionId, roomId: currentRoomId })], {type: "application/json"});
+        navigator.sendBeacon("/api/mic/release", blob);
+    }
+    if (socket) socket.disconnect();
+});
+
+function stopAllMedia() {
+    // 0. Send cam-off signal if cam is on
+    if (camOn && sessionId) {
+        fetch('/api/signal', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({sessionId: sessionId, type: 'cam-off'})
+        }).catch(function(){});
+    }
+    // 1. Release mic if speaking
+    if (_isSpeaking) {
+        _isSpeaking = false;
+        _myStreamName = null;
+        _micQueuePosition = -1;
+        fetch('/api/mic/release', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ sessionId: sessionId, roomId: currentRoomId })
+        }).catch(function(){});
+    }
+    // 2. Stop microphone
+    if (localStream) {
+        localStream.getTracks().forEach(function(t) { t.stop(); });
+        localStream = null;
+    }
+    // 3. Close mic WebRTC connection
+    if (window._micPC) {
+        try { window._micPC.close(); } catch(e) {}
+        window._micPC = null;
+    }
+    // 4. Stop all remote audio listeners
+    closeAllListeners();
+    // 5. Stop all voice detection
+    if (window._voiceAnalysers) {
+        var keys = Object.keys(window._voiceAnalysers);
+        for (var i = 0; i < keys.length; i++) {
+            try { stopVoiceDetection(keys[i]); } catch(e) {}
+        }
+    }
+    // 6. Clear speaker bar
+    _currentRoomSpeakers = [];
+    renderSpeakerBar();
+    // 7. Reset mic button
+    micOn = false;
+    updateMicBtnState('idle');
+    // 8. Stop camera
+    if (localVideoStream) {
+        localVideoStream.getTracks().forEach(function(t) { t.stop(); });
+        localVideoStream = null;
+    }
+    camOn = false;
+    var camBtn = document.getElementById('camBtn');
+    if (camBtn) camBtn.classList.remove('active');
+    // 9. Close cam WebRTC connection
+    if (window._camPC) { try { window._camPC.close(); } catch(e) {} window._camPC = null; }
+    // 10. Remove all video feeds
+    var videoStrip = document.getElementById('videoStrip');
+    if (videoStrip) videoStrip.innerHTML = '';
+    if (window.activeVideos) {
+        var vkeys = Object.keys(window.activeVideos);
+        for (var v = 0; v < vkeys.length; v++) {
+            try { window.activeVideos[vkeys[v]].close(); } catch(e) {}
+        }
+        window.activeVideos = {};
+    }
+
+    // 1. Stop local mic
+    if (typeof micOn !== 'undefined' && micOn) {
+        micOn = false;
+        if (localStream) { localStream.getTracks().forEach(function(t){t.stop()}); localStream = null; }
+        var micBtn = document.getElementById('micBtn');
+        if (micBtn) micBtn.classList.remove('active');
+    }
+    // 2. Stop local cam
+    if (typeof camOn !== 'undefined' && camOn) {
+        camOn = false;
+        if (localVideoStream) { localVideoStream.getTracks().forEach(function(t){t.stop()}); localVideoStream = null; }
+        var camBtn = document.getElementById('camBtn');
+        if (camBtn) camBtn.classList.remove('active');
+    }
+    // 3. Kill room audio
+    stopRoomAudio();
+    // 3old. Kill legacy mic connections
+    killMicConnections();
+    killMicAudio();
+    // 3old. Close main mic listener
+    if (window._micListenPC) { try{window._micListenPC.close()}catch(e){} window._micListenPC = null; }
+    // 3b. Close WHIP publish connections
+    if (window._micPC) { try{window._micPC.close()}catch(e){} window._micPC = null; }
+    if (window._camPC) { try{window._camPC.close()}catch(e){} window._camPC = null; }
+    // 4. Close ALL mic listener WHEP connections
+    if (window._activeMicListeners) {
+        for (var k in window._activeMicListeners) {
+            try { window._activeMicListeners[k].close(); } catch(e) {}
+        }
+        window._activeMicListeners = {};
+    }
+    // 5. Close video viewer connections
+    if (typeof activeVideos !== 'undefined') {
+        for (var k in activeVideos) {
+            try { if (activeVideos[k].close) activeVideos[k].close(); } catch(e) {}
+        }
+        activeVideos = {};
+    }
+    // 6. Stop remoteAudio element
+    var remoteAudio = document.getElementById('remoteAudio');
+    if (remoteAudio) { remoteAudio.pause(); remoteAudio.srcObject = null; remoteAudio.load(); }
+    // 7. Stop ALL audio elements on page
+    document.querySelectorAll('audio').forEach(function(a) { a.pause(); a.srcObject = null; });
+    // 8. Remove video strip
+    var strip = document.getElementById('videoStrip');
+    if (strip) { strip.innerHTML = ''; strip.classList.remove('has-videos'); }
+    // 9. Remove local preview
+    if (typeof removeLocalPreview === 'function') removeLocalPreview();
+}
+
+
+// ========== NEW ROOM-BASED MIC SYSTEM ==========
+// Each room has its own audio channel. Impossible to hear other rooms.
+
+var _roomAudioPC = null;     // Current WHEP connection
+var _roomAudioEl = null;     // Current audio element
+var _roomAudioStream = null; // Current stream name
+var _roomAudioRoom = null;   // Current room we're listening in
+
+function startRoomAudio(streamName, roomId) {
+    console.log('[MIC] startRoomAudio:', streamName, 'room:', roomId);
+    // Only listen if we're in this room
+    if (roomId && roomId !== currentRoomId) return;
+
+    // Same stream already playing and connected? skip
+    if (_roomAudioStream === streamName && _roomAudioPC && _roomAudioPC.connectionState === 'connected') return;
+
+    // Kill previous
+    stopRoomAudio();
+
+    if (!streamName) return;
+
+    _roomAudioStream = streamName;
+    _roomAudioRoom = roomId || currentRoomId;
+
+    var url = '/hls/' + streamName + '/whep';
+    var pc = new RTCPeerConnection({iceServers: [{urls: 'stun:stun.l.google.com:19302'}]});
+    _roomAudioPC = pc;
+
+    pc.addTransceiver('audio', {direction: 'recvonly'});
+
+    pc.ontrack = function(e) {
+        // Only if still current
+        if (pc !== _roomAudioPC) { pc.close(); return; }
+
+        // Remove old audio element completely
+        if (_roomAudioEl) {
+            _roomAudioEl.pause();
+            _roomAudioEl.srcObject = null;
+            if (_roomAudioEl.parentNode) _roomAudioEl.parentNode.removeChild(_roomAudioEl);
+        }
+
+        // Create fresh audio element in DOM
+        var audio = document.createElement('audio');
+        audio.id = 'roomAudio_' + Date.now();
+        audio.autoplay = true;
+        audio.style.display = 'none';
+        document.body.appendChild(audio);
+        audio.srcObject = e.streams[0];
+        _roomAudioEl = audio;
+
+        audio.play().catch(function(err) {
+            console.warn('Audio blocked:', err);
+        });
+    };
+
+    pc.createOffer().then(function(o) {
+        return pc.setLocalDescription(o);
+    }).then(function() {
+        return new Promise(function(r) {
+            r(); return; // Use trickle ICE - don't wait
+            pc.addEventListener('icegatheringstatechange', function c() {
+                if (pc.iceGatheringState === 'complete') {
+                    pc.removeEventListener('icegatheringstatechange', c);
+                    r();
+                }
+            });
+            setTimeout(r, 2000);
+        });
+    }).then(function() {
+        if (pc !== _roomAudioPC) { pc.close(); return; }
+        return fetch(url, {method: 'POST', headers: {'Content-Type': 'application/sdp'}, body: pc.localDescription.sdp});
+    }).then(function(res) {
+        if (!res || !res.ok) throw new Error('WHEP fail');
+        return res.text();
+    }).then(function(sdp) {
+        if (pc !== _roomAudioPC) { pc.close(); return; }
+        pc.setRemoteDescription({type: 'answer', sdp: sdp});
+    }).catch(function(e) {
+        console.warn('Room audio error:', e, '- retrying in 2s');
+        // Retry after 2 seconds (stream might not be ready yet)
+        if (streamName === _roomAudioStream) {
+            setTimeout(function() {
+                if (streamName === _roomAudioStream) {
+                    console.log('[MIC] Retrying startRoomAudio:', streamName);
+                    _roomAudioPC = null;
+                    startRoomAudio(streamName, roomId);
+                }
+            }, 2000);
+        }
+    });
+}
+
+function stopRoomAudio() {
+    // 1. Close WebRTC connection
+    if (_roomAudioPC) {
+        try { _roomAudioPC.close(); } catch(e) {}
+        _roomAudioPC = null;
+    }
+
+    // 2. Destroy audio element from DOM
+    if (_roomAudioEl) {
+        _roomAudioEl.pause();
+        _roomAudioEl.srcObject = null;
+        if (_roomAudioEl.parentNode) _roomAudioEl.parentNode.removeChild(_roomAudioEl);
+        _roomAudioEl = null;
+    }
+
+    // 3. Kill any leftover audio elements
+    document.querySelectorAll('audio').forEach(function(a) {
+        if (a.id && a.id.startsWith('roomAudio_')) {
+            a.pause();
+            a.srcObject = null;
+            a.remove();
+        }
+    });
+
+    // 4. Also kill old system leftovers
+    if (window._currentMicPC) { try{window._currentMicPC.close()}catch(e){} window._currentMicPC = null; }
+    if (window._micListenPC) { try{window._micListenPC.close()}catch(e){} window._micListenPC = null; }
+    var rem = document.getElementById('remoteAudio');
+    if (rem) { rem.pause(); rem.srcObject = null; }
+
+    _roomAudioStream = null;
+    _roomAudioRoom = null;
+}
+
+// Called by handleMsg when mic-on received
+function onMicOn(username, streamName, roomId) {
+    if (roomId && roomId !== currentRoomId) return;
+    if (!streamName) return;
+    // Subscribe to other speakers (not self)
+    if (username !== myUsername) subscribeSpeaker(streamName);
+    // Add ALL speakers (including self) to the bar
+    var exists = _currentRoomSpeakers.find(function(s) { return s.streamName === streamName; });
+    if (!exists) _currentRoomSpeakers.push({ username: username, streamName: streamName });
+    renderSpeakerBar();
+}
+
+// Called by handleMsg when mic-off received
+function onMicOff(username, roomId) {
+    if (roomId && roomId !== currentRoomId) return;
+    // Find and unsubscribe this speaker
+    var speaker = _currentRoomSpeakers.find(function(s) { return s.username === username; });
+    if (speaker) {
+        unsubscribeSpeaker(speaker.streamName);
+        _currentRoomSpeakers = _currentRoomSpeakers.filter(function(s) { return s.username !== username; });
+    }
+    renderSpeakerBar();
+}
+
+// Called when entering a room - auto-listen if someone is on mic
+function autoListenRoom() {
+    _currentRoomSpeakers = [];
+    // Subscribe to others on mic
+    var micUsers = users.filter(function(u) { return u.mic && u.micStream; });
+    for (var i = 0; i < micUsers.length; i++) {
+        var u = micUsers[i];
+        if (u.name !== myUsername) subscribeSpeaker(u.micStream);
+        _currentRoomSpeakers.push({ username: u.name, streamName: u.micStream });
+    }
+    // Add self if speaking
+    if (_isSpeaking && _myStreamName) {
+        var selfExists = _currentRoomSpeakers.find(function(s) { return s.username === myUsername; });
+        if (!selfExists) _currentRoomSpeakers.push({ username: myUsername, streamName: _myStreamName });
+    }
+    renderSpeakerBar();
+}
+
+// Alias for backward compatibility
+function listenToMic(username) {
+    var u = users.find(function(x) { return x.name === username; });
+    if (u && u.micStream) startRoomAudio(u.micStream, currentRoomId);
+}
+
+function killMicConnections() { stopRoomAudio(); }
+function killMicAudio() { stopRoomAudio(); }
+// ========== END NEW MIC SYSTEM ==========
+
+
+// ========== MULTI-SPEAKER LISTENER SYSTEM ==========
+
+function subscribeSpeaker(streamName) {
+    if (_activeMicListeners[streamName]) return; // already subscribed
+    console.log('[MIC] Subscribing to speaker:', streamName);
+
+    var pc = new RTCPeerConnection({iceServers: [{urls: 'stun:stun.l.google.com:19302'}]});
+    pc.addTransceiver('audio', {direction: 'recvonly'});
+
+    pc.ontrack = function(ev) {
+        var audio = document.createElement('audio');
+        audio.id = 'spk_' + streamName.replace(/[^a-zA-Z0-9]/g, '_');
+        audio.autoplay = true;
+        audio.playsInline = true;
+        audio.setAttribute('playsinline', '');
+        audio.style.display = 'none';
+        document.body.appendChild(audio);
+        audio.srcObject = ev.streams[0];
+        // Try to play - if fails, queue for retry
+        // Try multiple methods to play audio
+        var playAudio = function() {
+          audio.play().then(function() {
+            console.log('[AUDIO] Playing:', streamName);
+          }).catch(function() {
+            // Fallback: pipe through AudioContext
+            try {
+              var ctx = window._sharedAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+              if (ctx.state === 'suspended') ctx.resume();
+              var src = ctx.createMediaStreamSource(ev.streams[0]);
+              src.connect(ctx.destination);
+              console.log('[AUDIO] Playing via AudioContext:', streamName);
+            } catch(e2) {
+              console.warn('[AUDIO] All methods failed:', e2);
+              if (!window._pendingAudioRetries) window._pendingAudioRetries = [];
+              window._pendingAudioRetries.push(audio);
+            }
+          });
+        };
+        // Small delay to ensure audio context is ready
+        playAudio();
+        // Detect voice activity for this remote speaker
+        var speakerName = null;
+        for (var si = 0; si < _currentRoomSpeakers.length; si++) {
+          if (_currentRoomSpeakers[si].streamName === streamName) {
+            speakerName = _currentRoomSpeakers[si].username;
+            break;
+          }
+        }
+        if (speakerName && ev.streams[0]) {
+          detectVoiceActivity(speakerName, ev.streams[0]);
+        }
+    };
+
+    pc.createOffer().then(function(o) {
+        return pc.setLocalDescription(o);
+    }).then(function() {
+        return new Promise(function(r) {
+            r(); return; // Use trickle ICE - don't wait
+            pc.addEventListener('icegatheringstatechange', function c() {
+                if (pc.iceGatheringState === 'complete') {
+                    pc.removeEventListener('icegatheringstatechange', c);
+                    r();
+                }
+            });
+            setTimeout(r, 3000);
+        });
+    }).then(function() {
+        return fetch('/hls/' + streamName + '/whep', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/sdp'},
+            body: pc.localDescription.sdp
+        });
+    }).then(function(res) {
+        if (!res || !res.ok) throw new Error('WHEP fail');
+        return res.text();
+    }).then(function(sdp) {
+        pc.setRemoteDescription({type: 'answer', sdp: sdp});
+        _activeMicListeners[streamName] = pc;
+        console.log('[MIC] Subscribed to:', streamName);
+    }).catch(function(e) {
+        console.warn('[MIC] Subscribe error:', streamName, e);
+        try { pc.close(); } catch(x) {}
+        // Retry after 2 seconds
+        setTimeout(function() {
+            if (_currentRoomSpeakers.find(function(s){ return s.streamName === streamName; })) {
+                console.log('[MIC] Retrying subscribe:', streamName);
+                subscribeSpeaker(streamName);
+            }
+        }, 2000);
+    });
+}
+
+function unsubscribeSpeaker(streamName) {
+    if (_activeMicListeners[streamName]) {
+        try { _activeMicListeners[streamName].close(); } catch(e) {}
+        delete _activeMicListeners[streamName];
+    }
+    var audioEl = document.getElementById('spk_' + streamName.replace(/[^a-zA-Z0-9]/g, '_'));
+    if (audioEl) {
+        audioEl.pause();
+        audioEl.srcObject = null;
+        audioEl.remove();
+    }
+    console.log('[MIC] Unsubscribed from:', streamName);
+}
+
+function closeAllListeners() {
+    // 1. Close all WebRTC peer connections
+    var keys = Object.keys(_activeMicListeners);
+    for (var i = 0; i < keys.length; i++) {
+        try { _activeMicListeners[keys[i]].close(); } catch(e) {}
+    }
+    _activeMicListeners = {};
+
+    // 2. Kill ALL audio elements on the page (except remoteAudio)
+    document.querySelectorAll('audio').forEach(function(a) {
+        if (a.id !== 'remoteAudio') {
+            a.pause();
+            a.srcObject = null;
+            a.remove();
+        }
+    });
+
+    // 3. Kill old room audio
+    if (window._roomAudioPC) { try { window._roomAudioPC.close(); } catch(e) {} window._roomAudioPC = null; }
+    if (window._roomAudioEl) { try { window._roomAudioEl.pause(); window._roomAudioEl.srcObject = null; } catch(e) {} window._roomAudioEl = null; }
+
+    // 4. Disconnect AudioContext sources (the fallback path)
+    if (window._sharedAudioCtx) {
+        try { window._sharedAudioCtx.close(); } catch(e) {}
+        window._sharedAudioCtx = null;
+        window._audioCtxUnlocked = false;
+    }
+
+    // 5. Stop all voice detection
+    if (window._voiceAnalysers) {
+        var vkeys = Object.keys(window._voiceAnalysers);
+        for (var j = 0; j < vkeys.length; j++) {
+            try { stopVoiceDetection(vkeys[j]); } catch(e) {}
+        }
+    }
+
+    // 6. Clear speakers list
+    _currentRoomSpeakers = [];
+}
+
+
+// ===== VOICE ACTIVITY DETECTION =====
+var _voiceAnalysers = {};
+function detectVoiceActivity(username, stream) {
+  try {
+    // Use shared AudioContext for mobile compatibility
+    if (!window._sharedAudioCtx) {
+      window._sharedAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    var ctx = window._sharedAudioCtx;
+    if (ctx.state === 'suspended') ctx.resume();
+    var source = ctx.createMediaStreamSource(stream);
+    var analyser = ctx.createAnalyser();
+    analyser.fftSize = 256;
+    analyser.smoothingTimeConstant = 0.5;
+    source.connect(analyser);
+    var dataArray = new Uint8Array(analyser.frequencyBinCount);
+    var safeId = username.replace(/[^a-zA-Z0-9؀-ۿ]/g, '_');
+
+    _voiceAnalysers[username] = { source: source, interval: null };
+    _voiceAnalysers[username].interval = setInterval(function() {
+      analyser.getByteFrequencyData(dataArray);
+      var sum = 0;
+      for (var i = 0; i < dataArray.length; i++) sum += dataArray[i];
+      var avg = sum / dataArray.length;
+      var el = document.getElementById('spk_' + safeId);
+      if (el) {
+        if (avg > 20) {
+          el.classList.add('speaking');
+        } else {
+          el.classList.remove('speaking');
+        }
+      }
+    }, 150);
+  } catch(e) { console.warn('Voice detect error:', e); }
+}
+
+function stopVoiceDetection(username) {
+  if (_voiceAnalysers[username]) {
+    if (_voiceAnalysers[username].interval) clearInterval(_voiceAnalysers[username].interval);
+    if (_voiceAnalysers[username].source) try { _voiceAnalysers[username].source.disconnect(); } catch(e) {}
+    delete _voiceAnalysers[username];
+  }
+}
+
+// Detect own voice when speaking
+function detectOwnVoice() {
+  if (localStream && _isSpeaking) {
+    detectVoiceActivity(myUsername, localStream);
+  }
+}
+
+
+
+// Auto-retry blocked audio on ANY user interaction
+(function() {
+  window._pendingAudioRetries = [];
+  function retryAudio() {
+    if (window._pendingAudioRetries.length > 0) {
+      var pending = window._pendingAudioRetries.slice();
+      window._pendingAudioRetries = [];
+      for (var i = 0; i < pending.length; i++) {
+        pending[i].play().catch(function(a) { return function() { window._pendingAudioRetries.push(a); }; }(pending[i]));
+      }
+      var banner = document.getElementById('audioUnlockBanner');
+      if (banner) banner.classList.remove('visible');
+    }
+  }
+  document.addEventListener('click', retryAudio);
+  document.addEventListener('touchstart', retryAudio);
+})();
+// ===== MOBILE AUDIO UNLOCK =====
+var _audioUnlocked = false;
+function checkNeedAudioUnlock() {
+  // On mobile, if there are speakers and audio not unlocked, show banner
+  if (_audioUnlocked) return;
+  var isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (!isMobile) { _audioUnlocked = true; return; }
+  if (_currentRoomSpeakers.length > 0) {
+    document.getElementById('audioUnlockBanner').classList.add('visible');
+  }
+}
+
+function unlockAudioAndPlay() {
+  _audioUnlocked = true;
+  // Hide banner
+  document.getElementById('audioUnlockBanner').classList.remove('visible');
+
+  // Resume AudioContext
+  if (window._sharedAudioCtx && window._sharedAudioCtx.state === 'suspended') {
+    window._sharedAudioCtx.resume();
+  }
+
+  // Create and play a silent audio to unlock
+  var silentCtx = new (window.AudioContext || window.webkitAudioContext)();
+  silentCtx.resume();
+  var osc = silentCtx.createOscillator();
+  var gain = silentCtx.createGain();
+  gain.gain.value = 0;
+  osc.connect(gain);
+  gain.connect(silentCtx.destination);
+  osc.start(0);
+  osc.stop(0.1);
+
+  // Replay all existing audio elements
+  var audios = document.querySelectorAll('audio');
+  for (var i = 0; i < audios.length; i++) {
+    audios[i].play().catch(function(){});
+  }
+
+  // Re-subscribe to all speakers
+  for (var j = 0; j < _currentRoomSpeakers.length; j++) {
+    var s = _currentRoomSpeakers[j];
+    if (s.username !== myUsername && s.streamName) {
+      // Remove old subscription and resubscribe
+      unsubscribeSpeaker(s.streamName);
+    }
+  }
+  // Small delay then resubscribe
+  setTimeout(function() {
+    for (var j = 0; j < _currentRoomSpeakers.length; j++) {
+      var s = _currentRoomSpeakers[j];
+      if (s.username !== myUsername && s.streamName) {
+        subscribeSpeaker(s.streamName);
+      }
+    }
+  }, 500);
+}
+
+function renderSpeakerBar() {
+    var bar = document.getElementById('speakerBar');
+    if (!bar) {
+        bar = document.createElement('div');
+        bar.id = 'speakerBar';
+        bar.style.cssText = 'display:none;padding:6px 12px;background:var(--bg2);border-bottom:1px solid var(--border);direction:rtl;font-size:12px;flex-shrink:0';
+        var pinnedBar = document.getElementById('pinnedBanner');
+        var msgArea = document.getElementById('messages') || document.querySelector('.messages');
+        if (pinnedBar && pinnedBar.parentNode) {
+            pinnedBar.parentNode.insertBefore(bar, pinnedBar.nextSibling);
+        } else if (msgArea && msgArea.parentNode) {
+            msgArea.parentNode.insertBefore(bar, msgArea);
+        }
+    }
+    if (!_currentRoomSpeakers.length) {
+        bar.style.display = 'none';
+        return;
+    }
+    bar.style.display = '';
+    var html = '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">';
+    html += '<span style="color:var(--text2);font-size:11px">🔊</span>';
+    for (var i = 0; i < _currentRoomSpeakers.length; i++) {
+        var s = _currentRoomSpeakers[i];
+        var isSelf = s.username === myUsername;
+        html += '<span class="speaker-tag" id="spk_' + s.username.replace(/[^a-zA-Z0-9؀-ۿ]/g,'_') + '">';
+        html += '<span class="speaker-dot"></span>';
+        html += s.username;
+        html += ' 🎤';
+        html += '</span>';
+    }
+    html += '</div>';
+    bar.innerHTML = html;
+}
+
+// ========== SIGNAL HANDLERS FOR NEW MIC SYSTEM ==========
+
+function handleMicSignal(msg) {
+    switch(msg.type) {
+        case 'mic-approved':
+            if (msg.target === myUsername || msg.target === (myDisplayName || myUsername)) {
+                _micQueuePosition = -1;
+                startMicPublishing(msg.streamName);
+                showMicToast('\u062a\u0645 \u0627\u0644\u0645\u0648\u0627\u0641\u0642\u0629 - \u064a\u0645\u0643\u0646\u0643 \u0627\u0644\u062a\u062d\u062f\u062b \u0627\u0644\u0622\u0646');
+            }
+            break;
+        case 'mic-denied':
+            if (msg.target === myUsername || msg.target === (myDisplayName || myUsername)) {
+                _micQueuePosition = -1;
+                updateMicBtnState('idle');
+                showMicToast('\u062a\u0645 \u0631\u0641\u0636 \u0637\u0644\u0628\u0643 \u0644\u0644\u062a\u062d\u062f\u062b');
+            }
+            break;
+        case 'mic-queued':
+            if (msg.target === myUsername || msg.target === (myDisplayName || myUsername)) {
+                _micQueuePosition = msg.position || 1;
+                updateMicBtnState('queued');
+            }
+            break;
+        case 'mic-force-off':
+            if (msg.target === myUsername || msg.target === (myDisplayName || myUsername)) {
+                releaseMic();
+                showMicToast('\u062a\u0645 \u0625\u0633\u0643\u0627\u062a\u0643 \u0645\u0646 \u0642\u0628\u0644 \u0627\u0644\u0645\u0634\u0631\u0641');
+            }
+            break;
+        case 'mic-timeout-warning':
+            if (msg.target === myUsername || msg.target === (myDisplayName || myUsername)) {
+                showMicToast('\u062a\u0646\u0628\u064a\u0647: \u0633\u064a\u062a\u0645 \u0625\u063a\u0644\u0627\u0642 \u0627\u0644\u0645\u0627\u064a\u0643 \u0628\u0639\u062f ' + (msg.secondsLeft || 30) + ' \u062b\u0627\u0646\u064a\u0629');
+            }
+            break;
+        case 'speaker-list-update':
+            if (msg.roomId && msg.roomId !== currentRoomId) break;
+            handleSpeakerListUpdate(msg.speakers || []);
+            break;
+    }
+}
+
+function handleSpeakerListUpdate(speakers) {
+    var oldStreams = Object.keys(_activeMicListeners);
+    // Others only (for audio subscription)
+    var otherSpeakers = speakers.filter(function(s) {
+        return s.username !== myUsername && s.username !== (myDisplayName || myUsername);
+    });
+    var otherStreams = otherSpeakers.map(function(s) { return s.streamName; });
+
+    // Unsubscribe from speakers who left
+    for (var i = 0; i < oldStreams.length; i++) {
+        if (otherStreams.indexOf(oldStreams[i]) < 0) {
+            unsubscribeSpeaker(oldStreams[i]);
+        }
+    }
+
+    // Subscribe to new speakers (not self)
+    for (var i = 0; i < otherStreams.length; i++) {
+        if (!_activeMicListeners[otherStreams[i]]) {
+            subscribeSpeaker(otherStreams[i]);
+        }
+    }
+
+    // Speaker bar shows ALL speakers including self
+    _currentRoomSpeakers = speakers.map(function(s) {
+        return { username: s.username, streamName: s.streamName };
+    });
+    renderSpeakerBar();
+}
+// ========== END MULTI-SPEAKER SYSTEM ==========
+
+
+// Mic release on unload - handled in unified _onPageUnload handler above
+</script>
+<div id="mobileRoomsPanel" style="display:none;position:fixed;bottom:0;left:0;right:0;height:70vh;background:var(--sidebar);border-radius:20px 20px 0 0;z-index:200;flex-direction:column;transform:translateY(100%);transition:transform .3s ease"><div style="width:40px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin:10px auto"></div><div style="display:flex;align-items:center;justify-content:space-between;padding:8px 20px 12px;border-bottom:1px solid var(--border)"><h3 style="font-size:16px;color:var(--text)">&#x1F3E0; &#x0627;&#x0644;&#x063A;&#x0631;&#x0641;</h3><button onclick="closeMobileRooms()" style="font-size:20px;background:none;border:none;color:#888;cursor:pointer">&times;</button></div><div id="mobileRoomsList" style="flex:1;overflow-y:auto;padding:8px 16px"></div></div><div id="mobileRoomsOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:199" onclick="closeMobileRooms()"></div>
+<div class="modal-overlay" id="rulesModal">
+<div class="modal" style="max-width:500px;max-height:80vh;overflow-y:auto">
+<h3 style="text-align:center;margin-bottom:16px;color:var(--gold)">📜 قوانين الشات</h3>
+<div id="rulesContent" style="white-space:pre-wrap;font-size:14px;line-height:1.8;color:var(--text)"></div>
+<div style="margin-top:16px;text-align:center"><button class="modal-btn primary" onclick="closeModal('rulesModal')">فهمت ✅</button></div>
+</div></div>
+<div class="modal-overlay" id="subsModal">
+<div class="modal" style="max-width:480px;max-height:85vh;overflow-y:auto;padding:24px">
+<h3 style="text-align:center;color:var(--gold);font-size:20px;margin-bottom:4px">⭐ باقات الاشتراك</h3>
+<p style="text-align:center;color:var(--text2);font-size:13px;margin-bottom:20px">اختر باقتك وتمتع بمزايا حصرية</p>
+<div id="subsPlansCards"></div>
+<div style="margin-top:16px;text-align:center;border-top:1px solid var(--border);padding-top:12px">
+<p style="color:var(--text2);font-size:12px">للاشتراك تواصل مع الإدارة</p>
+<button class="modal-btn cancel" onclick="closeModal('subsModal')" style="margin-top:8px">إغلاق</button>
+</div>
+</div></div>
+<div class="context-menu" id="msgContextMenu" style="min-width:120px">
+<div class="context-item" onclick="copyMsgText()">📋 نسخ</div>
+<div class="context-item" onclick="replyMsgText()">↩️ رد</div>
+</div>
+<div class="audio-unlock-banner" id="audioUnlockBanner" onclick="unlockAudioAndPlay()">🔊 اضغط للاستماع</div>
+</body>
+</html>

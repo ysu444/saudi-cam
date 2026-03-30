@@ -1,0 +1,23 @@
+{
+  "name": "سعودي كام",
+  "short_name": "سعودي كام",
+  "description": "دردشة كتابية صوتية كام لايف",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "dir": "rtl",
+  "lang": "ar",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "categories": [
+    "social",
+    "communication"
+  ],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

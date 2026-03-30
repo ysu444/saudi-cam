@@ -1,0 +1,22 @@
+{
+  "name": "saudi-cam",
+  "version": "1.0.0",
+  "main": "chat-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.8.0",
+    "ioredis": "^5.10.1",
+    "mediasoup": "^3.19.3",
+    "pg": "^8.20.0",
+    "puppeteer": "^24.40.0",
+    "redis": "^5.11.0",
+    "socket.io": "^4.8.3"
+  }
+}
