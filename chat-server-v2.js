@@ -141,7 +141,17 @@ function parseBody(req) {
   });
 }
 
-/** Send a JSON response with CORS headers */
+/** Allowed origins for CORS */
+const ALLOWED_ORIGINS = process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(',') : null;
+
+function getCorsOrigin(req) {
+  const origin = req ? (req.headers || {}).origin : '*';
+  if (!ALLOWED_ORIGINS) return origin || '*'; // If not configured, allow request origin
+  if (ALLOWED_ORIGINS.includes(origin)) return origin;
+  return ALLOWED_ORIGINS[0];
+}
+
+/** Send a JSON response with security headers */
 function sendJson(res, statusCode, obj) {
   const body = JSON.stringify(obj);
   res.writeHead(statusCode, {
@@ -150,17 +160,20 @@ function sendJson(res, statusCode, obj) {
     'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'X-Content-Type-Options': 'nosniff',
-    'X-Frame-Options': 'DENY',
+    'X-Frame-Options': 'SAMEORIGIN',
     'X-XSS-Protection': '1; mode=block',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
   });
   res.end(body);
 }
 
-/** Attach CORS headers (used for OPTIONS pre-flight and static responses) */
+/** Attach CORS + security headers */
 function setCors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
 }
 
 /** Map file extension to MIME type */
@@ -1012,12 +1025,24 @@ async function handleLogin(body) {
     return { status: 403, body: { error: 'You are banned', reason: banCheck.rows[0].reason } };
   }
 
-  // Determine role: first user ever becomes owner
-  const userCount = await pgPool.query('SELECT COUNT(*)::int AS cnt FROM users');
-  const isFirstUser = userCount.rows[0].cnt === 0;
-  const role = isFirstUser ? 'owner' : 'guest';
+  // Check if username belongs to a privileged account (mod/admin/owner)
+  const existingUser = await pgPool.query('SELECT * FROM users WHERE username = $1', [username]);
+  if (existingUser.rows.length) {
+    const eu = existingUser.rows[0];
+    // If user has elevated role, require mod login (code + pin)
+    if (['owner', 'admin', 'mod', 'vip', 'member'].includes(eu.role) && eu.role !== 'guest') {
+      // Check if this is a mod account - must use mod login
+      const modCheck = await pgPool.query('SELECT * FROM mods WHERE display_name = $1 OR code = $1', [username]);
+      if (modCheck.rows.length || ['owner', 'admin', 'mod'].includes(eu.role)) {
+        return { status: 403, body: { error: 'هذا الحساب محمي. استخدم دخول المشرفين' } };
+      }
+    }
+  }
 
-  // Upsert user row
+  // New users are always guests
+  const role = 'guest';
+
+  // Upsert user row - never override existing role
   await pgPool.query(
     `INSERT INTO users (username, display_name, role, created_at, last_seen, enabled)
      VALUES ($1, $1, $2, NOW(), NOW(), true)
@@ -1025,7 +1050,7 @@ async function handleLogin(body) {
     [username, role]
   );
 
-  // If user exists and has an upgraded role, fetch it
+  // Fetch user data
   const userRow = await pgPool.query('SELECT * FROM users WHERE username = $1', [username]);
   const user = userRow.rows[0];
   const effectiveRole = user.role || role;
@@ -1358,7 +1383,8 @@ async function handleAdminLogin(body) {
     await setSetting('admin_password', storedHash);
   }
 
-  if (sha256(body.password) !== storedHash) {
+  const passMatch = await secureCompare(body.password, storedHash);
+  if (!passMatch) {
     return { status: 401, body: { error: 'Invalid password' } };
   }
 
@@ -1809,6 +1835,19 @@ function serveStaticFile(filePath, res) {
     return;
   }
 
+  // Block sensitive files from being served
+  const blocked = ['.js', '.json', '.yml', '.yaml', '.env', '.sh', '.sql', '.db', '.bak', '.log'];
+  const ext = path.extname(fullPath).toLowerCase();
+  const base = path.basename(fullPath).toLowerCase();
+  if (blocked.includes(ext) && base !== 'sw.js') {
+    sendJson(res, 403, { error: 'Forbidden' });
+    return;
+  }
+  if (base === 'node_modules' || base === '.git' || base === 'package-lock.json') {
+    sendJson(res, 403, { error: 'Forbidden' });
+    return;
+  }
+
   fs.stat(fullPath, (err, stats) => {
     if (err || !stats.isFile()) {
       sendJson(res, 404, { error: 'Not found' });
@@ -1966,6 +2005,21 @@ const apiRoutes = {
   '/api/rules': async (body) => {
     const rules = await getSetting('chat_rules');
     return { status: 200, body: { rules: rules || '' } };
+  },
+  '/api/admin/password': async (body) => {
+    if (!(await verifyAdmin(body.token))) return { status: 401, body: { error: 'Unauthorized' } };
+    const storedHash = await getSetting('admin_password') || ADMIN_PASSWORD_DEFAULT_HASH;
+    const oldMatch = await secureCompare(body.oldPassword || '', storedHash);
+    if (!oldMatch) {
+      return { status: 400, body: { error: 'كلمة المرور القديمة غير صحيحة' } };
+    }
+    if (!body.newPassword || body.newPassword.length < 6) {
+      return { status: 400, body: { error: 'كلمة المرور الجديدة قصيرة (6 أحرف على الأقل)' } };
+    }
+    const newHash = await secureHash(body.newPassword);
+    await setSetting('admin_password', newHash);
+    await writeLog('admin_password_changed', {});
+    return { status: 200, body: { ok: true } };
   },
   '/api/theme': async (body) => {
     const raw = await getSetting('theme');
@@ -2919,6 +2973,11 @@ function setupSocketIO(sio) {
       try {
         const s = await getSession(socket.sessionId);
         if (!s) return;
+        // Permission check - only mods/admins/owners can use mod actions
+        if (!['mod', 'admin', 'owner'].includes(s.role) && !hasModPerm(s, 'canKick') && !hasModPerm(s, 'canBan')) {
+          if (ack) ack({error: 'No permission'});
+          return;
+        }
         const target = data.target;
         if (data.action === 'kick') {
           const ts2 = userSockets.get(target);
@@ -2944,6 +3003,7 @@ function setupSocketIO(sio) {
     socket.on('rename-room', async (data) => {
       const s = await getSession(socket.sessionId);
       if (!s) return;
+      if (!['mod', 'admin', 'owner'].includes(s.role) && !hasModPerm(s, 'canRenameRoom')) return;
       if (data.name) {
         await pgPool.query('UPDATE rooms SET name = $1 WHERE id = $2', [data.name, s.roomId]);
         await publishToRoom(s.roomId, { type: 'room-renamed', text: data.name, ts: Date.now() });

@@ -223,7 +223,8 @@ log "npm packages installed"
 # =============================================================
 #  7. إعداد MediaMTX config
 # =============================================================
-cat > "${APP_DIR}/mediamtx.yml" << 'MTXEOF'
+SERVER_IP=$(curl -s ifconfig.me)
+cat > "${APP_DIR}/mediamtx.yml" << MTXEOF
 logLevel: info
 logDestinations: [stdout]
 api: yes
@@ -233,6 +234,8 @@ rtmp: no
 srt: no
 webrtc: yes
 webrtcAddress: :8889
+webrtcAdditionalHosts:
+  - ${SERVER_IP}
 webrtcICEServers2:
   - url: stun:stun.l.google.com:19302
 hls: yes
@@ -304,15 +307,25 @@ server {
     listen 80;
     server_name ${SERVER_NAME};
 
+    location ~ ^/hls/(.+)/(whip|whep)\$ {
+        proxy_pass http://127.0.0.1:8889/\$1/\$2;
+        proxy_http_version 1.1;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_read_timeout 86400;
+        add_header Access-Control-Allow-Origin * always;
+        add_header Access-Control-Allow-Methods "GET, POST, OPTIONS, PATCH" always;
+        add_header Access-Control-Allow-Headers "Content-Type" always;
+    }
+
     location /hls/ {
         proxy_pass http://127.0.0.1:8888/;
         proxy_http_version 1.1;
-        proxy_set_header Upgrade \$http_upgrade;
-        proxy_set_header Connection "upgrade";
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_read_timeout 86400;
-        add_header Access-Control-Allow-Origin *;
+        add_header Access-Control-Allow-Origin * always;
     }
 
     location / {
