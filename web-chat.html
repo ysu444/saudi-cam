@@ -335,7 +335,7 @@ display:flex;align-items:center;gap:10px;
 .topbar-actions .topbar-btn.desktop-only{display:none;}
 .mobile-bar{display:flex;}
 .topbar{padding:6px 10px;gap:6px;}
-.topbar-logo span{display:none;}
+.topbar-logo span{display:inline;}
 .topbar-room{font-size:12px;padding:3px 8px;}
 .messages{padding:8px 10px;}
 .topbar-marquee{display:none !important;}
@@ -442,14 +442,10 @@ display:flex;align-items:center;gap:10px;
 <!-- Top Bar -->
 <div class="topbar">
 <div class="topbar-logo">
-<svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="56" height="56" rx="14" fill="currentColor" style="color:var(--accent)"/>
-<path d="M28 12C19.2 12 12 18.3 12 26c0 4.4 2.4 8.3 6.2 10.8L16 42l6.5-3.3c1.7.5 3.6.8 5.5.8 8.8 0 16-6.3 16-14S36.8 12 28 12z" fill="#fff"/>
-<circle cx="21" cy="26" r="2.5" fill="#3a76f0"/>
-<circle cx="28" cy="26" r="2.5" fill="#3a76f0"/>
-<circle cx="35" cy="26" r="2.5" fill="#3a76f0"/>
-</svg>
-<a href="https://saudi.cam/" target="_blank" style="color:inherit;text-decoration:none">saudi.cam</a>
+<a href="https://bema.chat/" target="_blank" style="text-decoration:none;display:flex;align-items:center;gap:6px;color:inherit" id="topbarLink">
+<img src="/logo.svg" alt="bema.chat" style="height:32px;width:auto">
+<span>bema.chat</span>
+</a>
 </div>
 <div class="topbar-room" id="roomNameDisplay">الغرفة</div>
 <div class="topbar-marquee"><span class="marquee-text" id="marqueeText"></span></div>

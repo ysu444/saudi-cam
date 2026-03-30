@@ -146,7 +146,7 @@ function sendJson(res, statusCode, obj) {
   const body = JSON.stringify(obj);
   res.writeHead(statusCode, {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'https://bh.chat',
+    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'X-Content-Type-Options': 'nosniff',
@@ -158,7 +158,7 @@ function sendJson(res, statusCode, obj) {
 
 /** Attach CORS headers (used for OPTIONS pre-flight and static responses) */
 function setCors(res) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://bh.chat');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
@@ -2531,11 +2531,11 @@ const apiRoutes = {
     return { status: 200, body: result };
   },
   '/api/site-info': async (body) => {
-    const name = await getSetting('site_name') || '\u0634\u0627\u062A \u0627\u0644\u0628\u062D\u0631\u064A\u0646';
+    const name = await getSetting('site_name') || 'سعودي كام';
     const description = await getSetting('site_description') || '';
     const keywords = await getSetting('site_keywords') || '';
-    const topbarText = await getSetting('site_topbar_text') || 'bema.chat';
-    const topbarLink = await getSetting('site_topbar_link') || 'https://bema.chat/';
+    const topbarText = await getSetting('site_topbar_text') || 'ksacam.com';
+    const topbarLink = await getSetting('site_topbar_link') || 'https://ksacam.com/';
     const welcome = await getSetting('site_welcome') || '\u0627\u062F\u062E\u0644 \u0627\u0633\u0645\u0643 \u0648\u0627\u0628\u062F\u0623 \u0627\u0644\u0645\u062D\u0627\u062F\u062B\u0629';
     return { status: 200, body: { name, description, keywords, topbarText, topbarLink, welcome } };
   },
